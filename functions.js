@@ -69,16 +69,16 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			try {
 				embedurl = links[series].url;
 			}
-			catch(err) {
+			catch(err) {				
 				window.location.replace("404.html");   // send wrong series names to 404
 			}
 			
 			adult = links[series].adult;
 			
-			if (num === "" ) {
+			if ( number === "" || number === "null" ) {
 				embedurl = links[series].url;
 			} else {
-				embedurl = links[series].num[num];
+				embedurl = links[series].num[number];
 			};
 						
 			if (!embedurl) {
@@ -87,7 +87,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 				showUserAlerts();   // trigger swal if 18+ series
 			} else { };  // no additional action if non-mature series with valid chapter
 			
-			embed = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\">"; 
+			embed = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\">";     
 			document.getElementById("reader").innerHTML = embed;
 		});
 	};
