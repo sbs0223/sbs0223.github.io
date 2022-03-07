@@ -1,0 +1,34 @@
+/* Reader CSS */
+
+	body{margin:0px; padding:0px; height:100%, width:100%;}
+	
+	div.pageheader{
+		position:fixed;
+		top:0;
+		right:6px;
+		background:none;
+		padding:0px;
+		text-align:center;
+		font-family:arial;
+		color:#ac9fab;
+	}
+	
+	.pageheader a{
+		display:inline-block;
+		background-color:rgba(237, 218, 239, 0.5);
+		color:#000;
+ 	 	border-radius: 3px;
+		font-family:'Bebas Neue';
+		padding:5px;
+		font-size:13pt;
+		text-decoration:none;
+	}
+	
+	.pageheader a:hover{
+		color:#ffde6c;
+		background-color:#624156;
+	}
+	
+	@media (pointer:coarse) {
+		body{height:130%;}
+	}
