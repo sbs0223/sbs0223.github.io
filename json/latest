@@ -1,6 +1,14 @@
 {
 	"updates": {
 
+		"hhds1": {
+				"title" : "He and His Dating Style",
+				"chapter": "1",
+				"thumb" : "images/thumb/hhds.png",
+				"url" : "read.html?series=he-and-his-dating-style&num=1",
+				"date" : "1646709444"
+		},
+
 		"leash17": {
 				"title" : "Don't Let Go of the Leash",
 				"chapter": "17",
@@ -23,14 +31,6 @@
 				"thumb" : "images/thumb/fm.png",
 				"url" : "read.html?series=family-mate&num=12",
 				"date" : "1645659189"
-			},
-
-			"lh21": {
-					"title" : "Love History Caused by Willful Negligence",
-					"chapter": "21",
-					"thumb" : "images/thumb/lh.png",
-					"url" : "read.html?series=love-history&num=22",
-					"date" : "1645646564"
 			}
 	}
 }
