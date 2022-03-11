@@ -1,8 +1,8 @@
 /* Reader CSS */
 
-	body{margin:0px; padding:0px; height:100%, width:100%;}
+	body, html, #reader {margin:0px; padding:0px; height:100%; width:100%; min-height:100%;}
 	
-	div.pageheader{
+	div#pageheader{
 		position:fixed;
 		top:0;
 		right:6px;
@@ -13,7 +13,7 @@
 		color:#ac9fab;
 	}
 	
-	.pageheader a{
+	#pageheader a{
 		display:inline-block;
 		background-color:rgba(237, 218, 239, 0.5);
 		color:#000;
@@ -24,7 +24,7 @@
 		text-decoration:none;
 	}
 	
-	.pageheader a:hover{
+	#pageheader a:hover{
 		color:#ffde6c;
 		background-color:#624156;
 	}

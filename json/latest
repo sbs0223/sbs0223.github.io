@@ -5,7 +5,7 @@
 				"title" : "He and His Dating Style",
 				"chapter": "1",
 				"thumb" : "images/thumb/hhds.png",
-				"url" : "read.html?series=he-and-his-dating-style&num=1",
+				"url" : "read?series=he-and-his-dating-style&num=1",
 				"date" : "1646709444"
 		},
 
@@ -13,7 +13,7 @@
 				"title" : "Don't Let Go of the Leash",
 				"chapter": "17",
 				"thumb" : "images/thumb/leash.png",
-				"url" : "read.html?series=leash&num=16",
+				"url" : "read?series=leash&num=16",
 				"date" : "1646091644"
 		},
 
@@ -21,7 +21,7 @@
 				"title" : "99.99% Lovers",
 				"chapter": "8",
 				"thumb" : "images/thumb/99.png",
-				"url" : "read.html?series=99-99-lovers&num=8",
+				"url" : "read?series=99-99-lovers&num=8",
 				"date" : "1645659879"
 			},
 			
@@ -29,7 +29,7 @@
 				"title" : "Family Mate",
 				"chapter": "12",
 				"thumb" : "images/thumb/fm.png",
-				"url" : "read.html?series=family-mate&num=12",
+				"url" : "read?series=family-mate&num=12",
 				"date" : "1645659189"
 			}
 	}
