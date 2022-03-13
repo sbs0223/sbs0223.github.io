@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Primary Meta Tags -->
-<title>Sunshine Butterfly &#8211; Page not found</title>
-<meta name="title" content="Sunshine Butterfly &#8211; Page not found">
+<title>Sunshine Butterfly &#8211; Updates</title>
+<meta name="title" content="Sunshine Butterfly &#8211; Updates">
 <meta name="description" content="&quot;One must have sunshine, freedom and a little flower.&quot;">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://wings.sbs/">
-<meta property="og:title" content="Sunshine Butterfly &#8211; Page not found">
+<meta property="og:title" content="Sunshine Butterfly &#8211; Updates">
 <meta property="og:description" content="&quot;One must have sunshine, freedom and a little flower.&quot;">
 <meta property="og:image" content="/images/background_1800x600.png">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="/images/background_1800x600.png" />
-<meta name="twitter:title" content="Sunshine Butterfly &#8211; Page not found" />
+<meta name="twitter:title" content="Sunshine Butterfly &#8211; Updates" />
 <meta name="twitter:description" content="&quot;One must have sunshine, freedom and a little flower.&quot;" />
 <meta name="twitter:site" content="@wings.sbs" />
 <meta name="twitter:creator" content="@SBSTeam" />
@@ -73,9 +73,36 @@
 
 <div class="contentcontainer">
 
-<h1>Invalid Link</h1>
+<h1>Last 30 Updates</h1>
+
+<div id="seriescontainer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/alasql@1.7"></script>
+
+<script>
+
+alasql.promise("SELECT top(30) series, num, chthumb, chname, adult, timestamp, projectname, projectrating FROM json('/json/chapters') order by timestamp desc, series desc"
+).then(function(results){
+	var projectdetail = ""
+	for(var i = 0; i < results.length; i++) {
+	    var obj = results[i];
+			var d = new Date(obj.timestamp*1000);
+			var chtime = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
+			if (obj.projectrating == "Y") {var adult = "18+";} else {var adult = "15+";}
+			
+			projectdetail += "<div class=\"projectwrap\">";
+			projectdetail += "<a href=\"/read?series=" + obj.projectname + "&num=" + obj.num + "\">";
+			projectdetail += "<img src=\"" + obj.chthumb + "\" class=\"projectthumb\">";
+			projectdetail += "<h1>" + "<span>" + chtime + "</span>";
+			projectdetail += "<i>" + obj.chname + "</i><br>";
+			projectdetail += obj.series + " <span>(" + adult + ")</span></h1></a>";
+			projectdetail += "</div>";
+	}
 	
-That page doesn't exist.
+	document.getElementById("seriescontainer").innerHTML = projectdetail;
+})
+
+</script>
 
 </div>
 
