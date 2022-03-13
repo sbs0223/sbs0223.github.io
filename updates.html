@@ -78,30 +78,8 @@
 <div id="seriescontainer"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/alasql@1.7"></script>
-
 <script>
-
-alasql.promise("SELECT top(30) series, num, chthumb, chname, adult, timestamp, projectname, projectrating FROM json('/json/chapters') order by timestamp desc, series desc"
-).then(function(results){
-	var projectdetail = ""
-	for(var i = 0; i < results.length; i++) {
-	    var obj = results[i];
-			var d = new Date(obj.timestamp*1000);
-			var chtime = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
-			if (obj.projectrating == "Y") {var adult = "18+";} else {var adult = "15+";}
-			
-			projectdetail += "<div class=\"projectwrap\">";
-			projectdetail += "<a href=\"/read?series=" + obj.projectname + "&num=" + obj.num + "\">";
-			projectdetail += "<img src=\"" + obj.chthumb + "\" class=\"projectthumb\">";
-			projectdetail += "<h1>" + "<span>" + chtime + "</span>";
-			projectdetail += "<i>" + obj.chname + "</i><br>";
-			projectdetail += obj.series + " <span>(" + adult + ")</span></h1></a>";
-			projectdetail += "</div>";
-	}
-	
-	document.getElementById("seriescontainer").innerHTML = projectdetail;
-})
-
+	gettopupdates()
 </script>
 
 </div>
