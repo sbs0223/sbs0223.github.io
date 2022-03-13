@@ -146,9 +146,9 @@ div.topbar{
 	background-color:rgba(37, 32, 96, 0.4);
 	text-decoration:none;
 	display:inline-block;
-	padding:10px;
+	padding: 5px 10px;
 	margin:0px;
-	font-size:12pt;
+	font-size:14pt;
 	font-family:'Bebas Neue', sans-serif;
 	font-weight:light;
 	border-bottom:3px solid #e765c3;
@@ -185,6 +185,12 @@ div.latestcontent{
 .latestcontent h1{
 	font-family: 'Montserrat', sans-serif;
 	font-size:12pt;
+}
+.latestlink{
+	font-family: 'Montserrat', sans-serif;
+	font-size:9pt;
+	text-align:right;
+	width:94%;
 }
 
 div.contentcontainer{
@@ -260,33 +266,28 @@ ol {
 ol li {
   list-style-type: none;
   counter-increment: item;
-	margin-bottom:10px;
+	margin-bottom:15px;
+	text-indent:-30px;
+	padding-left:30px;
 }
 
 ol li:before {
   content: counter(item);
   display: inline-block;
-  width: 12px;
-  height: 20px;
+	text-align:center;
+	text-indent:0px;
+  width: 18px;
   font-family: "Indie Flower", cursive;
   margin-right: 10px;
   background-color: #dedff6;
   color: #74418a;
   font-weight: bold;
-  font-size: 140%;
-	padding-left:7px;
-	padding-right:3px;
- 	border-radius: 3px;
-	border-bottom:3px solid #ccb7e5;
-  line-height: 1.2;
-}
-
-div.latestentrywrap{
-	display:inline-block;
-	width:155px;
-	height:155px;
-  position: relative;
-	border:5px solid #fff;
+  font-size: 12pt;
+	padding-left:1px;
+	padding-right:1px;
+ 	border-radius: 5px;
+	border-bottom:2px solid #dedff6;
+  line-height: 1.1;
 }
 
 div#seriescontainer{
@@ -402,6 +403,17 @@ div.projectpageinfo{
 	color:#ae000b;
 }
 
+div.latestentrywrap{
+	display:inline-block;
+	width:24%;
+	height:auto;
+  position: relative;
+	border:5px solid #fff;
+	box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  -ms-box-sizing:border-box;
+}
 
 img.latestimg {
 	-webkit-filter: grayscale(100%);
@@ -409,7 +421,7 @@ img.latestimg {
 	filter: grayscale(100%);
 	transition: all 0.5s ease;
 	opacity: 0.5;
-	width:155px;
+	width:100%;
 }
 
 img.projectthumb {
@@ -426,7 +438,7 @@ img.latestimg:hover{
 
 .latestentrywrap span.chapter{
   position: absolute;
-  bottom: 0px;
+  bottom: 5px;
   right: 0px;
 	color:#fff;
 	background-color:rgba(37, 32, 96, 0.4);
@@ -472,36 +484,31 @@ img.latestimg:hover{
 
 
 @media screen and (max-width: 800px){
-	.topbar a, .topbar a:link, .topbar a:visited{font-size: 10.5pt; padding:8px}
+	.topbar a, .topbar a:link, .topbar a:visited{font-size: 12pt; padding:3px 8px}
 }
 @media screen and (max-width: 600px){
-	.topbar a, .topbar a:link, .topbar a:visited{font-size: 9.5pt; padding:6px}
+	.topbar a, .topbar a:link, .topbar a:visited{font-size: 10.5pt; padding:2px 6px}
 }		
 @media screen and (max-width: 400px){
-			.topbar a, .topbar a:link, .topbar a:visited{font-size: 8pt; padding:5px}
+			.topbar a, .topbar a:link, .topbar a:visited{font-size: 9.5pt; padding:1px 4px}
 }		
-@media screen and (max-width: 694px){
+@media screen and (max-width: 309px){
+			.topbar a, .topbar a:link, .topbar a:visited{font-size: 8.5pt; padding:0px 3px}
+}		
+@media screen and (max-width: 696px){
 			div.latestentrywrap{
-				width:215px;
-				height:215px;
+				width:48%;
+				height:auto;
 			}
-			img.latestimg { width:215px;}
+			img.latestimg { width:100%;}
+}
+
+@media screen and (max-width: 600px){
 			div.projectwrap{	width:46%;}
 }
-@media screen and (max-width: 473px){
-			div.latestentrywrap{
-				width:200px;
-				height:200px;
-			}
-			img.latestimg { width:200px;}
-}
-@media screen and (max-width: 442px){
-			div.latestentrywrap{
-				width:130px;
-				height:130px;
-			}
-			img.latestimg { width:130px;}
-			div.projectwrap{	width:90%;}
+
+@media screen and (max-width: 400px){
+			div.projectwrap{	width:97%;}
 }
 
 @media (pointer:coarse) {
