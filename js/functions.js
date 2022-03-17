@@ -1,3 +1,13 @@
+// Declare global params
+
+const newdays = 10;   // set number of days chapters are considered new
+const newdaysms = newdays*24*60*60*1000 ; // calc in milliseconds
+if (!Date.now) {
+    Date.now = function() { return new Date().getTime(); }
+}
+var curdate = Date.now();
+
+
 /* Start Latest Updates section
 needs to be manually sorted by date & clipped to 4 entries atm with the json raw...*/
 
@@ -13,9 +23,9 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 
 					latest += "<div class=\"latestentrywrap\">";
 					latest += "<a href=\"projects?n=" + obj.projectname + "\">";
-					latest += "<img src=\"" + obj.projectsmallthumb + "\" class=\"latestimg\"></a><span class=\"chapter\">";
+					latest += "<img src=\"" + obj.projectsmallthumb + "\" class=\"latestimg\"><span class=\"chapter\">";
 					latest += obj.series + "</span><br>";
-					latest += "<span class=\"date\">" + chtime + "<span></div>";
+					latest += "<span class=\"date\">" + chtime + "<span></a></div>";
 			}
 
 			document.getElementById("latestcontainer").innerHTML = latest;
@@ -94,22 +104,19 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 
 		alasql.promise("SELECT distinct series, projectname, projectrating, projectthumb, projectstatus FROM json('/json/chapters') order by series asc"
 		).then(function(results){
-			var latest = ""
 			var seriesindex = "";
 			var changedheader = "";
 			for(var i = 0; i < results.length; i++) {
 			    var obj = results[i];
 
-					if (obj.projectrating == "Y") {
-						var adult = "18+";
-					} else { var adult = "";};
+					if (obj.projectrating == "Y") {var adult = "adultclass";} else {var adult = "normal";}
 				
 					if (type == "" || type == "null") {
 						if ( obj.projectstatus == "current" || obj.projectstatus == "complete" ) {  // show current & complete if default projects page
 							seriesindex += "<div class=\"projectwrap\">";
 							seriesindex += "<a href=\"?n=" + obj.projectname + "\">";
 							seriesindex += "<img src=\"" + obj.projectthumb + "\" class=\"projectthumb\">";
-							seriesindex += "<h1>" + "<span>" + adult + "</span>" + obj.series + "</h1></a>";
+							seriesindex += "<h1>" + "<span class=\"" + adult + "\">" + obj.series + "</h1></a>";
 							seriesindex += "</div>";
 							changedheader = "Current & Complete";
 						}
@@ -119,7 +126,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 						seriesindex += "<div class=\"projectwrap\">";
 						seriesindex += "<a href=\"?n=" + obj.projectname + "\">";
 						seriesindex += "<img src=\"" + obj.projectthumb + "\" class=\"projectthumb\">";
-						seriesindex += "<h1>" + "<span>" + adult + "</span>" + obj.series + "</h1></a>";
+						seriesindex += "<h1>" + "<span class=\"" + adult + "\">" + obj.series + "</h1></a>";
 						seriesindex += "</div>";
 						changedheader = "All Projects";
 					} else {
@@ -127,7 +134,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 							seriesindex += "<div class=\"projectwrap\">";
 							seriesindex += "<a href=\"?n=" + obj.projectname + "\">";
 							seriesindex += "<img src=\"" + obj.projectthumb + "\" class=\"projectthumb\">";
-							seriesindex += "<h1>" + "<span>" + adult + "</span>" + obj.series + "</h1></a>";
+							seriesindex += "<h1>" + "<span class=\"" + adult + "\">" + obj.series + "</h1></a>";
 							seriesindex += "</div>";
 							changedheader = type;
 						}
@@ -165,20 +172,26 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 				projectdetail += "<a href=\"" + proj.projecturl + "\"><img src=\"/images/assets/cubari.png\" class=\"smallicons\"></a> <a href=\"/read?series=" + proj.projectname + "\"><img src=\"/images/android-chrome-192x192.png\" class=\"smallicons\"></a>";
 			}
 			projectdetail += "</span>";
-			projectdetail += description + "<button class=\"read-more\">more/less</button>";
-			projectdetail += "</div></div></div><div class=\"subcontentcontainer\"><h2>Chapters</h2>";
-			projectdetail += "<div class=\"projectouterwrap\" align=center><div class=\"parentproject\">";
+			projectdetail += description + "";
+			projectdetail += "<button id =\"read-more\" class=\"read-more\">Expand</button></div></div></div><div class=\"subcontentcontainer\"><h2>Chapters</h2>";
+			projectdetail += "<div class=\"projectouterwrap\" align=\"center\"><div class=\"parentproject\">";
 			
 			if (!(proj.projectstatus == "licensed")) {
 				for(var i = 0; i < results.length; i++) {
 					var obj = results[i];
 					var d = new Date(obj.timestamp*1000);
 					var chtime = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
+					
+					if( curdate - d < newdaysms + 1) {
+						var dateclass = "newupdate";
+					} else {
+						var dateclass = "normalupdate";
+					};
 			
 					projectdetail += "<div class=\"projectwrap\">";
 					projectdetail += "<a href=\"/read?series=" + obj.projectname + "&num=" + obj.num + "\">";
 					projectdetail += "<img src=\"" + obj.chthumb + "\" class=\"projectthumb\">";
-					projectdetail += "<h1>" + "<span>" + chtime + "</span>" + obj.chname + "</h1></a>";
+					projectdetail += "<h1>" + "<span class=\"" + dateclass + "\">" + chtime + "</span>" + obj.chname + "</h1></a>";
 					projectdetail += "</div>";
 				}
 			} else {
@@ -190,9 +203,24 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			document.getElementById("seriescontainer").innerHTML = projectdetail;
 			
 			$( document ).ready(function() {
-			    $('.read-more').click(function(){
-			        $(this).parent().toggleClass('expanded');
-			    });
+					var contentHeight = document.getElementById('container').clientHeight;
+					console.log(contentHeight);
+					var descriptionbutton = document.getElementById('read-more');
+					if ( contentHeight >= 100 ) {
+						descriptionbutton.style.display = "block";
+						document.getElementById('container').innerHTML += "<br><br>";
+				    $('.read-more').click(function(){
+				        $(this).parent().toggleClass('expanded');
+							  if (document.getElementById('read-more').innerHTML === "Expand") {
+							    document.getElementById('read-more').innerHTML = "Collapse";
+							  } else {
+							    document.getElementById('read-more').innerHTML = "Expand";
+							  }
+				    });
+					} else {
+						descriptionbutton.style.display = "none";
+					};
+					
 			});
 
 			});
@@ -210,14 +238,21 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 				    var obj = results[i];
 						var d = new Date(obj.timestamp*1000);
 						var chtime = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
-						if (obj.projectrating == "Y") {var adult = "18+";} else {var adult = "15+";}
+						
+						if( curdate - d < newdaysms + 1) {
+							var dateclass = "newupdate";
+						} else {
+							var dateclass = "normalupdate";
+						};
+						
+						if (obj.projectrating == "Y") {var adult = "adultclass";} else {var adult = "normal";}
 			
 						projectdetail += "<div class=\"projectwrap\">";
 						projectdetail += "<a href=\"/read?series=" + obj.projectname + "&num=" + obj.num + "\">";
 						projectdetail += "<img src=\"" + obj.chthumb + "\" class=\"projectthumb\">";
-						projectdetail += "<h1>" + "<span>" + chtime + "</span>";
-						projectdetail += "<i>" + obj.chname + "</i><br>";
-						projectdetail += obj.series + " <span>(" + adult + ")</span></h1></a>";
+						projectdetail += "<h1>" + "<span class=\"" + dateclass + "\">" + chtime + "&nbsp;&nbsp;&nbsp;";
+						projectdetail += obj.chname + "</span><br>";
+						projectdetail += "<span class=\"" + adult + "\">" + obj.series + "</span></h1></a>";
 						projectdetail += "</div>";
 				}
 	
