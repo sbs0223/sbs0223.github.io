@@ -86,9 +86,8 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			} else { };  // no additional action if non-mature series
 			
 			var projectpagelink = "<a href=\"/projects?n=" + proj.projectname + "\"> Project Page &gt;</a>";
-			
-			embed = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\">";     
-			document.getElementById("reader").innerHTML = embed;
+			     		
+			document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\">";
 			document.getElementById("pageheader").innerHTML = projectpagelink;
 			
 		});
@@ -195,7 +194,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 					projectdetail += "</div>";
 				}
 			} else {
-					projectdetail += "<center>Licensed. Please support the author by <a href=\"" + proj.projecturl + "\" target=\"_blank\">purchasing the official releases</a>!<br><br></center>";
+					projectdetail += "<center>Licensed. Please support the author by <a href=\"" + proj.projecturl + "\" target=\"_blank\">purchasing the official releases</a>!</center>";
 			};
 			projectdetail += "</div></div>"; 
 			
@@ -204,11 +203,10 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			
 			$( document ).ready(function() {
 					var contentHeight = document.getElementById('container').clientHeight;
-					console.log(contentHeight);
 					var descriptionbutton = document.getElementById('read-more');
 					if ( contentHeight >= 100 ) {
 						descriptionbutton.style.display = "block";
-						document.getElementById('container').innerHTML += "<br><br>";
+						document.getElementById('container').innerHTML += "<div class=\"addpadding\"></div>";
 				    $('.read-more').click(function(){
 				        $(this).parent().toggleClass('expanded');
 							  if (document.getElementById('read-more').innerHTML === "Expand") {
