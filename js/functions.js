@@ -51,7 +51,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 				if (result.isConfirmed) {
 					sessionStorage.returning = true; // set cookie
 				}
-				else window.location = "/";
+				else window.location = "/projects?n=" + proj.projectname;
 			}
 		)
 		}
