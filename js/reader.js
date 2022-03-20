@@ -9,4 +9,10 @@ var series = "" + seriesinput;
 var embedurl = "";
 var embed = "";
 
-geturl();
+if(navigator.cookieEnabled) {
+	geturl();
+} else {
+	window.alert('You must enable cookies to use the reader.');
+	window.location.href='/';
+}
+
