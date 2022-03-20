@@ -1,7 +1,7 @@
 // Declare global params
 
-const newdays = 10;   // set number of days chapters are considered new
-const newdaysms = newdays*24*60*60*1000 ; // calc in milliseconds
+const newdays = 14;   // set number of days chapters are considered new
+const newdaysms = newdays*24*60*60*1000; // calc in milliseconds
 if (!Date.now) {
     Date.now = function() { return new Date().getTime(); }
 }
@@ -13,7 +13,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 
 	function getlatest() {
 
-		alasql.promise("SELECT top(4) series, projectname, projectsmallthumb, max(timestamp) as time_stamp FROM json('/json/chapters') group by series, projectname, projectsmallthumb order by max(timestamp) desc, series desc"
+		alasql.promise("SELECT top(4) series, max(timestamp) as time_stamp, max(projectname) as projectname, max(projectsmallthumb) as projectsmallthumb FROM json('/json/chapters') group by series order by max(timestamp) desc, series desc"
 		).then(function(results){
 			var latest = ""
 			for(var i = 0; i < results.length; i++) {
@@ -32,30 +32,6 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 		});	
 	}
 
-
-	
-	
-	
-// Start Adult Warning popup for the reader
-	
-	function showUserAlerts() {	
-		if (!sessionStorage.returning) {
-			Swal.fire({
-				title: '18+ Content',
-				icon: 'error',
-				showCancelButton: true,
-				confirmButtonColor: '#3ca53c',
-				cancelButtonColor: '#d33',
-				confirmButtonText: 'I am 18+'
-			}).then((result) => {
-				if (result.isConfirmed) {
-					sessionStorage.returning = true; // set cookie
-				}
-				else window.location = "/projects?n=" + proj.projectname;
-			}
-		)
-		}
-	}
 	
 	
 	
@@ -63,7 +39,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 // Start Get URL function for the reader
 	
 	function geturl() {
-	alasql.promise("SELECT distinct series, projectname, projectrating, projecturl FROM json('/json/chapters') where projectname = '" + series + "'"
+	alasql.promise("SELECT distinct series, projectname, projectrating, projecturl FROM json('/json/chapters') where projectname = '" + series + "' and projecturl <> 0"
 	).then(function(results){
 		var embedurl = "";
 		proj = results[0];
@@ -80,15 +56,64 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			} else {
 				embedurl = proj.projecturl + number;
 			};
-						
-			if ( proj.projectrating === "Y" ) {
-				showUserAlerts();   // trigger swal if 18+ series
-			} else { };  // no additional action if non-mature series
 			
 			var projectpagelink = "<a href=\"/projects?n=" + proj.projectname + "\"> Project Page &gt;</a>";
-			     		
-			document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\">";
-			document.getElementById("pageheader").innerHTML = projectpagelink;
+			
+			
+			checkadult();
+			
+			
+			
+			//check adult
+			
+			function checkadult() {			
+				if ( proj.projectrating === "Y" ) {  // if 18+ series
+					try {
+						if (!sessionStorage.returning) {  // if a session cookie isn't already stored
+							showUserAlerts();   // trigger swal
+						} else { showreader(); };  // just show the reader if there's a cookie
+					}
+					catch(err) {
+						showUserAlerts();  // trigger swal every time if cookies are disabled
+					}
+				} 		
+			}	
+			
+		// Start Adult Warning popup for the reader
+	
+			function showUserAlerts() {	
+				Swal.fire({
+					title: '18+ Content',
+					icon: 'error',
+					text: 'You will be asked to re-verify your age every time you open a new browser tab.',
+					showCancelButton: true,
+					confirmButtonColor: '#3ca53c',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'I am 18+'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						sessionStorage.returning = true; // set cookie
+						location.reload(); // reload the page once the cookie is saved so that reader is triggered in the checkadult function. Couldn't trigger the function directly from here for some reason.
+					}
+					else { window.location = "/projects?n=" + proj.projectname; }   // back to project page if not 18+
+				}
+			)
+			}       //end swal function
+		  
+			
+			function showreader() {
+			   		
+		    var receiveMessage = function (checklocal) {  // check if 3rd party localstorage works
+
+		      if (checklocal.data === "N") {    	// if not, then redirect
+						window.location.href = embedurl;
+		      } else {   													// otherwise, do embed
+						document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\">";
+						document.getElementById("pageheader").innerHTML = projectpagelink;
+		      };				
+		    };
+		    window.addEventListener("message", receiveMessage, false);
+			}
 			
 		});
 	};
@@ -101,7 +126,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 	
 	function getindex() {
 
-		alasql.promise("SELECT distinct series, projectname, projectrating, projectthumb, projectstatus FROM json('/json/chapters') order by series asc"
+		alasql.promise("SELECT distinct series, projectname, projectrating, projectthumb, projectstatus FROM json('/json/chapters') where projectstatus <> 0 order by series asc"
 		).then(function(results){
 			var seriesindex = "";
 			var changedheader = "";
@@ -148,6 +173,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 
 
 // Start Get chapters function for individual project page
+// Ordering by chapter number in descending order, so only the record with highest chapter number of each series holds certain project data in the data file to save space
 
 	function getchapters() {
 		alasql.promise("SELECT series, projectname, projectdesc, projectmu, projecturl, projectrating, projectthumb, projectstatus, timestamp, num, chname, chthumb FROM json('/json/chapters') where projectname = '" + series + "' order by num desc"
