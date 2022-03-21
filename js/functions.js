@@ -59,61 +59,48 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			
 			var projectpagelink = "<a href=\"/projects?n=" + proj.projectname + "\"> Project Page &gt;</a>";
 			
-			
-			checkadult();
-			
-			
-			
-			//check adult
-			
-			function checkadult() {			
+	    var receiveMessage = function (checklocal) {  // check if 3rd party localstorage works
+				
+				function showreader() {
+					if (checklocal.data === "N") {		// START check if need to redirect
+						window.location = embedurl;			// redirect
+					} else {													// embed if not redirect
+						document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\">";
+						document.getElementById("pageheader").innerHTML = projectpagelink;
+					};																// END end embed
+				}
+
 				if ( proj.projectrating === "Y" ) {  // if 18+ series
 					try {
 						if (!sessionStorage.returning) {  // if a session cookie isn't already stored
-							showUserAlerts();   // trigger swal
-						} else { showreader(); };  // just show the reader if there's a cookie
+							Swal.fire({  // do adult verification
+								title: '18+ Content',
+								icon: 'error',
+								text: 'You will be asked to re-verify your age every time you open a new browser tab.',
+								showCancelButton: true,
+								confirmButtonColor: '#3ca53c',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'I am 18+'
+							}).then((result) => {
+								if (result.isConfirmed) { 				  // if verified
+									sessionStorage.returning = true; 	// set cookie
+									showreader()
+								} else { 														// if not verified then go back to project page
+									window.location = "/projects?n=" + proj.projectname;
+								}
+							});  																	// end result handling
+						} else { 																// if there's already a cookie
+							showreader()
+						};
 					}
 					catch(err) {
-						showUserAlerts();  // trigger swal every time if cookies are disabled
+						document.getElementById("reader").innerHTML = "Please report the following error message to us: " + err.message;
 					}
-				} 		
-			}	
-			
-		// Start Adult Warning popup for the reader
-	
-			function showUserAlerts() {	
-				Swal.fire({
-					title: '18+ Content',
-					icon: 'error',
-					text: 'You will be asked to re-verify your age every time you open a new browser tab.',
-					showCancelButton: true,
-					confirmButtonColor: '#3ca53c',
-					cancelButtonColor: '#d33',
-					confirmButtonText: 'I am 18+'
-				}).then((result) => {
-					if (result.isConfirmed) {
-						sessionStorage.returning = true; // set cookie
-						location.reload(); // reload the page once the cookie is saved so that reader is triggered in the checkadult function. Couldn't trigger the function directly from here for some reason.
-					}
-					else { window.location = "/projects?n=" + proj.projectname; }   // back to project page if not 18+
-				}
-			)
-			}       //end swal function
-		  
-			
-			function showreader() {
-			   		
-		    var receiveMessage = function (checklocal) {  // check if 3rd party localstorage works
-
-		      if (checklocal.data === "N") {    	// if not, then redirect
-						window.location.href = embedurl;
-		      } else {   													// otherwise, do embed
-						document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\">";
-						document.getElementById("pageheader").innerHTML = projectpagelink;
-		      };				
-		    };
-		    window.addEventListener("message", receiveMessage, false);
-			}
+				} else { 																		// if it's all ages just show reader
+					showreader()
+				};				
+	    };
+	    window.addEventListener("message", receiveMessage, false);
 			
 		});
 	};
