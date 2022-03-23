@@ -429,9 +429,13 @@ span.newupdate::before{
 	font-size:9pt;
 }
 
-h1 span.adultclass, h1 span.normal {
+h1 span.adultclass, h1 span.normal, h1 span.adultclass a, h1 span.normal a {
 	font:inherit;
 	color:inherit;
+}
+
+h1 span a:hover{
+	color:#a0002d;
 }
 
 h1 span.adultclass::before{

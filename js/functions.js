@@ -262,8 +262,8 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 						projectdetail += "<a href=\"/read?series=" + obj.projectname + "&num=" + obj.num + "\">";
 						projectdetail += "<img src=\"" + obj.chthumb + "\" class=\"projectthumb\">";
 						projectdetail += "<h1>" + "<span class=\"" + dateclass + "\">" + chtime + "&nbsp;&nbsp;&nbsp;";
-						projectdetail += obj.chname + "</span><br>";
-						projectdetail += "<span class=\"" + adult + "\">" + obj.series + "</span></h1></a>";
+						projectdetail += obj.chname + "</span></a><br>";
+						projectdetail += "<span class=\"" + adult + "\"><a href=\"/projects?n=" + obj.projectname + "\">" + obj.series + "</a></span></h1>";
 						projectdetail += "</div>";
 				}
 	
