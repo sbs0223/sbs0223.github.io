@@ -63,7 +63,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 				
 				function showreader() {
 					if (checklocal.data === "N") {		// START check if need to redirect
-						window.location = embedurl;			// redirect
+						window.location.replace = embedurl;			// redirect
 					} else {													// embed if not redirect
 						document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\">";
 						document.getElementById("pageheader").innerHTML = projectpagelink;
