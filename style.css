@@ -520,6 +520,33 @@ img.latestimg:hover{
 }
 
 
+#AlertContainer{
+	display:none;
+}
+
+#imguralert {
+	display:block;
+  color: #856404;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+	font-size:10pt;
+	text-align:center;
+	padding:2px;
+	margin:0px;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  -ms-box-sizing:border-box;
+}
+
+.imgurchecker{
+	position:absolute;
+	width:1px;
+	height:1px;
+	top:0;
+	left:0;
+}
+
 
 
 
