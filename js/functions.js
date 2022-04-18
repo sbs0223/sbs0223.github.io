@@ -273,3 +273,13 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			})
 			
 		}
+		
+		
+		
+		
+/* Display an alert if imgur image doesn't process */
+
+	function DisplayImgAlert() {
+		$( "#AlertContainer" ).show();
+		$( ".imgurchecker" ).hide();
+	}
