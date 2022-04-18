@@ -61,15 +61,15 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			
 	    var receiveMessage = function (checklocal) {  // check if 3rd party localstorage works
 				
-				function showreader() {
+				function showreader() {    // start defining the actual function that grabs the reader
 					if (checklocal.data === "N") {		// START check if need to redirect
 						window.location = embedurl;			// redirect
 					} else {													// embed if not redirect
 						document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\">";
 						document.getElementById("pageheader").innerHTML = projectpagelink;
 					};																// END end embed
-				}
-
+				}   // end the showreader function def
+				
 				if ( proj.projectrating === "Y" ) {  // if 18+ series
 					try {
 						if (!sessionStorage.returning) {  // if a session cookie isn't already stored
@@ -99,7 +99,9 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 				} else { 																		// if it's all ages just show reader
 					showreader()
 				};				
-	    };
+
+	    };  // end the checklocal function
+
 	    window.addEventListener("message", receiveMessage, false);
 			
 		});

@@ -6,8 +6,6 @@ const seriesinput = urlParams.get('series');
 const numinput = urlParams.get('num');
 var number = "" + numinput;     // this isn't the true chapter number if series has skipped chapters/previews/etc
 var series = "" + seriesinput;
-var embedurl = "";
-var embed = "";
 
 if(navigator.cookieEnabled) {
 	geturl();

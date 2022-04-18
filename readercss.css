@@ -1,6 +1,14 @@
 /* Reader CSS */
 
-	body, html, #reader {margin:0px; padding:0px; height:100%; width:100%; min-height:100%;}
+	body, html, #reader {margin:0px; padding:0px; height:100%; width:100%; min-height:100%; background-color:#000; color:#fff;}
+	
+	a, a:link,a:active{
+		color:#fff;
+		text-decoration:none;
+	}
+	a:hover {
+		color:#907ea9;
+	}
 	
 	div#pageheader{
 		position:fixed;
