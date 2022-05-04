@@ -135,6 +135,78 @@
 		 .honeypot-field,.infofield {
 		   display: none;
 		 }
+		 
+		 /* Customize the label (the container) */
+		 .checkboxcontainer {
+		   display: block;
+		   position: relative;
+		   padding-left: 45px;
+		   margin-bottom: 12px;
+		   cursor: pointer;
+		   font-size: 10pt;
+			 color:#2f3499;
+		   -webkit-user-select: none;
+		   -moz-user-select: none;
+		   -ms-user-select: none;
+		   user-select: none;
+		 }
+
+		 /* Hide the browser's default checkbox */
+		 .checkboxcontainer input {
+		   position: absolute;
+		   opacity: 0;
+		   cursor: pointer;
+		   height: 0;
+		   width: 0;
+		 }
+
+		 /* Create a custom checkbox */
+		 .checkmark {
+		   position: absolute;
+		   top: 0;
+		   left: 0;
+			 margin-left:15px;
+		   height: 20px;
+		   width: 20px;
+		   background-color: #fff;
+			 border:1px solid #c8c8c8;
+		 }
+
+		 /* On mouse-over, add a grey background color */
+		 .checkboxcontainer:hover input ~ .checkmark {
+		   background-color: #ccc;
+		 }
+
+		 /* When the checkbox is checked, add a blue background */
+		 .checkboxcontainer input:checked ~ .checkmark {
+		   background-color: #2196F3;
+		 }
+
+		 /* Create the checkmark/indicator (hidden when not checked) */
+		 .checkmark:after {
+		   content: "";
+		   position: absolute;
+		   display: none;
+		 }
+
+		 /* Show the checkmark when checked */
+		 .checkboxcontainer input:checked ~ .checkmark:after {
+		   display: block;
+		 }
+
+		 /* Style the checkmark/indicator */
+		 .checkboxcontainer .checkmark:after {
+		   left: 6px;
+		   top: 2px;
+		   width: 5px;
+		   height: 10px;
+		   border: solid white;
+		   border-width: 0 3px 3px 0;
+		   -webkit-transform: rotate(45deg);
+		   -ms-transform: rotate(45deg);
+		   transform: rotate(45deg);
+		 }
+		 
 	</style>
 	
 </head>
@@ -151,9 +223,9 @@
       <fieldset class="pure-group">
         <label for="pronoun">Pronoun:</label>
         <select id="pronoun" name="pronoun">
+          <option>They/Them</option>
           <option>She/Her</option>
           <option>He/Him</option>
-          <option>They/Them</option>
           <option>Any Pronoun</option>
         </select>
       </fieldset>
@@ -166,6 +238,7 @@
       <fieldset class="pure-group">
         <label for="agerange">Age range:</label>
         <select id="agerange" name="agerange">
+          <option></option>
           <option>18+</option>
           <option>16-17</option>
         </select>
@@ -174,6 +247,7 @@
       <fieldset class="pure-group">
         <label for="nsfwpref">If you are 18+, would you like to work on NSFW content?</label>
         <select id="nsfwpref" name="nsfwpref">
+          <option></option>
           <option>Yes</option>
           <option>No</option>
           <option>Not applicable (I am 16-17)</option>
@@ -181,33 +255,46 @@
       </fieldset>
 
       <fieldset class="pure-group">
-        <label for="positions">What position(s) you are applying for: </label>
-        <input id="positions" name="positions" placeholder="You can enter multiple" />
-      </fieldset>
+        <label for="positions">What position(s) are you applying for? </label>
+        <label for="positions--KTL" class="checkboxcontainer"><input id="positions--KTL" type="checkbox" name="positions" value="KTL" /> Korean Translator<span class="checkmark"></span></label>
+				<label for="positions--JTL" class="checkboxcontainer"><input id="positions--JTL" type="checkbox" name="positions" value="JTL" /> Japanese Translator<span class="checkmark"></span></label>
+				<label for="positions--KPR" class="checkboxcontainer"><input id="positions--KPR" type="checkbox" name="positions" value="KPR" /> Korean Proofreader<span class="checkmark"></span></label>
+				<label for="positions--JPR" class="checkboxcontainer"><input id="positions--JPR" type="checkbox" name="positions" value="JPR" /> Japanese Proofreader<span class="checkmark"></span></label>
+				<label for="positions--TS" class="checkboxcontainer"><input id="positions--TS" type="checkbox" name="positions" value="TS" /> Typesetter<span class="checkmark"></span></label>
+				<label for="positions--CLRD" class="checkboxcontainer"><input id="positions--CLRD" type="checkbox" name="positions" value="CLRD" /> Cleaner/Redrawer<span class="checkmark"></span></label>
+				<label for="positions--DR" class="checkboxcontainer"><input id="positions--DR" type="checkbox" name="positions" value="DR" /> Dick Redrawer/Decensorer<span class="checkmark"></span></label>
+				<label for="positions--RP" class="checkboxcontainer"><input id="positions--RP" type="checkbox" name="positions" value="RP" /> Raw Provider<span class="checkmark"></span></label>
+				<label for="positions--mod" class="checkboxcontainer"><input id="positions--mod" type="checkbox" name="positions" value="Mod" /> Server Manager/Moderator<span class="checkmark"></span></label>				
+			</fieldset>
 
       <fieldset class="pure-group">
-        <label for="experience">Do you have any experience, and if so with which group(s): </label>
+        <label for="experience">Please describe your experience briefly, including groups you've been in: </label>
         <input id="experience" name="experience" />
       </fieldset>
 
       <fieldset class="pure-group">
-        <label for="deadlinepref">How many days would you need to complete a chapter: </label>
+        <label for="deadlinepref">What is your preferred deadline for one chapter? </label>
         <input id="deadlinepref" name="deadlinepref" placeholder="e.g. 3 days, 5 days, etc." />
       </fieldset>
 			
       <fieldset class="pure-group">
-        <label for="genrepref">What genre do you like and is there a project you'd like to work on: </label>
+        <label for="genrepref">What genre do you like and is there a project you'd like to work on? </label>
         <input id="genrepref" name="genrepref" />
       </fieldset>
 			
       <fieldset class="pure-group">
-        <label for="wherefound">How did you find us: </label>
+        <label for="wherefound">How did you find us? </label>
         <input id="wherefound" name="wherefound" placeholder="Which project, server, etc." />
       </fieldset>
 			
       <fieldset class="pure-group">
         <label for="samples">If you have samples please paste the link(s) here: </label>
         <input id="samples" name="samples" />
+      </fieldset>
+			
+      <fieldset class="pure-group">
+        <label for="favBL">What's your favourite BL? </label>
+        <input id="favBL" name="favBL" />
       </fieldset>
 			
       <fieldset class="infofield">
