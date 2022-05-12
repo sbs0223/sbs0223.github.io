@@ -476,9 +476,9 @@ div.latestentrywrap{
 }
 
 img.latestimg {
-	-webkit-filter: grayscale(100%);
-	-moz-filter: grayscale(100%);
-	filter: grayscale(100%);
+	-webkit-filter: grayscale(50%);
+	-moz-filter: grayscale(50%);
+	filter: grayscale(50%);
 	transition: all 0.5s ease;
 	opacity: 0.5;
 	width:100%;
@@ -577,10 +577,10 @@ img.latestimg:hover{
 	.topbar a, .topbar a:link, .topbar a:visited{font-size: 12.5pt; padding:2px 6px}
 }		
 @media screen and (max-width: 400px){
-			.topbar a, .topbar a:link, .topbar a:visited{font-size: 11.5pt; padding:2px 5px}
+			.topbar a, .topbar a:link, .topbar a:visited{font-size: 10.5pt; padding:2px 5px}
 }		
 @media screen and (max-width: 309px){
-			.topbar a, .topbar a:link, .topbar a:visited{font-size: 10pt; padding:1px 4px}
+			.topbar a, .topbar a:link, .topbar a:visited{font-size: 9.5pt; padding:1px 3px}
 }		
 @media screen and (max-width: 696px){
 			div.latestentrywrap{
@@ -594,7 +594,7 @@ img.latestimg:hover{
 			div.projectwrap{	width:50%;}
 }
 
-@media screen and (max-width: 400px){
+@media screen and (max-width: 350px){
 			div.projectwrap{	width:100%;}
 			div.footer {padding-bottom:40px;}
 }

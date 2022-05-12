@@ -42,6 +42,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 	alasql.promise("SELECT distinct series, projectname, projectrating, projecturl FROM json('/json/chapters') where projectname = '" + series + "' and projecturl <> 0"
 	).then(function(results){
 		var embedurl = "";
+		var embedtitle = "";
 		proj = results[0];
 			
 			try {
@@ -53,8 +54,10 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			
 			if ( number === "" || number === "null" ) {
 				embedurl = proj.projecturl;
+				embedtitle = proj.series;
 			} else {
 				embedurl = proj.projecturl + number;
+				embedtitle = proj.series + " | " + number;
 			};
 			
 			var projectpagelink = "<a href=\"/projects?n=" + proj.projectname + "\"> Project Page &gt;</a>";
@@ -67,6 +70,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 					} else {													// embed if not redirect
 						document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\">";
 						document.getElementById("pageheader").innerHTML = projectpagelink;
+						document.title = embedtitle + " | Sunshine Butterfly";
 					};																// END end embed
 				}   // end the showreader function def
 				
@@ -169,6 +173,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 		).then(function(results){
 			var projectdetail = "";
 			var proj = results[0];
+			document.title = proj.series + " | Projects | Sunshine Butterfly";
 			
 			if (proj.projectrating == "Y") {
 				var adult = "<img src=\"/images/assets/adult.png\" class=\"smallicons\">";
