@@ -82,16 +82,24 @@
 
 <div class="contentcontainer">
 
-<h1>Last 30 Updates</h1>
+<h1>Releases by Date</h1>
+
+<div id="updatestext"></div>
 
 <div id="seriescontainer"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/alasql@1.7"></script>
+
 <script>
-	gettopupdates()
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	var pagenum = urlParams.get('page');
+	var offset = 0;
+	
+	getupdatepagination();
 </script>
 
-
+<div id="updatesnav"></div>
 
 </div>
 
