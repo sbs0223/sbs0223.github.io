@@ -531,6 +531,44 @@ img.latestimg:hover{
 }
 
 
+#updatestext{
+	text-align:right;
+	color:gray;
+}
+
+#updatesnav{
+	position:sticky;
+	bottom:0;
+	right:0;
+	text-align:center;
+	font-family:'Bebas Neue', sans-serif;
+	font-size:12pt;
+	background-color:rgba(255, 255, 255, 0.8);
+}
+
+#updatesnav a, #updatesnav a:link, #updatesnav a:visited{
+	display:inline-block;
+	padding:3px 0px 1px 0px;
+	margin:0px 0px;
+	width:30px;
+	color:#5e5e94;
+}
+
+#updatesnav a:hover, #updatesnav a:active{
+	background-color:#5757c1;
+	color:#fff;
+}
+
+#updatesnav a.inactive{
+	cursor: default;
+	pointer-events:none;
+	text-decoration:none;
+	color:#a6a6a6;
+}
+
+
+
+
 #AlertContainer{
 	display:none;
 }

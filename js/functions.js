@@ -6,6 +6,7 @@ if (!Date.now) {
     Date.now = function() { return new Date().getTime(); }
 }
 var curdate = Date.now();
+const latestperpage = 18;
 
 
 /* Start Latest Updates section
@@ -249,7 +250,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 
 		function gettopupdates() {
 			
-			alasql.promise("SELECT top(30) series, num, chthumb, chname, adult, timestamp, projectname, projectrating FROM json('/json/chapters') order by timestamp desc, series desc, num desc"
+			alasql.promise("SELECT series, num, chthumb, chname, adult, timestamp, projectname, projectrating FROM json('/json/chapters') where projectstatus <> 'licensed' order by timestamp desc, series desc, num desc LIMIT " + latestperpage + " OFFSET " + offset
 			).then(function(results){
 				var projectdetail = ""
 				for(var i = 0; i < results.length; i++) {
@@ -278,8 +279,57 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			})
 			
 		}
+
+
+
+// Get updates page pagination & call updates function
 		
+	function getupdatepagination() {
+		alasql.promise("SELECT count(projectstatus) as countrec FROM json('/json/chapters') where projectstatus <> 'licensed'"
+		).then(function(rresults){
+			recordcount=rresults[0].countrec;
+			maxpage = Math.ceil(recordcount/latestperpage);
 		
+			if (isNaN(pagenum)){
+				pagenum = 1;
+				offset = 0;
+				window.history.pushState('', '', '/updates');
+			} else if(pagenum < 1){
+				pagenum = 1;
+				offset = 0;
+				window.history.pushState('', '', '/updates');
+			} else if(pagenum > maxpage) {
+				pagenum = maxpage;
+				offset = (maxpage-1)*latestperpage;
+				window.history.pushState('', '', '/updates?page='+maxpage);
+			}	else {
+				offset = (pagenum-1)*latestperpage;
+			};
+			
+			gettopupdates();
+			
+			var paginate = "";
+			var checkpage = "";
+			
+			paginate += "Page: ";
+			
+			for(var j = 1; j < maxpage + 1; j++) {
+				
+				if(pagenum === j + "" || pagenum === j) {
+					checkpage = "inactive";
+				} else {
+					checkpage = "active";
+				};
+				
+				paginate += "<a href=\"/updates?page="+ j + "\" class=\"" + checkpage + "\">" + j + " </a>";
+			};
+			
+			document.getElementById("updatestext").innerHTML = (offset+1) + " to " + Math.min(recordcount,offset+latestperpage) + " of " + recordcount;
+			document.getElementById("updatesnav").innerHTML = paginate;
+			
+		});
+			
+	}	
 		
 		
 /* Display an alert if imgur image doesn't process */
