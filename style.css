@@ -627,6 +627,7 @@ img.latestimg:hover{
 }		
 @media screen and (max-width: 400px){
 			.topbar a, .topbar a:link, .topbar a:visited{font-size: 10.5pt; padding:2px 5px}
+			#updatesnav a, #updatesnav a:link, #updatesnav a:visited{width:25px}
 }		
 @media screen and (max-width: 309px){
 			.topbar a, .topbar a:link, .topbar a:visited{font-size: 9.5pt; padding:1px 3px}
