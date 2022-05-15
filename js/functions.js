@@ -24,7 +24,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 					latest += "<div class=\"latestentrywrap\">";
 					latest += "<a href=\"projects?n=" + obj.projectname + "\">";
 					latest += "<img src=\"" + obj.projectsmallthumb + "\" class=\"latestimg\"><span class=\"chapter\">";
-					latest += obj.series + "</span><br>";
+					latest += obj.series + "</span>";
 					latest += "<span class=\"date\">" + chtime + "<span></a></div>";
 			}
 
