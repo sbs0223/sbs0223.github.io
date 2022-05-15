@@ -468,10 +468,10 @@ div.latestentrywrap{
   -moz-box-sizing:border-box;
   -webkit-box-sizing:border-box;
   -ms-box-sizing:border-box;
-	margin:5px;
+	margin:0px 0.75%;
   position: relative;
-	width:23%;
-	padding-top:23%;
+	width:23.5%;
+	padding-top:23.5%;
 	line-height:11px;
 	font-size:9pt;
 }
@@ -595,8 +595,8 @@ img.latestimg:hover{
 }		
 @media screen and (max-width: 600px){
 			div.latestentrywrap{
-				width:46%;
-				padding-top:46%;
+				width:48.5%;
+				padding-top:48.5%;
 			}
 			img.latestimg { width:100%;}
 			div.projectwrap{	width:50%;}
