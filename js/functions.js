@@ -303,7 +303,9 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 				offset = (maxpage-1)*latestperpage;
 				window.history.pushState('', '', '/updates?page='+maxpage);
 			}	else {
+				pagenum = Math.floor(pagenum);
 				offset = (pagenum-1)*latestperpage;
+				window.history.pushState('', '', '/updates?page='+pagenum);
 			};
 			
 			gettopupdates();
