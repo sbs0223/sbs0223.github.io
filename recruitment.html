@@ -103,8 +103,8 @@
 
     <div class="form-elements">
       <fieldset class="pure-group">
-        <label for="name">Name: </label>
-        <input id="name" name="name" placeholder="What should we call you?" />
+        <label for="name">Name: *</label>
+        <input id="name" name="name" placeholder="What should we call you?" required />
       </fieldset>
 
       <fieldset class="pure-group">
@@ -118,12 +118,12 @@
       </fieldset>
 
       <fieldset class="pure-group">
-        <label for="discord">Discord tag: </label>
-        <input id="discord" name="discord" placeholder="Remember to include the tag (#)" />
+        <label for="discord">Discord tag: *</label>
+        <input id="discord" name="discord" placeholder="Remember to include the tag # (e.g. username#1234)" required />
       </fieldset>
 			
       <fieldset class="pure-group">
-        <label for="agerange">Age range:</label>
+        <label for="agerange">Age range: *</label>
         <select id="agerange" name="agerange">
           <option></option>
           <option>18+</option>
@@ -132,7 +132,7 @@
       </fieldset>
 			
       <fieldset class="pure-group">
-        <label for="nsfwpref">If you are 18+, would you like to work on NSFW content?</label>
+        <label for="nsfwpref">If you are 18+, would you like to work on NSFW content? *</label>
         <select id="nsfwpref" name="nsfwpref">
           <option></option>
           <option>Yes</option>
@@ -142,7 +142,7 @@
       </fieldset>
 
       <fieldset class="pure-group">
-        <label for="positions">What position(s) are you applying for? </label>
+        <label for="positions">What position(s) are you applying for? *</label>
         <label for="positions--KTL" class="checkboxcontainer"><input id="positions--KTL" type="checkbox" name="positions" value="KTL" /> Korean Translator<span class="checkmark"></span></label>
 				<label for="positions--JTL" class="checkboxcontainer"><input id="positions--JTL" type="checkbox" name="positions" value="JTL" /> Japanese Translator<span class="checkmark"></span></label>
 				<label for="positions--KPR" class="checkboxcontainer"><input id="positions--KPR" type="checkbox" name="positions" value="KPR" /> Korean Proofreader<span class="checkmark"></span></label>
@@ -155,23 +155,23 @@
 			</fieldset>
 
       <fieldset class="pure-group">
-        <label for="experience">Please describe your experience briefly, including groups you've been in: </label>
-        <input id="experience" name="experience" />
+        <label for="experience">Please describe your experience with or knowledge of the position briefly, including groups you've been in: *</label>
+        <input id="experience" name="experience" required />
       </fieldset>
 
       <fieldset class="pure-group">
-        <label for="deadlinepref">What is your preferred deadline for one chapter? </label>
-        <input id="deadlinepref" name="deadlinepref" placeholder="e.g. 3 days, 5 days, etc." />
+        <label for="deadlinepref">What is your preferred deadline for one chapter? *</label>
+        <input id="deadlinepref" name="deadlinepref" placeholder="e.g. 3 days, 5 days, etc." required />
       </fieldset>
 			
       <fieldset class="pure-group">
-        <label for="genrepref">What genre do you like and is there a project you'd like to work on? </label>
-        <input id="genrepref" name="genrepref" />
+        <label for="genrepref">What genre do you like and is there a project you'd like to work on? *</label>
+        <input id="genrepref" name="genrepref" required />
       </fieldset>
 			
       <fieldset class="pure-group">
-        <label for="wherefound">How did you find us? </label>
-        <input id="wherefound" name="wherefound" placeholder="Which project, server, etc." />
+        <label for="wherefound">How did you find us? *</label>
+        <input id="wherefound" name="wherefound" placeholder="Which project, server, etc." required />
       </fieldset>
 			
       <fieldset class="pure-group">
@@ -180,8 +180,8 @@
       </fieldset>
 			
       <fieldset class="pure-group">
-        <label for="favBL">What's your favourite BL? </label>
-        <input id="favBL" name="favBL" />
+        <label for="favBL">What's your favourite BL? *</label>
+        <input id="favBL" name="favBL" required />
       </fieldset>
 			
       <fieldset class="infofield">
