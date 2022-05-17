@@ -694,8 +694,8 @@ input#counter{
 
 button#sendcomment{
 	position:absolute;
-	right:10px;
-	bottom:20px;
+	right:0px;
+	top:0px;
 	width:58px;
 }
 
