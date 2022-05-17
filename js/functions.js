@@ -217,10 +217,13 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			} else {
 					projectdetail += "<center>Licensed. Please support the author by <a href=\"" + proj.projecturl + "\" target=\"_blank\">purchasing the official releases</a>!</center>";
 			};
-			projectdetail += "</div></div>"; 
+			projectdetail += "</div></div>";
+			projectdetail += ""; 
 			
 			document.getElementById("projectheader").innerHTML = proj.series;
 			document.getElementById("seriescontainer").innerHTML = projectdetail;
+			document.getElementById("commentscontainer").style.display = "block";
+			getcomments();
 			
 			$( document ).ready(function() {
 					var contentHeight = document.getElementById('container').clientHeight;
