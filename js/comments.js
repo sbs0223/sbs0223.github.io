@@ -173,7 +173,7 @@ function getcomments(){
 				entry += "<div class=\"CommentEntry\">";
 				entry += "<span class=\"CommentName\">" + CleanName + "</span>";
 				entry += "<span class=\"CommentInfo\">" + formatDate(d) + " | " + series + num + "</span>";
-				entry += "<p class=\"CommentContent\">" + CleanComment + "</p>";
+				entry += "<div class=\"CommentContent\">" + CleanComment + "</div>";
 				entry += "</div>";
 		}
 		
