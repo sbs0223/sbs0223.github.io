@@ -618,10 +618,56 @@ span.CommentInfo{
 	color:#9eabc3;
 	font-size:8pt;
 }
-p.CommentContent{
+div.CommentContent{
 	margin:0px;
 	padding:0px 5px;
 	word-wrap: break-word;
+}
+.CommentContent ul { 
+   list-style-type: disc; 
+   list-style-position: inside; 
+	 margin-bottom:0px;
+	 padding-left:5px;
+}
+.CommentContent ol { 
+   list-style-type: decimal; 
+   list-style-position: inside; 
+	 margin-bottom:0px;
+	 padding-left:5px;
+}
+.CommentContent li { 
+	 text-indent:0px;
+	 margin-bottom:0px;
+	 padding-left:5px;
+}
+.CommentContent ul ul, .CommentContent ol ul { 
+   list-style-type: circle; 
+   list-style-position: inside; 
+   margin-left: 5px; 
+}
+.CommentContent ol ol, .CommentContent ul ol { 
+   list-style-type: lower-latin; 
+   list-style-position: inside; 
+   margin-left: 5px; 
+}
+.CommentContent b, .CommentContent strong{
+	color:#000;
+	font-size:inherit;
+	font-weight:bold;
+	text-decoration:none;
+}
+.CommentContent i, .CommentContent em{
+	color:#000;
+	font-size:inherit;
+	font-weight:normal;
+	font-style:italic;
+	text-decoration:none;
+}
+.CommentContent u{
+	color:#000;
+	font-size:inherit;
+	font-weight:normal;
+	text-decoration:underline;
 }
 
 
