@@ -4,6 +4,8 @@ checkn = getParamValue('n');
 checkseries = getParamValue('series');
 checknum = getParamValue('num');
 
+var md = window.markdownit('zero').enable(['strikethrough','emphasis','image','normalize'],false).use(window.markdownitRedditSpoiler.spoiler).use(window.markdownitEmoji);
+
 if(checkn){
 	series = sanitizeHtml(checkn);
 } else {
@@ -165,10 +167,7 @@ function getcomments(){
 					allowedTags: [],
 					allowedAttributes: {}
 				});
-				const CleanComment = sanitizeHtml(obj.Comment, {
-					allowedTags: ["b" , "br" , "u" , "i" , "li" , "ol" , "ul", "em" , "strong"],
-					allowedAttributes: {}
-				});
+				const CleanComment = md.renderInline(obj.Comment);
 
 				entry += "<div class=\"CommentEntry\">";
 				entry += "<span class=\"CommentName\">" + CleanName + "</span>";
@@ -184,6 +183,18 @@ function getcomments(){
 	});
 	
 }
+
+// click to append for comment
+var commentbox = document.querySelector('#Comment');
+var items = document.querySelectorAll('[data-item]');
+
+[].forEach.call(items, function(item) {
+    item.addEventListener('click', function(){
+			event.preventDefault(); 
+      commentbox.value += item.innerHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+    });
+});
+
 
 function padTo2Digits(num) {
   return num.toString().padStart(2, '0');
