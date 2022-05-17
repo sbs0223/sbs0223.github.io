@@ -101,6 +101,11 @@
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.6.3/tabletop.min.js'></script>
 		<script src="https://cdn.jsdelivr.net/npm/alasql@1.7"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/sanitize-html/1.27.5/sanitize-html.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js"></script>
+		<script src='https://cdn.jsdelivr.net/gh/iMrDJAi/markdown-it-reddit-spoiler/dist/main.js'></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/markdown-it-emoji/2.0.2/markdown-it-emoji-light.js'></script>
+		
+		
 	
 	</head>
 
@@ -111,10 +116,38 @@
 
 		<form class="gform pure-form pure-form-stacked" method="POST" action="https://script.google.com/macros/s/AKfycbwKlIc0qWkndlaBPuwOvhsl4yCBzHieM5k4HzDy5jS9kGKRxgurnK4cZFVINIUjmNyw/exec">
 			<div class="form-elements">
-				<input id="Name" name="Name" placeholder="Name" maxlength="20" required />
+				<input id="Name" name="Name" placeholder="Name" maxlength="20" pattern=".*\S+.*" required />
 				<textarea id="Comment" name="Comment" placeholder="Comment" rows="3" onkeyup="textCounter(this,'counter',800);" required></textarea>
-				<span class="counterspan">Character count: </span><input disabled maxlength="3" size="3" value="0" id="counter" /><span class="counterspan">/ max 800</span>
-				<button class="button-success pure-button button-small">Send</button>
+				<div class="commentinfo">
+					<span class="counterspan">Character count: </span><input disabled maxlength="3" size="3" value="0" id="counter" /><span class="counterspan">/ max 800</span>
+					<div class="appenditemwrap">
+						<a data-item="append" href="">😀</a>
+						<a data-item="append" href="">😄</a>
+						<a data-item="append" href="">😆</a>
+						<a data-item="append" href="">😅</a>
+						<a data-item="append" href="">😂</a>
+						<a data-item="append" href="">😉</a>
+						<a data-item="append" href="">😊</a>
+						<a data-item="append" href="">😇</a>
+						<a data-item="append" href="">😍</a>
+						<a data-item="append" href="">😐</a>
+						<a data-item="append" href="">😏</a>
+						<a data-item="append" href="">😟</a>
+						<a data-item="append" href="">😳</a>
+						<a data-item="append" href="">😨</a>
+						<a data-item="append" href="">😭</a>
+						<a data-item="append" href="">😫</a>
+						<a data-item="append" href="">😡</a>
+						<a data-item="append" href="">😓</a>
+						<a data-item="append" href="">😱</a>
+						<a data-item="append" href="">**bold**</a>
+						<a data-item="append" href="">*italic*</a>
+						<a data-item="append" href="">~~strikethrough~~</a>
+						<a data-item="append" href="">&gt;!spoiler!&lt;</a>
+						<a data-item="append" href="">![](image_url)</a>
+						<a data-item="append" href="">&gt;!![](spoiler_image)!&lt;</a>
+					</div>
+				<button id="sendcomment" class="button-success pure-button button-small">Send</button>
 			</div>
 			<div style="clear:both;"></div>
 		</form>
