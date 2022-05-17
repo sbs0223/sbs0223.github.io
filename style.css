@@ -62,6 +62,7 @@ body,html{
 a, a:link, a:active, a:visited{
 	text-decoration:none;cursor:default;
 	color:#523ba8;
+	word-wrap: break-word;
 }
 
 a:hover {
@@ -594,6 +595,38 @@ img.latestimg:hover{
 	height:1px;
 	top:0;
 	left:0;
+}
+
+
+
+
+
+
+.CommentEntry{
+	display:block;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  -ms-box-sizing:border-box;
+	background-color:#fff;
+	border:1px solid #d4c6dc;
+	margin:10px 0px 0px 0px;
+	padding:5px;
+}
+span.CommentName{
+	display:block;
+	font-size:10pt;
+	font-weight:bold;
+	color:#47568f;
+}
+span.CommentInfo{
+	color:#9eabc3;
+	font-size:8pt;
+}
+p.CommentContent{
+	margin:0px;
+	padding:0px 5px;
+	word-wrap: break-word;
 }
 
 

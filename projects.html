@@ -36,6 +36,10 @@
 	<link href="https://fonts.googleapis.com/css2?family=Carme&family=Encode+Sans+Semi+Condensed:wght@500&family=Roboto&display=swap" rel="stylesheet">
 
 	<link rel="stylesheet" href="/style.css">
+   <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+ <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/grids-responsive-min.css">
+ <link rel="stylesheet" href="/form.css">
 	<script src="/js/functions.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -91,11 +95,38 @@
 	<div align="center">
 		<div id="seriescontainer"></div>
 	</div>
+	
+	<!--<iframe id="CommentsIframe" src="" width="100%" height="0" frameborder="0"></iframe>-->
+	
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.6.3/tabletop.min.js'></script>
+		<script src="https://cdn.jsdelivr.net/npm/alasql@1.7"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/sanitize-html/1.27.5/sanitize-html.min.js"></script>
+	
+	</head>
+
+
 </div>
+<div id="commentscontainer" class="contentcontainer" style="display:none;">
+	<h1>Add a Comment</h1>	
 
+		<form class="gform pure-form pure-form-stacked" method="POST" action="https://script.google.com/macros/s/AKfycbwKlIc0qWkndlaBPuwOvhsl4yCBzHieM5k4HzDy5jS9kGKRxgurnK4cZFVINIUjmNyw/exec">
+			<div class="form-elements">
+				<input id="Name" name="Name" placeholder="Name" maxlength="20" required />
+				<textarea id="Comment" name="Comment" placeholder="Comment" rows="2" maxlength="500" required></textarea>
+				<button class="button-success pure-button button-small">Send</button>
+			</div>
+			<div style="clear:both;"></div>
+		</form>
 
-<!-- call required library and run getindex and getchapters function -->
-<script src="https://cdn.jsdelivr.net/npm/alasql@1.7"></script>
+	<div id="sentmessage"></div>
+
+	<div id="displaycomments"></div>
+
+	<script src="/js/comments.js"></script>
+</div>
+<div class="contentcontainer" style="display:none;">
+<!-- call required library and run getindex and getchapters function 
+<script src="https://cdn.jsdelivr.net/npm/alasql@1.7"></script>-->
 
 <script>
 
