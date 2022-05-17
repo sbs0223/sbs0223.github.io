@@ -607,6 +607,7 @@ img.latestimg:hover{
 	border:1px solid #d4c6dc;
 	margin:10px 0px 0px 0px;
 	padding:5px;
+	border-radius: 4px;
 }
 span.CommentName{
 	display:block;
