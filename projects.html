@@ -112,7 +112,8 @@
 		<form class="gform pure-form pure-form-stacked" method="POST" action="https://script.google.com/macros/s/AKfycbwKlIc0qWkndlaBPuwOvhsl4yCBzHieM5k4HzDy5jS9kGKRxgurnK4cZFVINIUjmNyw/exec">
 			<div class="form-elements">
 				<input id="Name" name="Name" placeholder="Name" maxlength="20" required />
-				<textarea id="Comment" name="Comment" placeholder="Comment (max 500 characters)" rows="2" maxlength="500" required></textarea>
+				<textarea id="Comment" name="Comment" placeholder="Comment" rows="3" onkeyup="textCounter(this,'counter',800);" required></textarea>
+				<span class="counterspan">Character count: </span><input disabled maxlength="3" size="3" value="0" id="counter" /><span class="counterspan">/ max 800</span>
 				<button class="button-success pure-button button-small">Send</button>
 			</div>
 			<div style="clear:both;"></div>
@@ -143,7 +144,17 @@
 	} else {
 		getchapters();
 	} ;
-
+	
+	function textCounter(field,field2,maxlimit)
+	{
+	 var countfield = document.getElementById(field2);
+	 if ( field.value.length > maxlimit ) {
+	  field.value = field.value.substring( 0, maxlimit );
+	  return false;
+	 } else {
+	  countfield.value = field.value.length;
+	 }
+	}
 </script>
 
 </div>

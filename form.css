@@ -32,6 +32,9 @@
 		 input {
 		   width: 100%;
 		 }
+		 input::placeholder,textarea::placeholder{
+			 font-size:100%;
+		 }
 		 .honeypot-field,.infofield {
 		   display: none;
 		 }
