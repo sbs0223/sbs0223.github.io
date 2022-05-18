@@ -329,7 +329,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 				paginate += "<a href=\"/updates?page="+ j + "\" class=\"" + checkpage + "\">" + j + " </a>";
 			};
 			
-			document.getElementById("updatestext").innerHTML = (offset+1) + " to " + Math.min(recordcount,offset+latestperpage) + " of " + recordcount;
+			document.getElementById("updatestext").innerHTML = "<span>" + (offset+1) + " to " + Math.min(recordcount,offset+latestperpage) + " of " + recordcount + "</span>";
 			document.getElementById("updatesnav").innerHTML = paginate;
 			
 		});
