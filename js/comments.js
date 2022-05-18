@@ -4,7 +4,7 @@ checkn = getParamValue('n');
 checkseries = getParamValue('series');
 checknum = getParamValue('num');
 
-var md = window.markdownit('zero').enable(['strikethrough','emphasis','image','normalize'],false).use(window.markdownitRedditSpoiler.spoiler).use(window.markdownitEmoji);
+var md = window.markdownit('zero').enable(['strikethrough','emphasis','image','normalize'],false).use(window.markdownitRedditSpoiler.spoiler);
 
 if(checkn){
 	series = sanitizeHtml(checkn);
@@ -214,4 +214,15 @@ function formatDate(date) {
       padTo2Digits(date.getSeconds()),
     ].join(':')
   );
+}
+
+function textCounter(field,field2,maxlimit)
+{
+ var countfield = document.getElementById(field2);
+ if ( field.value.length > maxlimit ) {
+  field.value = field.value.substring( 0, maxlimit );
+  return false;
+ } else {
+  countfield.value = field.value.length;
+ }
 }

@@ -55,7 +55,7 @@ body,html{
 	margin:0px;
 	background-color:#f5f5f5;
 	font-family:helvetica;
-	font-size: 10pt;
+	font-size: 11pt;
 	line-height:1.5em;
 }
 
@@ -187,12 +187,14 @@ div.latestcontent{
 	font-family: 'Montserrat', sans-serif;
 	font-size:12pt;
 }
+/* Removed this from latest.html
 .latestlink{
 	font-family: 'Montserrat', sans-serif;
-	font-size:9pt;
+	font-size:10pt;
 	text-align:right;
 	width:94%;
 }
+*/
 
 div.contentcontainer{
 	min-height:100px;
@@ -352,7 +354,7 @@ div.projectsnav {
 		margin:0px;
 		color:#6b6b6b;
 		font-family:"Bebas Neue", sans-serif;
-		font-size:11pt;
+		font-size:12pt;
 		text-align:center;
 }
 .addpadding{
@@ -391,7 +393,7 @@ div.projectpageinfo{
   -moz-box-sizing:border-box;
   -webkit-box-sizing:border-box;
   -ms-box-sizing:border-box;
-	font-size:9pt;
+	font-size:10pt;
 	font-family:"Encode Sans Semi Condensed", sans-serif; 
 }
 
@@ -530,6 +532,7 @@ img.latestimg:hover{
 #updatestext{
 	text-align:right;
 	color:gray;
+	font-size:9pt;
 }
 
 #updatesnav{
@@ -574,7 +577,7 @@ img.latestimg:hover{
   color: #856404;
   background-color: #fff3cd;
   border: 1px solid #ffeeba;
-	font-size:10pt;
+	font-size:11pt;
 	text-align:center;
 	padding:2px;
 	margin:0px;
@@ -608,16 +611,16 @@ img.latestimg:hover{
 	margin:10px 0px 0px 0px;
 	padding:5px;
 	border-radius: 4px;
+	font-size:11pt;
 }
 span.CommentName{
 	display:block;
-	font-size:10pt;
 	font-weight:bold;
 	color:#47568f;
 }
-span.CommentInfo{
+.CommentEntry span.CommentInfo{
 	color:#9eabc3;
-	font-size:8pt;
+	font-size:9pt;
 }
 div.CommentContent{
 	margin:0px;
@@ -646,7 +649,7 @@ div.CommentContent{
 	text-decoration:underline;
 }
 .CommentContent img{
-	max-width: min(90%,250px);
+	max-width: min(98%,250px);
 	max-height:300px;
 }
 
@@ -680,14 +683,14 @@ input#counter{
 	background-color:transparent;
 	box-shadow:none;
 	color:#6c6a90;
-	font-size:8pt;
+	font-size:inherit;
 	margin:0px;
 	padding:0px;
 	text-align:center;
 }
 .counterspan{
 	color:#8c8aa3;
-	font-size:8pt;
+	font-size:inherit;
 	margin:0px;
 	padding:0px;
 }
@@ -696,12 +699,12 @@ button#sendcomment{
 	position:absolute;
 	right:0px;
 	top:0px;
-	width:58px;
+	width:53px;
 }
 
 div.commentinfo{
 	color:#8c8aa3;
-	font-size:8pt;
+	font-size:9pt;
 	width: 100%;
 	position:relative;
 }
@@ -714,7 +717,7 @@ div.commentinfo{
 	margin-bottom:1px;
 }
 .appenditemwrap{
-	width:calc(100% - 70px);
+	width:calc(100% - 60px);
 }
 
 
