@@ -81,6 +81,7 @@
       /*Grab the input from teh user */
       var input = document.querySelector("input");
 			var src = "";
+			var src_small = "";
       document.querySelector("input").addEventListener("keyup", (e) => {
         /*only works when Enter key is clicked */
         clearOutput();
@@ -111,10 +112,10 @@
       /*Display the output*/
       function showData(data) {
         data.forEach((element) => {
-          src = element.images.fixed_height.url;
-					src_downsized = element.images.downsized.url;
+          src_small = element.images.fixed_height.url;
+					src = element.images.downsized.url;
           var output = document.querySelector(".output");
-          output.innerHTML += "<img class=\"gifimg\" src=" + src + " role=\"button\" onclick=\"copyURL(src_downsized)\">";
+          output.innerHTML += "<img class=\"gifimg\" src=" + src + " role=\"button\" onclick=\"copyURL(src)\">";
         });
       }
       /*clearing the ouptut*/
