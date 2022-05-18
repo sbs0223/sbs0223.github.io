@@ -185,16 +185,17 @@ function getcomments(){
 }
 
 // click to append for comment
-var commentbox = document.querySelector('#Comment');
 var items = document.querySelectorAll('[data-item]');
-
 [].forEach.call(items, function(item) {
     item.addEventListener('click', function(){
 			event.preventDefault(); 
-      commentbox.value += item.innerHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+			var curPos = $("#Comment")[0].selectionStart;
+			let x = $("#Comment").val();
+			let insertmarkdown = item.innerHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+	    $("#Comment").val(
+				x.slice(0, curPos) + insertmarkdown + x.slice(curPos));
     });
 });
-
 
 function padTo2Digits(num) {
   return num.toString().padStart(2, '0');
