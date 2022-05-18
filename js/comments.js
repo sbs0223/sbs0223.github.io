@@ -227,3 +227,10 @@ function textCounter(field,field2,maxlimit)
   countfield.value = field.value.length;
  }
 }
+
+$(document).ready(function(){
+  $("#buttonfindgif").click(function(){
+		event.preventDefault(); 
+    $("#framefindgif").toggle();
+  });
+});

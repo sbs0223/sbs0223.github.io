@@ -653,7 +653,7 @@ div.CommentContent{
 	text-decoration:underline;
 }
 .CommentContent img{
-	max-width: min(98%,250px);
+	max-width: min(98%,350px);
 	max-height:300px;
 }
 

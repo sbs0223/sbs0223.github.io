@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/style.css"> 
+    <style>
+			html,body{
+				width:100%;
+				height:100%;
+				margin:0px;
+				padding:0px;
+			}
+      /*this will contain our styles */
+      .gifcontainer {
+        text-align: center;
+        font-family: sans-serif;
+				background:none;
+      }
+      .input {
+				width:100%;
+        padding: 3px;
+        margin: 2px;
+        font-size: 15px;
+        color: blueviolet;
+        font-weight: 300;
+        border: 2px solid rgb(233, 173, 173);
+				border-radius:4px;
+        display:block;
+			  box-sizing:border-box;
+			  -moz-box-sizing:border-box;
+			  -webkit-box-sizing:border-box;
+			  -ms-box-sizing:border-box;
+      }
+      button {
+				width:100%;
+        padding: 3px;
+        margin: 2px;
+        color: white;
+				font-size:15px;
+        background-color: #646993;
+        border: 2px solid #646993;
+				border-radius:4px;
+        cursor: pointer;
+        display:block;
+			  box-sizing:border-box;
+			  -moz-box-sizing:border-box;
+			  -webkit-box-sizing:border-box;
+			  -ms-box-sizing:border-box;
+      }
+      img.gifimg {
+        margin: 3px;
+				width:32%;
+				height:auto;
+      }
+      .inputfiled {
+        padding: 20px;
+      }
+			@media screen and (max-width: 350px){
+				img.gifimg { width:45%; height:auto; }
+			}
+    </style>
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <div class="gifcontainer">
+      <div class="inputfiled">
+        <input
+          type="text"
+          class="input userinput"
+          placeholder="Click the GIF to copy as Markdown"
+        />
+        <button class="go">Search</button>
+      </div>
+<div class="output"></div>
+    </div>
+    <script>
+      /*this will contain our JavaScript code */
+      /*Grab the input from teh user */
+      var input = document.querySelector("input");
+			var src = "";
+      document.querySelector("input").addEventListener("keyup", (e) => {
+        /*only works when Enter key is clicked */
+        clearOutput();
+        if (e.which === 13) {
+          getData(input.value);
+        }
+      });
+      document.querySelector("button").addEventListener("click", (e) => {
+        clearOutput();
+        getData(input.value);
+      });
+      /*Get data from the API*/
+      function getData(input) {
+        var API_KEY = "oGt2kRoI7cNoJ9TYS46Xaaki2LpmH3cn";
+        var url =
+          "https://api.giphy.com/v1/gifs/search?api_key=" +
+          API_KEY +
+          "&q=" +
+          input +
+          "&limit=30&offset=0&rating=g&lang=en"; /*this will only return maximum  30 gifs at a time*/
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => showData(data.data))
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+      /*Display the output*/
+      function showData(data) {
+        data.forEach((element) => {
+          src = element.images.fixed_height.url;
+					src_downsized = element.images.downsized.url;
+          var output = document.querySelector(".output");
+          output.innerHTML += "<img class=\"gifimg\" src=" + src + " role=\"button\" onclick=\"copyURL(src_downsized)\">";
+        });
+      }
+      /*clearing the ouptut*/
+      function clearOutput() {
+        var output = document.querySelector(".output");
+        output.innerHTML = "";
+      }
+			
+			function copyURL(a) {
+			  navigator.clipboard.writeText("![](" + a + ")").then(() => {
+					Swal.fire({
+					  position: 'center',
+					  icon: 'success',
+					  title: 'Copied',
+					  showConfirmButton: false,
+					  timer: 1000
+					})
+      })
+      .catch(() => {
+        console.log("error");
+      });
+			}
+			
+    </script>
+  </body>
+</html>
