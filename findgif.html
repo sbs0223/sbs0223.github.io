@@ -69,7 +69,8 @@
         <input
           type="text"
           class="input userinput"
-          placeholder="Click the GIF to copy as Markdown"
+          placeholder="Click the GIF to copy as Markdown" 
+					maxlength="50"
         />
         <button class="go">Search</button>
       </div>
@@ -99,7 +100,7 @@
           API_KEY +
           "&q=" +
           input +
-          "&limit=30&offset=0&rating=g&lang=en"; /*this will only return maximum  30 gifs at a time*/
+          "&limit=24&offset=0&lang=en"; /*this will only return maximum # gifs at a time*/
         fetch(url)
           .then((response) => response.json())
           .then((data) => showData(data.data))
