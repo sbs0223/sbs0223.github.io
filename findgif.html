@@ -69,7 +69,7 @@
         <input
           type="text"
           class="input userinput"
-          placeholder="Click the GIF to copy as Markdown" 
+          placeholder="Click the GIF to copy as Markdown code" 
 					maxlength="50"
         />
         <button class="go">Search</button>
@@ -95,25 +95,25 @@
       });
       /*Get data from the API*/
       function getData(input) {
-        var API_KEY = "oGt2kRoI7cNoJ9TYS46Xaaki2LpmH3cn";
+        var API_KEY = "CORI9AYSFSED";
         var url =
-          "https://api.giphy.com/v1/gifs/search?api_key=" +
+          "https://g.tenor.com/v1/search?key=" +
           API_KEY +
           "&q=" +
           input +
-          "&limit=24&offset=0&lang=en"; /*this will only return maximum # gifs at a time*/
+          "&limit=18&media_filter=minimal"; /*this will only return maximum # gifs at a time*/
         fetch(url)
           .then((response) => response.json())
-          .then((data) => showData(data.data))
+          .then((results) => showData(results.results))
           .catch((e) => {
             console.log(e);
           });
       }
       /*Display the output*/
-      function showData(data) {
-        data.forEach((element) => {
-          src_small = element.images.fixed_height.url;
-					src = element.images.downsized.url;
+      function showData(results) {
+        results.forEach((element) => {
+          src_small = element["media"][0]["tinygif"]["url"];
+					src = element["media"][0]["gif"]["url"];
           var output = document.querySelector(".output");
           output.innerHTML += "<img class=\"gifimg\" src=" + src + " role=\"button\" onclick=\"copyURL(src)\">";
         });
