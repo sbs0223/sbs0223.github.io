@@ -196,6 +196,25 @@ var items = document.querySelectorAll('[data-item]');
 				x.slice(0, curPos) + insertmarkdown + x.slice(curPos));
     });
 });
+var items = document.querySelectorAll('[data-before]');
+[].forEach.call(items, function(item) {
+    item.addEventListener('click', function(){
+			event.preventDefault(); 
+  		const beforesel = $("#Comment").val().substring(0, $("#Comment")[0].selectionStart);
+  		const thesel = $("#Comment").val().substring($("#Comment")[0].selectionStart, $("#Comment")[0].selectionEnd);
+  		const aftersel = $("#Comment").val().substring($("#Comment")[0].selectionEnd);
+			let insertmarkdown = item.innerHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+			if(`${thesel}` === "") {
+				$("#Comment").val(
+					`${beforesel}` + insertmarkdown + `${aftersel}`
+				);
+			} else{
+				$("#Comment").val(
+					`${beforesel}` + item.getAttribute("data-before") + `${thesel}` + item.getAttribute("data-after") + `${aftersel}`
+				);
+			}
+    });
+});
 
 function padTo2Digits(num) {
   return num.toString().padStart(2, '0');
