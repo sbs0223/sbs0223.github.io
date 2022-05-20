@@ -4,8 +4,10 @@ checkn = getParamValue('n');
 checkseries = getParamValue('series');
 checknum = getParamValue('num');
 
+// initialize markdown-it
 var md = window.markdownit('zero').enable(['strikethrough','emphasis','image','normalize'],false).use(window.markdownitRedditSpoiler.spoiler);
 
+// sets series and chapter number (the num of the reader links) based on url parameters
 if(checkn){
 	series = sanitizeHtml(checkn);
 } else {
@@ -21,6 +23,9 @@ if(checknum){
 } else {
 	chnum = 0;
 }
+
+
+// start comments form send
 
 (function() {
   // get all data in form and return object
@@ -127,6 +132,11 @@ if(checknum){
   }
 })();
 
+// end comments form send
+
+
+// Define function which grabs the url paramters
+
 function getParamValue(paramName)
 {
     var url = window.location.search.substring(1); //get rid of "?" in querystring
@@ -139,8 +149,10 @@ function getParamValue(paramName)
     }
 }
 
+
+// display comments
+
 function getcomments(){
-	
 	var chapquery = "";
 	if(chnum === 0 || isNaN(chnum) || chnum == null || chnum === "" || chnum === "0"){
 		chapquery = "";
@@ -172,17 +184,38 @@ function getcomments(){
 				entry += "<div class=\"CommentEntry\">";
 				entry += "<span class=\"CommentName\">" + CleanName + "</span>";
 				entry += "<span class=\"CommentInfo\">" + formatDate(d) + " | " + series + num + "</span>";
-				entry += "<div class=\"CommentContent\">" + CleanComment + "</div>";
+				entry += "<div class=\"CommentContent\">";
+				entry += CleanComment;
+				entry += "</div>";
 				entry += "</div>";
 		}
 		
-		entry += "</div>";
+		entry += "</div>";		
 		
 		document.getElementById("displaycomments").innerHTML = entry;
-		
-	});
+	
+	})
+	.then(results => {
+		setTimeout(collapsecomments,100);  // idk why it needs a bit of time to get the right number
+	}).catch(err => { console.log(err) });
 	
 }
+
+function collapsecomments(){
+	$(".CommentContent").each(function(i, obj) {
+		var expandbar = "<div class=\"expandbar\">Show more</div>";
+	  var fullheight = $(this).prop('scrollHeight');
+		if (fullheight > 200) {
+			$(this).addClass("collapseComments").attr("id","comment"+i).append(expandbar);
+			$(this).find('.expandbar').addClass("bar"+i).attr("onclick","expand("+i+")");
+		};
+	});
+}
+function expand(x){
+	$("#comment"+x).removeClass("collapseComments");
+	$(".bar"+x).hide();
+}
+
 
 // click to append for comment
 var items = document.querySelectorAll('[data-item]');
@@ -193,9 +226,10 @@ var items = document.querySelectorAll('[data-item]');
 			let x = $("#Comment").val();
 			let insertmarkdown = item.innerHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 	    $("#Comment").val(
-				x.slice(0, curPos) + insertmarkdown + x.slice(curPos));
+				x.slice(0, curPos) + insertmarkdown + x.slice(curPos)).trigger('input');
     });
 });
+// click to wrap tags around selection
 var items = document.querySelectorAll('[data-before]');
 [].forEach.call(items, function(item) {
     item.addEventListener('click', function(){
@@ -207,19 +241,28 @@ var items = document.querySelectorAll('[data-before]');
 			if(`${thesel}` === "") {
 				$("#Comment").val(
 					`${beforesel}` + insertmarkdown + `${aftersel}`
-				);
+				).trigger('input');
 			} else{
 				$("#Comment").val(
 					`${beforesel}` + item.getAttribute("data-before") + `${thesel}` + item.getAttribute("data-after") + `${aftersel}`
-				);
+				).trigger('input');
 			}
     });
 });
+// click to add GIF tags
+window.addEventListener('message', function (gifurl) {
+		var curPos = $("#Comment")[0].selectionStart;
+		let x = $("#Comment").val();
+    $("#Comment").val(
+			x.slice(0, curPos) + "![](" + gifurl.data + ")" + x.slice(curPos)).trigger('input'); 
+		$("#framefindgif").slideToggle();
+});
 
+
+// functions for the date of comments
 function padTo2Digits(num) {
   return num.toString().padStart(2, '0');
 }
-
 function formatDate(date) {
   return (
     [
@@ -236,6 +279,7 @@ function formatDate(date) {
   );
 }
 
+// calculate characters remaining for the comment box
 function textCounter(field,field2,maxlimit)
 {
  var countfield = document.getElementById(field2);
@@ -247,9 +291,29 @@ function textCounter(field,field2,maxlimit)
  }
 }
 
+// toggle gif iframe & comment preview
 $(document).ready(function(){
   $("#buttonfindgif").click(function(){
 		event.preventDefault(); 
-    $("#framefindgif").toggle();
+    $("#framefindgif").slideToggle();
+  });
+  $("#previewcomment").click(function(){
+		event.preventDefault(); 
+    $("#previewcommentwrapper").slideToggle();
   });
 });
+
+// preview comments
+
+$("textarea#Comment").bind('input', function() {
+    $("div#previewcomment").html(md.renderInline($(this).val()));
+});
+
+/*const collapsecomments = async () => {
+  const result = await getcomments()
+	$(".CommentContent").each(function(i, obj) {
+		var expandbar = "<div class=\"expandbar\">Show more</div>";
+	  var fullheight = $(this).prop('scrollHeight');
+		obj.prepend(fullheight);
+	});	
+}*/
