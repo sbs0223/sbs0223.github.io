@@ -159,14 +159,13 @@ function getcomments(){
 	} else {
 		chapquery = "and Number = " + chnum + " ";
 	}
-
   const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQABY2QntPAjViT8mZnc4X0Cx7KLnDg8j2k1sxKZNg9LuTHq26dAwY3gn8QSdwIGFa68rXPKAHo2zoS/pub?output=csv';
   alasql.promise("SELECT * FROM CSV(?, {headers:true}) where Series = '" + series + "' " + chapquery + "order by Timestamp desc", [url]).then(function(results){
-		var entry = ""
 		
-		entry += "<div class=\"commentwrapper\">";
+		$("#displaycomments").append("<div class=\"commentwrapper\">");
 		
 		for(var i = 0; i < results.length; i++) {
+				var entry = ""
 		    var obj = results[i];
 				var d = new Date(obj.Timestamp);
 				if(obj.Number == 0){
@@ -184,36 +183,31 @@ function getcomments(){
 				entry += "<div class=\"CommentEntry\">";
 				entry += "<span class=\"CommentName\">" + CleanName + "</span>";
 				entry += "<span class=\"CommentInfo\">" + formatDate(d) + " | " + series + num + "</span>";
-				entry += "<div class=\"CommentContent\">";
+				entry += "<div class=\"CommentContent\" id=\"comment" + i + "\">";
 				entry += CleanComment;
 				entry += "</div>";
 				entry += "</div>";
+				$("#displaycomments").append(entry);
+				collapsecomments(i);
 		}
 		
-		entry += "</div>";		
-		
-		document.getElementById("displaycomments").innerHTML = entry;
+		$("#displaycomments").append("</div>");		
 	
-	})
-	.then(results => {
-		setTimeout(collapsecomments,100);  // idk why it needs a bit of time to get the right number
-	}).catch(err => { console.log(err) });
-	
+	})	
 }
-
-function collapsecomments(){
-	$(".CommentContent").each(function(i, obj) {
-		var expandbar = "<div class=\"expandbar\">Show more</div>";
-	  var fullheight = $(this).prop('scrollHeight');
+function collapsecomments(a){
+	$("#comment"+a).imagesLoaded( function() {
+		var commentdiv = $("#comment"+a);
+		var expandbar = "<div id=\"bar"+a+"\" class=\"expandbar\" onclick=\"expand("+a+")\">Show more</div>";
+	  var fullheight = commentdiv.prop('scrollHeight');
 		if (fullheight > 200) {
-			$(this).addClass("collapseComments").attr("id","comment"+i).append(expandbar);
-			$(this).find('.expandbar').addClass("bar"+i).attr("onclick","expand("+i+")");
+			commentdiv.addClass("collapseComments").append(expandbar);
 		};
 	});
 }
 function expand(x){
 	$("#comment"+x).removeClass("collapseComments");
-	$(".bar"+x).hide();
+	$("#bar"+x).hide();
 }
 
 
