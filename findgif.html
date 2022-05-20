@@ -18,63 +18,64 @@
         font-family: sans-serif;
 				background:none;
       }
+			.lineitup{
+				display: table-cell;
+			}
+			.lineitup:first-child, input[type="text"] {
+			  width: 100%;
+			}
       .input {
 				width:100%;
-        padding: 3px;
-        margin: 2px;
-        font-size: 15px;
+        padding: 5px;
+        margin: 0px;
+        font-size: 16px;
         color: blueviolet;
         font-weight: 300;
-        border: 2px solid rgb(233, 173, 173);
-				border-radius:4px;
-        display:block;
-			  box-sizing:border-box;
-			  -moz-box-sizing:border-box;
-			  -webkit-box-sizing:border-box;
-			  -ms-box-sizing:border-box;
+        border: 0px;
+				box-sizing: border-box;
       }
       button {
-				width:100%;
-        padding: 3px;
-        margin: 2px;
+        padding: 5px 5px;
+        margin: 0px;
         color: white;
-				font-size:15px;
+				font-size:16px;
         background-color: #646993;
-        border: 2px solid #646993;
-				border-radius:4px;
         cursor: pointer;
-        display:block;
-			  box-sizing:border-box;
-			  -moz-box-sizing:border-box;
-			  -webkit-box-sizing:border-box;
-			  -ms-box-sizing:border-box;
+				border:0px;
       }
       img.gifimg {
         margin: 3px;
 				width:32%;
 				height:auto;
       }
-      .inputfiled {
-        padding: 20px;
+      .inputfield {
+        padding: 0px;
+				margin:0px;
+			  display: table;
+			  width: 100%;
+				border-bottom:1px dashed gray;
+				position:fixed;
       }
-			@media screen and (max-width: 350px){
+			@media screen and (max-width: 500px){
 				img.gifimg { width:45%; height:auto; }
 			}
+			.output{
+				padding-top:40px;
+			}
     </style>
-		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     <div class="gifcontainer">
-      <div class="inputfiled">
-        <input
+      <div class="inputfield">
+        <div class="lineitup"><input
           type="text"
           class="input userinput"
-          placeholder="Click the GIF to copy as Markdown code" 
+          placeholder="Search Tenor" 
 					maxlength="50"
-        />
-        <button class="go">Search</button>
+        /></div>
+        <div class="lineitup"><button class="go">Go!</button></div>
       </div>
-<div class="output"></div>
+			<div class="output"></div>
     </div>
     <script>
       /*this will contain our JavaScript code */
@@ -125,18 +126,7 @@
       }
 			
 			function copyURL(a) {
-			  navigator.clipboard.writeText("![](" + a + ")").then(() => {
-					Swal.fire({
-					  position: 'center',
-					  icon: 'success',
-					  title: 'Copied',
-					  showConfirmButton: false,
-					  timer: 1000
-					})
-      })
-      .catch(() => {
-        console.log("error");
-      });
+				window.parent.postMessage(a, '*');
 			}
 			
     </script>

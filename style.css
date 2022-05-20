@@ -632,6 +632,7 @@ div.CommentContent{
 	word-wrap: break-word;
 	max-width:100%;
 	white-space: pre-wrap;
+	position:relative;
 }
 .CommentContent b, .CommentContent strong{
 	color:#000;
@@ -651,10 +652,30 @@ div.CommentContent{
 	font-size:inherit;
 	font-weight:normal;
 	text-decoration:underline;
+	position:relative;
 }
 .CommentContent img{
 	max-width: min(98%,350px);
 	max-height:300px;
+}
+.collapseComments{
+	max-height:200px;
+	overflow:hidden;
+}
+.expandbar{
+	position:absolute;
+	bottom:0;
+	border:0;
+	width:100%;
+	display:block;
+	background-color:#fff;
+	border-top:2px dotted #d1d1d1;
+	margin:0px;
+	color:#6b6b6b;
+	font-family:"Bebas Neue", sans-serif;
+	font-size:12pt;
+	text-align:center;
+	z-index:2;
 }
 
 .md-spoiler {

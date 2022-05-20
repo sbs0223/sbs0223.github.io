@@ -114,6 +114,7 @@
 				<div class="commentinfo">
 					<span class="counterspan">Character count: </span><input disabled maxlength="3" size="3" value="0" id="counter" /><span class="counterspan">/ max 800</span>
 					<div class="appenditemwrap">
+						<a id="previewcomment" href="">Preview</a>
 						<a data-item="append" href="">😀</a>
 						<a data-item="append" href="">😄</a>
 						<a data-item="append" href="">😆</a>
@@ -121,7 +122,6 @@
 						<a data-item="append" href="">😂</a>
 						<a data-item="append" href="">😉</a>
 						<a data-item="append" href="">😊</a>
-						<a data-item="append" href="">😇</a>
 						<a data-item="append" href="">😍</a>
 						<a data-item="append" href="">😐</a>
 						<a data-item="append" href="">😏</a>
@@ -135,17 +135,22 @@
 						<a data-item="append" href="">😱</a>
 						<a data-before="**" data-after="**" href="">**bold**</a>
 						<a data-before="*" data-after="*" href="">*italic*</a>
-						<a data-before="~~" data-after="~~" href="">~~strikethrough~~</a>
+						<a data-before="~~" data-after="~~" href="">~~strike~~</a>
 						<a data-before="&gt;!" data-after="!&lt;" href="">&gt;!spoiler!&lt;</a>
-						<a data-before="![](" data-after=")" href="">![](image_url)</a>
-						<a data-before="&gt;!![](" data-after=")!&lt;" href="">&gt;!![](spoiler_image)!&lt;</a>
-						<a id="buttonfindgif" href="">Toggle GIF Finder</a>
+						<a data-before="![](" data-after=")" href="">![](image)</a>
+						<a id="buttonfindgif" href="">Find a GIF</a>
 					</div>
 					<button id="sendcomment" class="button-success pure-button">Send</button>
 				</div>
 			</div>
 			<div style="clear:both;"></div>
 		</form>
+		<div id="previewcommentwrapper" style="display:none;">
+			<div class="CommentEntry">
+				<span class="CommentName">This is what your comment will look like</span>
+				<div class="CommentContent" id="previewcomment"></div>
+			</div>
+		</div>
 		<iframe id="framefindgif" src="/findgif" width="100%" height="300" type="text/html" frameborder="0" allowTransparency="true" style="border: 0;margin-top:5px;position:sticky;top:0px;left:0px;box-shadow:0px 0px 5px gray;scroll:hidden;display:none;"></iframe>
 
 	<div id="sentmessage"></div>
@@ -169,6 +174,7 @@
 		getindex();
 	} else {
 		getchapters();
+		getcomments();
 	} ;
 	
 </script>

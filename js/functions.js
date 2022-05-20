@@ -223,7 +223,6 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			document.getElementById("projectheader").innerHTML = proj.series;
 			document.getElementById("seriescontainer").innerHTML = projectdetail;
 			document.getElementById("commentscontainer").style.display = "block";
-			getcomments();
 			
 			$( document ).ready(function() {
 					var contentHeight = document.getElementById('container').clientHeight;
