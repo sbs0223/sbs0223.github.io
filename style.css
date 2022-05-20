@@ -59,6 +59,11 @@ body,html{
 	line-height:1.5em;
 }
 
+img{
+	width:100%;
+	height:auto;
+}
+
 a, a:link, a:active, a:visited{
 	text-decoration:none;cursor:default;
 	color:#523ba8;
@@ -485,6 +490,7 @@ img.latestimg {
 	transition: all 0.5s ease;
 	opacity: 0.5;
 	width:100%;
+	height:auto;
 	padding:0px;
 	margin:0px;
 	position:absolute;
@@ -654,12 +660,13 @@ div.CommentContent{
 	text-decoration:underline;
 	position:relative;
 }
-.CommentContent img{
+.CommentContent .userimg{
 	max-width: min(98%,350px);
 	max-height:300px;
+	height:auto;
 }
 .collapseComments{
-	max-height:200px;
+	max-height:120px;
 	overflow:hidden;
 }
 #framefindgif{

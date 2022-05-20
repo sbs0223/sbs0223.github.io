@@ -42,6 +42,7 @@
  <link rel="stylesheet" href="/form.css">
 	<script src="/js/functions.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -90,7 +91,6 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/sanitize-html/1.27.5/sanitize-html.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js"></script>
 		<script src='https://cdn.jsdelivr.net/gh/iMrDJAi/markdown-it-reddit-spoiler/dist/main.js'></script>
-		<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 
 	<div id="projectsnavwrapper"><div class="projectsnav">
 		<a href="?t=all">All</a> | <a href="?t=current">Current</a> | <a href="?t=complete">Complete</a> | <a href="?t=dropped">Dropped</a> | <a href="?t=licensed">Licensed</a>
@@ -149,7 +149,7 @@
 		
 		<div id="previewcommentwrapper" style="display:none;">
 			<div class="CommentEntry">
-				<span class="CommentName">This is what your comment will look like</span>
+				<span class="CommentName">COMMENT PREVIEW</span>
 				<div class="CommentContent" id="previewcomment"></div>
 			</div>
 		</div>
@@ -162,7 +162,7 @@
 </div>
 
 <script>
-
+	
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	const seriesinput = urlParams.get('n');

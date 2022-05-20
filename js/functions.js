@@ -24,7 +24,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 
 					latest += "<div class=\"latestentrywrap\">";
 					latest += "<a href=\"projects?n=" + obj.projectname + "\">";
-					latest += "<img src=\"" + obj.projectsmallthumb + "\" class=\"latestimg\"><span class=\"chapter\">";
+					latest += "<img src=\"" + obj.projectsmallthumb + "\" class=\"latestimg\" width=\"300\" height=\"300\" loading=\"lazy\"><span class=\"chapter\">";
 					latest += obj.series + "</span>";
 					latest += "<span class=\"date\">" + chtime + "<span></a></div>";
 			}
@@ -133,7 +133,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 						if ( obj.projectstatus == "current" || obj.projectstatus == "complete" ) {  // show current & complete if default projects page
 							seriesindex += "<div class=\"projectwrap\">";
 							seriesindex += "<a href=\"?n=" + obj.projectname + "\">";
-							seriesindex += "<img src=\"" + obj.projectthumb + "\" class=\"projectthumb\">";
+							seriesindex += "<img src=\"" + obj.projectthumb + "\" class=\"projectthumb\" width=\"300\" height=\"196\" loading=\"lazy\">";
 							seriesindex += "<h1>" + "<span class=\"" + adult + "\">" + obj.series + "</h1></a>";
 							seriesindex += "</div>";
 							changedheader = "Current & Complete";
@@ -143,7 +143,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 					if (type == "all") {
 						seriesindex += "<div class=\"projectwrap\">";
 						seriesindex += "<a href=\"?n=" + obj.projectname + "\">";
-						seriesindex += "<img src=\"" + obj.projectthumb + "\" class=\"projectthumb\">";
+						seriesindex += "<img data-src=\"" + obj.projectthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"196\" loading=\"lazy\">";
 						seriesindex += "<h1>" + "<span class=\"" + adult + "\">" + obj.series + "</h1></a>";
 						seriesindex += "</div>";
 						changedheader = "All Projects";
@@ -151,7 +151,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 						if ( obj.projectstatus == type ) {
 							seriesindex += "<div class=\"projectwrap\">";
 							seriesindex += "<a href=\"?n=" + obj.projectname + "\">";
-							seriesindex += "<img src=\"" + obj.projectthumb + "\" class=\"projectthumb\">";
+							seriesindex += "<img data-src=\"" + obj.projectthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"196\" loading=\"lazy\">";
 							seriesindex += "<h1>" + "<span class=\"" + adult + "\">" + obj.series + "</h1></a>";
 							seriesindex += "</div>";
 							changedheader = type;
@@ -160,6 +160,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			}
 			document.getElementById("seriescontainer").innerHTML = seriesindex;
 			document.getElementById("projectheader").innerHTML = changedheader;
+			lazyload();
 		});	
 	}
 	
@@ -177,19 +178,19 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			document.title = proj.series + " | Projects | Sunshine Butterfly";
 			
 			if (proj.projectrating == "Y") {
-				var adult = "<img src=\"/images/assets/adult.png\" class=\"smallicons\">";
-			} else { var adult = "<img src=\"/images/assets/15r.png\" class=\"smallicons\">";};
+				var adult = "<img src=\"/images/assets/adult.png\" class=\"smallicons\" width=\"15\" height=\"15\">";
+			} else { var adult = "<img src=\"/images/assets/15r.png\" class=\"smallicons\" width=\"15\" height=\"15\">";};
 			var descrjs = proj.projectdesc;
 			var description = descrjs.replace(/\n/g,"<br>");
 			
 			projectdetail += "<div class=\"projecttopwrap\" align=center>";
-			projectdetail += "<div class=\"projectpagecover\"><img src=\"" + proj.projectthumb + "\"></div>";
+			projectdetail += "<div class=\"projectpagecover\"><img src=\"" + proj.projectthumb + "\" width=\"800\" height=\"450\"></div>";
 			projectdetail += "<div class=\"projectpageinfo\"><div id=\"container\">";
-			projectdetail += "<span>" + adult + "</i> <a href=\"" + proj.projectmu + "\"><img src=\"/images/assets/muicon.svg\" class=\"smallicons\"></a> ";
+			projectdetail += "<span>" + adult + "</i> <a href=\"" + proj.projectmu + "\"><img src=\"/images/assets/muicon.svg\" class=\"smallicons\" width=\"15\" height=\"15\"></a> ";
 			if (proj.projectstatus == "licensed") {
-				projectdetail += "<a href=\"" + proj.projecturl + "\"><img src=\"/images/assets/licensed.png\" class=\"smallicons\"></a>";
+				projectdetail += "<a href=\"" + proj.projecturl + "\"><img src=\"/images/assets/licensed.png\" class=\"smallicons\" width=\"15\" height=\"15\"></a>";
 			} else {
-				projectdetail += "<a href=\"" + proj.projecturl + "\"><img src=\"/images/assets/cubari.png\" class=\"smallicons\"></a> <a href=\"/read?series=" + proj.projectname + "\"><img src=\"/images/android-chrome-192x192.png\" class=\"smallicons\"></a>";
+				projectdetail += "<a href=\"" + proj.projecturl + "\"><img src=\"/images/assets/cubari.png\" class=\"smallicons\" width=\"15\" height=\"15\"></a> <a href=\"/read?series=" + proj.projectname + "\"><img src=\"/images/android-chrome-192x192.png\" class=\"smallicons\" width=\"15\" height=\"15\"></a>";
 			}
 			projectdetail += "</span>";
 			projectdetail += description + "";
@@ -210,7 +211,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			
 					projectdetail += "<div class=\"projectwrap\">";
 					projectdetail += "<a href=\"/read?series=" + obj.projectname + "&num=" + obj.num + "\">";
-					projectdetail += "<img src=\"" + obj.chthumb + "\" class=\"projectthumb\">";
+					projectdetail += "<img data-src=\"" + obj.chthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"196\" loading=\"lazy\">";
 					projectdetail += "<h1>" + "<span class=\"" + dateclass + "\">" + chtime + "</span>" + obj.chname + "</h1></a>";
 					projectdetail += "</div>";
 				}
@@ -223,6 +224,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			document.getElementById("projectheader").innerHTML = proj.series;
 			document.getElementById("seriescontainer").innerHTML = projectdetail;
 			document.getElementById("commentscontainer").style.display = "block";
+			lazyload();
 			
 			$( document ).ready(function() {
 					var contentHeight = document.getElementById('container').clientHeight;
@@ -270,14 +272,15 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			
 						projectdetail += "<div class=\"projectwrap\">";
 						projectdetail += "<a href=\"/read?series=" + obj.projectname + "&num=" + obj.num + "\">";
-						projectdetail += "<img src=\"" + obj.chthumb + "\" class=\"projectthumb\">";
-						projectdetail += "<h1>" + "<span class=\"" + dateclass + "\">" + chtime + "&nbsp;&nbsp;&nbsp;";
+						projectdetail += "<img data-src=\"" + obj.chthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"196\" loading=\"lazy\">";
+						projectdetail += "<h1><span class=\"" + dateclass + "\">" + chtime + "&nbsp;&nbsp;&nbsp;";
 						projectdetail += obj.chname + "</span></a><br>";
 						projectdetail += "<span class=\"" + adult + "\"><a href=\"/projects?n=" + obj.projectname + "\">" + obj.series + "</a></span></h1>";
 						projectdetail += "</div>";
 				}
 	
 				document.getElementById("seriescontainer").innerHTML = projectdetail;
+				lazyload();
 			})
 			
 		}
