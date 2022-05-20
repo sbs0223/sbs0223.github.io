@@ -662,6 +662,17 @@ div.CommentContent{
 	max-height:200px;
 	overflow:hidden;
 }
+#framefindgif{
+	z-index:2;
+	border: 0;
+	margin-top:5px;
+	position:sticky;
+	top:0px;
+	left:0px;
+	box-shadow:0px 0px 5px gray;
+	scroll:hidden;
+	display:none;
+}
 .expandbar{
 	position:absolute;
 	bottom:0;
