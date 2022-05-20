@@ -178,7 +178,7 @@ function getcomments(){
 					allowedTags: [],
 					allowedAttributes: {}
 				});
-				const CleanComment = md.renderInline(obj.Comment);
+				const CleanComment = md.renderInline(obj.Comment).replace(/<img src/g,"<img width=\"300\" height=\"196\" class=\"userimg lazyload\" data-src");
 
 				entry += "<div class=\"CommentEntry\">";
 				entry += "<span class=\"CommentName\">" + CleanName + "</span>";
@@ -189,6 +189,7 @@ function getcomments(){
 				entry += "</div>";
 				$("#displaycomments").append(entry);
 				collapsecomments(i);
+				lazyload();
 		}
 		
 		$("#displaycomments").append("</div>");		
@@ -196,19 +197,19 @@ function getcomments(){
 	})	
 }
 function collapsecomments(a){
-	$("#comment"+a).imagesLoaded( function() {
 		var commentdiv = $("#comment"+a);
 		var expandbar = "<div id=\"bar"+a+"\" class=\"expandbar\" onclick=\"expand("+a+")\">Show more</div>";
 	  var fullheight = commentdiv.prop('scrollHeight');
-		if (fullheight > 200) {
+		if (fullheight > 120) {
 			commentdiv.addClass("collapseComments").append(expandbar);
 		};
-	});
 }
 function expand(x){
 	$("#comment"+x).removeClass("collapseComments");
 	$("#bar"+x).hide();
 }
+
+// end display of comments
 
 
 // click to append for comment
@@ -300,14 +301,5 @@ $(document).ready(function(){
 // preview comments
 
 $("textarea#Comment").bind('input', function() {
-    $("div#previewcomment").html(md.renderInline($(this).val()));
+    $("div#previewcomment").html(md.renderInline($(this).val()).replace(/<img/g,"<img width=\"300\" height=\"196\" class=\"userimg\""));
 });
-
-/*const collapsecomments = async () => {
-  const result = await getcomments()
-	$(".CommentContent").each(function(i, obj) {
-		var expandbar = "<div class=\"expandbar\">Show more</div>";
-	  var fullheight = $(this).prop('scrollHeight');
-		obj.prepend(fullheight);
-	});	
-}*/
