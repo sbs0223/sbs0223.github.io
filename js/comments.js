@@ -334,14 +334,19 @@ $(document).ready(function(){
 // toggle more emojis
 function showMoreEmo() {
 	event.preventDefault(); 
-	var emoDiv = $('#moreEmo');
-	if(emoDiv.is(":visible")) {
-		emoDiv[0].style.display="none";
-		$('#aMoreEmo').html('&raquo;');
-	}	else {
-		emoDiv[0].style.display="inline-block";
+	var emoSpan = $('#spanMoreEmo');
+	if(emoSpan.is(":visible")) {
+		$('.moreEmo').each(function(i, obj) {
+			emoSpan[0].style.display="none";
+			$(obj).css("display","none");
+			$('#aMoreEmo').html('&raquo;');
+		})
+	} else 
+	$('.moreEmo').each(function(i, obj) {
+		emoSpan[0].style.display="inline";
+		$(obj).css("display","inline-block");
 		$('#aMoreEmo').html('&laquo;');
-	}
+	})
 }
 
 // preview comments

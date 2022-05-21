@@ -696,9 +696,13 @@ a .emoji img.userimg{
 	width:16px;
 	height:16px;
 }
-#moreEmo{
+#spanMoreEmo{
 	display:none;
 }
+a.moreEmo, a.moreEmo:link{
+	display:none;
+}
+
 #framefindgif{
 	z-index:2;
 	border: 0;
