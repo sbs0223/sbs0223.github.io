@@ -639,6 +639,7 @@ div.CommentContent{
 	max-width:100%;
 	white-space: pre-wrap;
 	position:relative;
+	line-height: 1.3em;
 }
 .CommentContent b, .CommentContent strong{
 	color:#000;
@@ -667,8 +668,36 @@ div.CommentContent{
 	height:auto;
 }
 .collapseComments{
-	max-height:300px;
+	max-height:310px;
 	overflow:hidden;
+}
+span.emoji{
+	position:relative;
+	display:inline-block;
+	width:22px;
+	height:22px;
+	vertical-align:middle;
+}
+.emoji img.userimg{
+	width:22px;
+	height:22px;
+	position:absolute;
+	top:0px;
+	left:0px;
+}
+a span.emoji{
+	position:relative;
+	display:inline-block;
+	width:16px;
+	height:16px;
+	vertical-align:middle;
+}
+a .emoji img.userimg{
+	width:16px;
+	height:16px;
+}
+#moreEmo{
+	display:none;
 }
 #framefindgif{
 	z-index:2;

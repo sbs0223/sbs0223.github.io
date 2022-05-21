@@ -4,8 +4,35 @@ checkn = getParamValue('n');
 checkseries = getParamValue('series');
 checknum = getParamValue('num');
 
-// initialize markdown-it
-var md = window.markdownit('zero').enable(['strikethrough','emphasis','image','normalize'],false).use(window.markdownitRedditSpoiler.spoiler);
+// initialize markdown-it & define custom emojis
+var md = window.markdownit('zero').enable(['strikethrough','emphasis','image','normalize'],false).use(window.markdownitRedditSpoiler.spoiler).use(window.markdownitEmoji,{
+  defs: {
+    bulbaowo: '<img src=\"https://cdn.discordapp.com/emojis/944377400119140352.png\">',
+		catsip: '<img src=\"https://emoji.discord.st/emojis/87c9f78d-2cda-4696-a64f-7c605445b85c.jpg\">',
+		catcute: '<img src=\"https://cdn.discordapp.com/emojis/944377400416960540.png\">',
+		cat_paws: '<img src=\"https://cdn.discordapp.com/emojis/944377400211410964.png\">',
+		aaaa: '<img src=\"https://cdn.discordapp.com/emojis/955833829237620756.png\">',
+		PandaLove: '<img src=\"https://cdn.discordapp.com/emojis/944377400861540403.png\">',
+		CatKnifeUwU: '<img src=\"https://cdn.discordapp.com/emojis/944377400408563732.png\">',
+		blobaww: '<img src=\"https://cdn.discordapp.com/emojis/944377399917830205.png\">',
+		angreydoggo: '<img src=\"https://cdn.discordapp.com/emojis/955833829078229044.png\">',
+		
+  },
+  shortcuts: {
+    bulbaowo: [ ':bulbaowo:', '|bulbaowo|' ],
+    catsip: [ ':catsip:', '|catsip|' ],
+    catcute: [ ':catcute:', '|catcute|' ],
+    cat_paws: [ ':cat_paws:', '|cat_paws|' ],
+    aaaa: [ ':aaaa:', '|aaaa|' ],
+    PandaLove: [ ':PandaLove:', '|PandaLove|' ],
+    CatKnifeUwU: [ ':CatKnifeUwU:', '|CatKnifeUwU|' ],
+    blobaww: [ ':blobaww:', '|blobaww|' ],
+    angreydoggo: [ ':angreydoggo:', '|angreydoggo|' ]
+  }
+});
+md.renderer.rules.emoji = function(token, idx) {
+  return '<span class="emoji emoji_' + token[idx].markup + '">'+token[idx].content+'</span>';
+};
 
 // sets series and chapter number (the num of the reader links) based on url parameters
 if(checkn){
@@ -200,7 +227,7 @@ function getcomments(){
 		$('.collapseComments').each(function(i, obj) {
 			$(obj).imagesLoaded( function() {
 				var height = $(obj).prop('scrollHeight');
-				if (height <= 300) {
+				if (height <= 310) {
 					$(obj).children(".expandbar").hide();
 				}
 			})
@@ -222,7 +249,7 @@ var items = document.querySelectorAll('[data-item]');
 			event.preventDefault(); 
 			var curPos = $("#Comment")[0].selectionStart;
 			let x = $("#Comment").val();
-			let insertmarkdown = item.innerHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+			let insertmarkdown = item.getAttribute("data-item").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 	    $("#Comment").val(
 				x.slice(0, curPos) + insertmarkdown + x.slice(curPos)).trigger('input');
     });
@@ -301,6 +328,19 @@ $(document).ready(function(){
     $("#previewcommentwrapper").slideToggle();
   });
 });
+
+// toggle more emojis
+function showMoreEmo() {
+	event.preventDefault(); 
+	var emoDiv = $('#moreEmo');
+	if(emoDiv.is(":visible")) {
+		emoDiv[0].style.display="none";
+		$('#aMoreEmo').html('&raquo;');
+	}	else {
+		emoDiv[0].style.display="inline-block";
+		$('#aMoreEmo').html('&laquo;');
+	}
+}
 
 // preview comments
 
