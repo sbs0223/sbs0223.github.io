@@ -1,8 +1,11 @@
 // do some checks for the URL params - this isn't useful right now since we are only allowing project page comments, but I'm keeping it here in case in the future we won't need to embed the reader.
 
-checkn = getParamValue('n');
-checkseries = getParamValue('series');
-checknum = getParamValue('num');
+var checkn = getParamValue('n');
+var checkseries = getParamValue('series');
+var checknum = getParamValue('num');
+var series = ""
+var chnum = ""
+var commentHeightLimit = "320";
 
 // initialize markdown-it & define custom emojis
 var md = window.markdownit('zero').enable(['strikethrough','emphasis','image','normalize'],false).use(window.markdownitRedditSpoiler.spoiler).use(window.markdownitEmoji,{
@@ -15,8 +18,7 @@ var md = window.markdownit('zero').enable(['strikethrough','emphasis','image','n
 		PandaLove: '<img src=\"https://cdn.discordapp.com/emojis/944377400861540403.png\">',
 		CatKnifeUwU: '<img src=\"https://cdn.discordapp.com/emojis/944377400408563732.png\">',
 		blobaww: '<img src=\"https://cdn.discordapp.com/emojis/944377399917830205.png\">',
-		angreydoggo: '<img src=\"https://cdn.discordapp.com/emojis/955833829078229044.png\">',
-		
+		angreydoggo: '<img src=\"https://cdn.discordapp.com/emojis/955833829078229044.png\">'
   },
   shortcuts: {
     bulbaowo: [ ':bulbaowo:', '|bulbaowo|' ],
@@ -227,7 +229,7 @@ function getcomments(){
 		$('.collapseComments').each(function(i, obj) {
 			$(obj).imagesLoaded( function() {
 				var height = $(obj).prop('scrollHeight');
-				if (height <= 310) {
+				if (height <= commentHeightLimit) {
 					$(obj).children(".expandbar").hide();
 				}
 			})
