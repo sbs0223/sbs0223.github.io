@@ -619,7 +619,7 @@ img.latestimg:hover{
 	background-color:#fff;
 	border:1px solid #d4c6dc;
 	margin:10px 0px 0px 0px;
-	padding:5px;
+	padding:7px;
 	border-radius: 4px;
 	font-size:11pt;
 }
@@ -634,7 +634,7 @@ span.CommentName{
 }
 div.CommentContent{
 	margin:0px;
-	padding:0px 5px;
+	padding:0px;
 	word-wrap: break-word;
 	max-width:100%;
 	white-space: pre-wrap;
@@ -661,12 +661,13 @@ div.CommentContent{
 	position:relative;
 }
 .CommentContent .userimg{
-	max-width: min(98%,350px);
-	max-height:300px;
+	max-width: 100%;
+	max-height: 300px;
+	width:auto;
 	height:auto;
 }
 .collapseComments{
-	max-height:120px;
+	max-height:300px;
 	overflow:hidden;
 }
 #framefindgif{
@@ -677,7 +678,6 @@ div.CommentContent{
 	top:0px;
 	left:0px;
 	box-shadow:0px 0px 5px gray;
-	scroll:hidden;
 	display:none;
 }
 .expandbar{
@@ -689,24 +689,36 @@ div.CommentContent{
 	background-color:#fff;
 	border-top:2px dotted #d1d1d1;
 	margin:0px;
-	color:#6b6b6b;
-	font-family:"Bebas Neue", sans-serif;
-	font-size:12pt;
+	color:#d1d1d1;
 	text-align:center;
 	z-index:2;
+	opacity:0.95;
+}
+
+.downarrow{
+  transform:rotate(90deg);
+  width: 20px;
+  height: 20px;
+  display: block;
+	margin:auto;
+	font-family:"Montserrat", sans-serif;
+	font-size:16pt;
+	cursor:default;
+}
+.expandbar:hover{
+	background-color:#fff88f;
 }
 
 .md-spoiler {
 	display:inline-block;
   background: #d5d5d5;
-  border-radius: 2px;
+  border-radius: 3px;
   padding: 0px 0px;
 }
  
 .md-spoiler>* {
   z-index: -1;
   opacity: 0;
-  position: relative;
 }
  
 .md-unhidenspoiler>* {

@@ -41,7 +41,7 @@
  <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/grids-responsive-min.css">
  <link rel="stylesheet" href="/form.css">
 	<script src="/js/functions.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
 
 
@@ -91,6 +91,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/sanitize-html/1.27.5/sanitize-html.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js"></script>
 		<script src='https://cdn.jsdelivr.net/gh/iMrDJAi/markdown-it-reddit-spoiler/dist/main.js'></script>
+		<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 
 	<div id="projectsnavwrapper"><div class="projectsnav">
 		<a href="?t=all">All</a> | <a href="?t=current">Current</a> | <a href="?t=complete">Complete</a> | <a href="?t=dropped">Dropped</a> | <a href="?t=licensed">Licensed</a>
@@ -145,6 +146,8 @@
 			<div style="clear:both;"></div>
 		</form>
 		
+		<div id="sentmessage"></div>
+		
 		<iframe id="framefindgif" src="/findgif" width="100%" height="300" type="text/html" frameborder="0" allowTransparency="true"></iframe>
 		
 		<div id="previewcommentwrapper" style="display:none;">
@@ -153,8 +156,6 @@
 				<div class="CommentContent" id="previewcomment"></div>
 			</div>
 		</div>
-
-	<div id="sentmessage"></div>
 
 	<div id="displaycomments"></div>
 
@@ -175,7 +176,6 @@
 		getindex();
 	} else {
 		getchapters();
-		getcomments();
 	} ;
 	
 </script>

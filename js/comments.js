@@ -178,31 +178,34 @@ function getcomments(){
 					allowedTags: [],
 					allowedAttributes: {}
 				});
-				const CleanComment = md.renderInline(obj.Comment).replace(/<img src/g,"<img width=\"300\" height=\"196\" class=\"userimg lazyload\" data-src");
+				const CleanComment = md.renderInline(obj.Comment).replace(/<img/g,"<img width=\"300\" height=\"196\" class=\"userimg\" loading=\"lazy\"");
 
 				entry += "<div class=\"CommentEntry\">";
 				entry += "<span class=\"CommentName\">" + CleanName + "</span>";
 				entry += "<span class=\"CommentInfo\">" + formatDate(d) + " | " + series + num + "</span>";
-				entry += "<div class=\"CommentContent\" id=\"comment" + i + "\">";
+				entry += "<div class=\"CommentContent collapseComments\" id=\"comment" + i + "\">";
 				entry += CleanComment;
+				entry += "<div id=\"bar"+i+"\" class=\"expandbar\" onclick=\"expand("+i+")\"><span class=\"downarrow\" id=\""+i+"\">&raquo;</span></div>";
 				entry += "</div>";
 				entry += "</div>";
 				$("#displaycomments").append(entry);
-				collapsecomments(i);
+				
 				lazyload();
 		}
 		
 		$("#displaycomments").append("</div>");		
 	
-	})	
-}
-function collapsecomments(a){
-		var commentdiv = $("#comment"+a);
-		var expandbar = "<div id=\"bar"+a+"\" class=\"expandbar\" onclick=\"expand("+a+")\">Show more</div>";
-	  var fullheight = commentdiv.prop('scrollHeight');
-		if (fullheight > 120) {
-			commentdiv.addClass("collapseComments").append(expandbar);
-		};
+	})
+	.then(function(){
+		$('.collapseComments').each(function(i, obj) {
+			$(obj).imagesLoaded( function() {
+				var height = $(obj).prop('scrollHeight');
+				if (height <= 300) {
+					$(obj).children(".expandbar").hide();
+				}
+			})
+		});
+	})
 }
 function expand(x){
 	$("#comment"+x).removeClass("collapseComments");
@@ -288,6 +291,7 @@ function textCounter(field,field2,maxlimit)
 
 // toggle gif iframe & comment preview
 $(document).ready(function(){
+	getcomments();
   $("#buttonfindgif").click(function(){
 		event.preventDefault(); 
     $("#framefindgif").slideToggle();
