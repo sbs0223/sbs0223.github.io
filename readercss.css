@@ -39,10 +39,6 @@
 		background-color:#624156;
 	}
 	
-	@media (pointer:coarse) {
-		body{height:130%;}
-	} 
-	
 	#menuframe{
 		z-index:1;
 		position:fixed;
@@ -55,12 +51,11 @@
 		border-left:1px solid #cdb7e6;
 	}
 	
-	a#menubtn2,a#menubtn2:link, a#returnbtn, a#returnbtn:link{
-		display:none;
+	a.toggleMenu, a.toggleMenu:link{
+		display:inline-block;
 		text-align:center;
  	 	border-radius: 0px;
 		font-family:'Bebas Neue';
-		background-color:#e8ddf5;
 		color:#393a65;
 		margin:0px;
 		padding:5px 5px 0px 5px;
@@ -71,20 +66,103 @@
 	  -webkit-box-sizing:border-box;
 	  -ms-box-sizing:border-box;
 	}
-	
-	a#menubtn2,a#menubtn2:link{
-		width: 100px;
+
+	a#menubtn2,a#menubtn2:link,a#menubtn3,a#menubtn3:link{
+		width: 55px;
+		background-color:#755798;
+		color:#fff;
 	}
-	a#returnbtn, a#returnbtn:link{
-		border-right:2px solid #cdb7e6;
-		width: calc(100% - 100px);
+	a#prevbtn, a#prevbtn:link, a#nextbtn, a#nextbtn:link{
+		width:30px;
+		background-color:#e8ddf5;
+	}
+	a#menubtn2:hover,a#menubtn2:focus,a#menubtn3:hover,a#menubtn3:focus{
+		cursor:default;
+		background-color:#f5c15b;
+		color:#000;
+	}
+	a#prevbtn:hover, a#prevbtn:focus, a#nextbtn:hover, a#nextbtn:focus{
+		cursor:default;
+		background-color:#f5c15b;
+		color:#000;
+	}
+	
+	
+	.disablemenu{
+		pointer-events:none;
+		color:#898989 !important;
+	}
+
+	.dropdownToggle{
+		display:block;
+		text-align:center;
+ 	 	border-radius: 0px;
+		font-family:'Bebas Neue';
+		color:#393a65;
+		margin:0px;
+		padding:7px 5px 0px 5px;
+		height:30px;
+		font-size:12pt;
+	  box-sizing:border-box;
+	  -moz-box-sizing:border-box;
+	  -webkit-box-sizing:border-box;
+	  -ms-box-sizing:border-box;
+		width:100%;
+	  white-space: nowrap;
+	  text-overflow: ellipsis;
+		overflow:hidden;
+	}
+	.menuDropdown{
+		display:inline-block;
+		width:calc(100% - 170px);
+		background-color:#fff;
+		border-bottom:2px dashed #cdb7e6;
     vertical-align:top;
 	  white-space: nowrap;
 	  text-overflow: ellipsis;
 		overflow:hidden;
 	}
+
+	#menuDropdownItems {
+		display: none;
+		position: absolute;
+		top: 100%;
+		background-color: #fff;
+		width:calc(100% - 170px);
+	}
 	
-	a#menubtn2:hover,a#menubtn2:active, a#returnbtn:hover, a#returnbtn:active{
-		cursor:default;
-		background-color:#fff000;
-	}	
+	ul.menuSelect{
+		margin:0px;
+		padding:0px;
+		max-height:50vh;
+		overflow-y:auto;
+		border-right:1px solid #cccccc;
+		border-left:1px solid #cccccc;
+		border-bottom:1px solid #cccccc;
+	}
+	
+	ul.menuSelect li {
+		text-align:left;
+		list-style-type: none;
+		padding:5px 2px 2px 5px;
+	}
+	a.DDMenuItem, a.DDMenuItem:link {
+		display:block;
+		color:#000;
+		text-decoration: none;
+		width:100%;
+		font-family: "Helvetica", sans-serif;
+		font-size:10pt;
+    vertical-align:top;
+	  white-space: nowrap;
+	  text-overflow: ellipsis;
+		overflow:hidden;
+	}
+	ul.menuSelect li:hover,ul.menuSelect li:focus{
+		background-color:#b9e3e6;
+	}
+	
+	
+	@media (pointer:coarse) {
+		body{height:130%;}
+	} 

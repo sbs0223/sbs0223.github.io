@@ -40,11 +40,13 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 // Start Get URL function for the reader
 	
 	function geturl() {
-	alasql.promise("SELECT distinct series, projectname, projectrating, projecturl FROM json('/json/chapters') where projectname = '" + series + "' and projecturl <> 0"
+	alasql.promise("SELECT distinct series, projectname, projectrating, projecturl, num FROM json('/json/chapters') where projectname = '" + series + "' and projecturl <> 0"
 	).then(function(results){
 		var embedurl = "";
 		var embedtitle = "";
 		proj = results[0];
+		
+		var maxCh = proj.num;
 			
 			try {
 				embedurl = proj.projecturl;
@@ -59,10 +61,27 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			} else {
 				embedurl = proj.projecturl + number;
 				embedtitle = proj.series + " | " + number;
-			};
+			};			
 			
-			var projectpagelink = "<a onclick=\"togglemenu()\" id=\"menubtn\">&laquo; Comments &nbsp;</a>";
-			projectpagelink += "<a href=\"/projects?n="+series+"\" id=\"returnbtn\" class=\"toggleMenu\">&laquo; " + proj.series + "</a><a onclick=\"togglemenu()\" id=\"menubtn2\">Hide &raquo;</a>"; // the 2nd set, will be hidden initially
+			var projectpagelink = "<a onclick=\"togglemenu("+maxCh+","+number+")\" id=\"menubtn\">&laquo; Menu &nbsp;</a>";
+			
+			projectpagelink += "<div id=\"menubar\" style=\"display:none\">";
+			projectpagelink += "<a href=\"/projects?n="+series+"\" class=\"toggleMenu\" id=\"menubtn3\">Project</a>";
+			projectpagelink += "<a href=\"/read?series="+series+"&num=" + (Number(number)-1) + "\" id=\"prevbtn\" class=\"toggleMenu\"> &laquo; </a>";
+
+			projectpagelink += "<div class=\"menuDropdown\"><a class=\"dropdownToggle\" href=\"\" onclick=\"toggleDD()\">"+number+" | "+ proj.series + "</a>";
+			projectpagelink += "<div id=\"menuDropdownItems\"><ul class=\"menuSelect\">";
+			
+			for(var i = 0; i < Number(maxCh); i++) {
+				projectpagelink += "<li><a href=\"/read?series=" + series + "&num=" + (i+1) + "\" class=\"DDMenuItem\">" + (i+1) + " | " + proj.series + "</a></li>";
+			}
+			
+			projectpagelink += "</ul></div></div>";			
+			
+			projectpagelink += "<a href=\"/read?series="+series+"&num=" + (Number(number)+1) + "\" id=\"nextbtn\" class=\"toggleMenu\"> &raquo; </a>";
+			projectpagelink += "<a onclick=\"togglemenu()\" id=\"menubtn2\" class=\"toggleMenu\">Hide &raquo;</a>";
+			projectpagelink += "</div>";
+			 // the 2nd set, will be hidden initially
 			var projectpagelink2 = "";
 			
 	    var receiveMessage = function (checklocal) {  // check if 3rd party localstorage works
@@ -350,20 +369,30 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 	}
 	
 	
-	function togglemenu() {
+	function togglemenu(max,num) {
 		var frame = $('#menuframe');
 		if(frame.is(":visible")) {
 			frame.hide();
 			$('#menubtn').show();
-			$('#menubtn2').hide();
-			$('#returnbtn').hide();
+			$('#menubar').hide();
 			$('#pageheader').css({ 'display':'inline-block', 'maxWidth':'auto', width:'auto' });
 		} else {
 			frame.show();
 			$('#menubtn').hide();
-			$('#menubtn2').css('display','inline-block');
-			$('#returnbtn').css('display','inline-block');
+			$('#menubar').show();
+			if( Number(num) === 1 ) {
+				$('#prevbtn').addClass('disablemenu')
+			}
+			if( Number(num) === Number(max) ) {
+				$('#nextbtn').addClass('disablemenu')
+			}
 			$('#pageheader').css({ 'display':'block', 'max-width':100+'%', width:800+'px' });
 		}
 		
+	}
+	
+	function toggleDD() {
+		event.preventDefault(); 
+		var DDmenu = $('#menuDropdownItems');
+		$('#menuDropdownItems').toggle();
 	}
