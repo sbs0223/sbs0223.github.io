@@ -13,4 +13,3 @@ if(navigator.cookieEnabled) {
 	window.alert('You must enable cookies to use the reader.');
 	window.location.href='/';
 }
-
