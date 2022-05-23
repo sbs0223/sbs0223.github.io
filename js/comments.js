@@ -49,6 +49,10 @@ if(checkn){
 
 if(checknum){
 	chnum = checknum;
+	if(chnum !== '0') {
+		$('#chapnumSpan').css('display','block');
+		$('input#Number').attr({'value':chnum});
+	}
 } else {
 	chnum = 0;
 }

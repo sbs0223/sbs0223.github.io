@@ -61,7 +61,9 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 				embedtitle = proj.series + " | " + number;
 			};
 			
-			var projectpagelink = "<a href=\"/projects?n=" + proj.projectname + "\"> Project Page &gt;</a>";
+			var projectpagelink = "<a onclick=\"togglemenu()\" id=\"menubtn\">&laquo; Comments &nbsp;</a>";
+			projectpagelink += "<a href=\"/projects?n="+series+"\" id=\"returnbtn\" class=\"toggleMenu\">&laquo; " + proj.series + "</a><a onclick=\"togglemenu()\" id=\"menubtn2\">Hide &raquo;</a>"; // the 2nd set, will be hidden initially
+			var projectpagelink2 = "";
 			
 	    var receiveMessage = function (checklocal) {  // check if 3rd party localstorage works
 				
@@ -72,6 +74,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 						document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\">";
 						document.getElementById("pageheader").innerHTML = projectpagelink;
 						document.title = embedtitle + " | Sunshine Butterfly";
+						$('#menuframe').attr('src','/comment?series='+series+'&num='+number+'&proj='+proj.series);
 					};																// END end embed
 				}   // end the showreader function def
 				
@@ -344,4 +347,23 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 	function DisplayImgAlert() {
 		$( "#AlertContainer" ).show();
 		$( ".imgurchecker" ).hide();
+	}
+	
+	
+	function togglemenu() {
+		var frame = $('#menuframe');
+		if(frame.is(":visible")) {
+			frame.hide();
+			$('#menubtn').show();
+			$('#menubtn2').hide();
+			$('#returnbtn').hide();
+			$('#pageheader').css({ 'display':'inline-block', 'maxWidth':'auto', width:'auto' });
+		} else {
+			frame.show();
+			$('#menubtn').hide();
+			$('#menubtn2').css('display','inline-block');
+			$('#returnbtn').css('display','inline-block');
+			$('#pageheader').css({ 'display':'block', 'max-width':100+'%', width:800+'px' });
+		}
+		
 	}

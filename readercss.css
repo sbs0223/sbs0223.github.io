@@ -12,17 +12,19 @@
 	
 	div#pageheader{
 		position:fixed;
-		top:0;
-		right:6px;
+		top:0px;
+		right:0px;
 		background:none;
 		padding:0px;
-		text-align:center;
+		text-align:right;
 		font-family:arial;
 		color:#ac9fab;
+		z-index:2;
 	}
 	
-	#pageheader a{
+	a#menubtn, a#menubtn:link{
 		display:inline-block;
+		margin-right:6px;
 		background-color:rgba(237, 218, 239, 0.5);
 		color:#000;
  	 	border-radius: 3px;
@@ -32,11 +34,57 @@
 		text-decoration:none;
 	}
 	
-	#pageheader a:hover{
+	a#menubtn:hover{
 		color:#ffde6c;
 		background-color:#624156;
 	}
 	
 	@media (pointer:coarse) {
 		body{height:130%;}
+	} 
+	
+	#menuframe{
+		z-index:1;
+		position:fixed;
+		top:0;
+		bottom:0;
+		right:0;
+		height:100%;
+		max-width:100%;
+		width:800px;
+		border-left:1px solid #cdb7e6;
 	}
+	
+	a#menubtn2,a#menubtn2:link, a#returnbtn, a#returnbtn:link{
+		display:none;
+		text-align:center;
+ 	 	border-radius: 0px;
+		font-family:'Bebas Neue';
+		background-color:#e8ddf5;
+		color:#393a65;
+		margin:0px;
+		padding:5px 5px 0px 5px;
+		height:30px;
+		font-size:13pt;
+	  box-sizing:border-box;
+	  -moz-box-sizing:border-box;
+	  -webkit-box-sizing:border-box;
+	  -ms-box-sizing:border-box;
+	}
+	
+	a#menubtn2,a#menubtn2:link{
+		width: 100px;
+	}
+	a#returnbtn, a#returnbtn:link{
+		border-right:2px solid #cdb7e6;
+		width: calc(100% - 100px);
+    vertical-align:top;
+	  white-space: nowrap;
+	  text-overflow: ellipsis;
+		overflow:hidden;
+	}
+	
+	a#menubtn2:hover,a#menubtn2:active, a#returnbtn:hover, a#returnbtn:active{
+		cursor:default;
+		background-color:#fff000;
+	}	
