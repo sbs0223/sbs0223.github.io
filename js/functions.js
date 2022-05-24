@@ -7,6 +7,7 @@ if (!Date.now) {
 }
 var curdate = Date.now();
 const latestperpage = 18;
+var togglenum = 0;
 
 
 /* Start Latest Updates section
@@ -66,19 +67,19 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			var projectpagelink = "<a onclick=\"togglemenu("+maxCh+","+number+")\" id=\"menubtn\">&laquo; Menu &nbsp;</a>";
 			
 			projectpagelink += "<div id=\"menubar\" style=\"display:none\">";
-			projectpagelink += "<a href=\"/projects?n="+series+"\" class=\"toggleMenu\" id=\"menubtn3\">Project</a>";
-			projectpagelink += "<a href=\"/read?series="+series+"&num=" + (Number(number)-1) + "\" id=\"prevbtn\" class=\"toggleMenu\"> &laquo; </a>";
+			projectpagelink += "<a href=\"/projects?n="+series+"\" class=\"toggleMenu\" id=\"menubtn3\">&laquo; " + proj.series + "</a>";
+			projectpagelink += "<a href=\"/read?series="+series+"&num=" + (Number(number)-1) + "\" id=\"prevbtn\" class=\"toggleMenu\">Prev</a>";
 
-			projectpagelink += "<div class=\"menuDropdown\"><a class=\"dropdownToggle\" href=\"\" onclick=\"toggleDD()\">"+number+" | "+ proj.series + "</a>";
+			projectpagelink += "<div class=\"menuDropdown\"><a class=\"dropdownToggle\" href=\"\" onclick=\"toggleDD()\"># "+number+"</a>";
 			projectpagelink += "<div id=\"menuDropdownItems\"><ul class=\"menuSelect\">";
 			
 			for(var i = 0; i < Number(maxCh); i++) {
-				projectpagelink += "<li><a href=\"/read?series=" + series + "&num=" + (i+1) + "\" class=\"DDMenuItem\">" + (i+1) + " | " + proj.series + "</a></li>";
+				projectpagelink += "<li><a href=\"/read?series=" + series + "&num=" + (i+1) + "\" class=\"DDMenuItem\">" + (i+1) + "</a></li>";
 			}
 			
 			projectpagelink += "</ul></div></div>";			
 			
-			projectpagelink += "<a href=\"/read?series="+series+"&num=" + (Number(number)+1) + "\" id=\"nextbtn\" class=\"toggleMenu\"> &raquo; </a>";
+			projectpagelink += "<a href=\"/read?series="+series+"&num=" + (Number(number)+1) + "\" id=\"nextbtn\" class=\"toggleMenu\">Next </a>";
 			projectpagelink += "<a onclick=\"togglemenu()\" id=\"menubtn2\" class=\"toggleMenu\">Hide &raquo;</a>";
 			projectpagelink += "</div>";
 			 // the 2nd set, will be hidden initially
@@ -378,6 +379,10 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			$('#pageheader').css({ 'display':'inline-block', 'maxWidth':'auto', width:'auto' });
 		} else {
 			frame.show();
+			if (togglenum === 0){
+				document.getElementById('menuframe').src += '';
+				togglenum = togglenum + 1;
+			};
 			$('#menubtn').hide();
 			$('#menubar').show();
 			if( Number(num) === 1 ) {
@@ -395,4 +400,4 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 		event.preventDefault(); 
 		var DDmenu = $('#menuDropdownItems');
 		$('#menuDropdownItems').toggle();
-	}
+	}	

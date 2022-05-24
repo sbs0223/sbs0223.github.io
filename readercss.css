@@ -40,7 +40,6 @@
 	}
 	
 	#menuframe{
-		z-index:1;
 		position:fixed;
 		top:0;
 		bottom:0;
@@ -65,23 +64,47 @@
 	  -moz-box-sizing:border-box;
 	  -webkit-box-sizing:border-box;
 	  -ms-box-sizing:border-box;
+    vertical-align:top;
 	}
 
-	a#menubtn2,a#menubtn2:link,a#menubtn3,a#menubtn3:link{
+	a#menubtn2,a#menubtn2:link{
+		/*  Hide menu button */
 		width: 55px;
 		background-color:#755798;
 		color:#fff;
 	}
+	a#menubtn3,a#menubtn3:link{
+		/*  project link */
+		width: calc(100% - 205px);
+		background-color:#755798;
+		color:#fff;
+	  white-space: nowrap;
+	  text-overflow: ellipsis;
+		overflow:hidden;
+	}
 	a#prevbtn, a#prevbtn:link, a#nextbtn, a#nextbtn:link{
-		width:30px;
+		/* the prev/next buttons */
+		width:45px;
 		background-color:#e8ddf5;
 	}
-	a#menubtn2:hover,a#menubtn2:focus,a#menubtn3:hover,a#menubtn3:focus{
-		cursor:default;
-		background-color:#f5c15b;
-		color:#000;
+	.menuDropdown{
+		display:inline-block;
+		width:60px;
+		background-color:#fff;
+		/*border-bottom:2px dashed #cdb7e6;*/
+    vertical-align:top;
+	  white-space: nowrap;
+	  text-overflow: ellipsis;
+		overflow:hidden;
 	}
-	a#prevbtn:hover, a#prevbtn:focus, a#nextbtn:hover, a#nextbtn:focus{
+	#menuDropdownItems {
+		display: none;
+		position: absolute;
+		top: 100%;
+		background-color: #fff;
+		width:60px;
+	}
+	a#menubtn2:hover,a#menubtn2:focus,a#menubtn3:hover,a#menubtn3:focus, a#prevbtn:hover, a#prevbtn:focus, a#nextbtn:hover, a#nextbtn:focus{
 		cursor:default;
 		background-color:#f5c15b;
 		color:#000;
@@ -112,39 +135,19 @@
 	  text-overflow: ellipsis;
 		overflow:hidden;
 	}
-	.menuDropdown{
-		display:inline-block;
-		width:calc(100% - 170px);
-		background-color:#fff;
-		border-bottom:2px dashed #cdb7e6;
-    vertical-align:top;
-	  white-space: nowrap;
-	  text-overflow: ellipsis;
-		overflow:hidden;
-	}
-
-	#menuDropdownItems {
-		display: none;
-		position: absolute;
-		top: 100%;
-		background-color: #fff;
-		width:calc(100% - 170px);
-	}
 	
 	ul.menuSelect{
 		margin:0px;
 		padding:0px;
 		max-height:50vh;
 		overflow-y:auto;
-		border-right:1px solid #cccccc;
-		border-left:1px solid #cccccc;
-		border-bottom:1px solid #cccccc;
+		border:1px solid #cccccc;
 	}
 	
 	ul.menuSelect li {
-		text-align:left;
+		text-align:center;
 		list-style-type: none;
-		padding:5px 2px 2px 5px;
+		padding:5px 0px 2px 0px;
 	}
 	a.DDMenuItem, a.DDMenuItem:link {
 		display:block;
@@ -161,7 +164,6 @@
 	ul.menuSelect li:hover,ul.menuSelect li:focus{
 		background-color:#b9e3e6;
 	}
-	
 	
 	@media (pointer:coarse) {
 		body{height:130%;}
