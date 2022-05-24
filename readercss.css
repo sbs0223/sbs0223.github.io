@@ -147,7 +147,7 @@
 	ul.menuSelect li {
 		text-align:center;
 		list-style-type: none;
-		padding:5px 0px 2px 0px;
+		padding:2px 0px 2px 0px;
 	}
 	a.DDMenuItem, a.DDMenuItem:link {
 		display:block;
