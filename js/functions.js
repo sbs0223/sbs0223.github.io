@@ -64,10 +64,10 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 				embedtitle = proj.series + " | " + number;
 			};			
 			
-			var projectpagelink = "<a onclick=\"togglemenu("+maxCh+","+number+")\" id=\"menubtn\">&laquo; Menu &nbsp;</a>";
+			var projectpagelink = "<a onclick=\"togglemenu("+maxCh+","+number+")\" id=\"menubtn\">&lt; Menu &nbsp;</a>";
 			
 			projectpagelink += "<div id=\"menubar\" style=\"display:none\">";
-			projectpagelink += "<a href=\"/projects?n="+series+"\" class=\"toggleMenu\" id=\"menubtn3\">&laquo; " + proj.series + "</a>";
+			projectpagelink += "<a href=\"/projects?n="+series+"\" class=\"toggleMenu\" id=\"menubtn3\">&lt; " + proj.series + "</a>";
 			projectpagelink += "<a href=\"/read?series="+series+"&num=" + (Number(number)-1) + "\" id=\"prevbtn\" class=\"toggleMenu\">Prev</a>";
 
 			projectpagelink += "<div class=\"menuDropdown\"><a class=\"dropdownToggle\" href=\"\" onclick=\"toggleDD()\"># "+number+"</a>";
@@ -80,7 +80,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			projectpagelink += "</ul></div></div>";			
 			
 			projectpagelink += "<a href=\"/read?series="+series+"&num=" + (Number(number)+1) + "\" id=\"nextbtn\" class=\"toggleMenu\">Next </a>";
-			projectpagelink += "<a onclick=\"togglemenu()\" id=\"menubtn2\" class=\"toggleMenu\">Hide &raquo;</a>";
+			projectpagelink += "<a onclick=\"togglemenu()\" id=\"menubtn2\" class=\"toggleMenu\">Hide &gt;</a>";
 			projectpagelink += "</div>";
 			 // the 2nd set, will be hidden initially
 			var projectpagelink2 = "";
@@ -91,7 +91,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 					if (checklocal.data === "N") {		// START check if need to redirect
 						window.location = embedurl;			// redirect
 					} else {													// embed if not redirect
-						document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\">";
+						document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\" id=\"embedreader\">";
 						document.getElementById("pageheader").innerHTML = projectpagelink;
 						document.title = embedtitle + " | Sunshine Butterfly";
 						$('#menuframe').attr('src','/comment?series='+series+'&num='+number+'&proj='+proj.series);
@@ -374,11 +374,17 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 		var frame = $('#menuframe');
 		if(frame.is(":visible")) {
 			frame.hide();
+			if(window.innerWidth > 1020) {
+				$('#embedreader').css('width','100%');
+			}
 			$('#menubtn').show();
 			$('#menubar').hide();
 			$('#pageheader').css({ 'display':'inline-block', 'maxWidth':'auto', width:'auto' });
 		} else {
 			frame.show();
+			if(window.innerWidth > 1020) {
+				$('#embedreader').css('width','calc(100% - 700px)');
+			}
 			if (togglenum === 0){
 				document.getElementById('menuframe').src += '';
 				togglenum = togglenum + 1;
@@ -391,7 +397,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			if( Number(num) === Number(max) ) {
 				$('#nextbtn').addClass('disablemenu')
 			}
-			$('#pageheader').css({ 'display':'block', 'max-width':100+'%', width:800+'px' });
+			$('#pageheader').css({ 'display':'block', 'max-width':100+'%', width:700+'px' });
 		}
 		
 	}
