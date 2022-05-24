@@ -24,13 +24,13 @@
 	
 	a#menubtn, a#menubtn:link{
 		display:inline-block;
-		margin-right:6px;
+		margin-right:0px;
 		background-color:rgba(237, 218, 239, 0.5);
 		color:#000;
  	 	border-radius: 3px;
 		font-family:'Bebas Neue';
-		padding:5px;
-		font-size:13pt;
+		padding:5px 10px;
+		font-size:15pt;
 		text-decoration:none;
 	}
 	
@@ -46,7 +46,7 @@
 		right:0;
 		height:100%;
 		max-width:100%;
-		width:800px;
+		width:700px;
 		border-left:1px solid #cdb7e6;
 	}
 	
@@ -57,9 +57,9 @@
 		font-family:'Bebas Neue';
 		color:#393a65;
 		margin:0px;
-		padding:5px 5px 0px 5px;
+		padding:3px 3px 0px 3px;
 		height:30px;
-		font-size:13pt;
+		font-size:15pt;
 	  box-sizing:border-box;
 	  -moz-box-sizing:border-box;
 	  -webkit-box-sizing:border-box;
@@ -123,9 +123,9 @@
 		font-family:'Bebas Neue';
 		color:#393a65;
 		margin:0px;
-		padding:7px 5px 0px 5px;
+		padding:3px 0px 0px 0px;
 		height:30px;
-		font-size:12pt;
+		font-size:15pt;
 	  box-sizing:border-box;
 	  -moz-box-sizing:border-box;
 	  -webkit-box-sizing:border-box;
@@ -155,7 +155,7 @@
 		text-decoration: none;
 		width:100%;
 		font-family: "Helvetica", sans-serif;
-		font-size:10pt;
+		font-size:13pt;
     vertical-align:top;
 	  white-space: nowrap;
 	  text-overflow: ellipsis;
@@ -168,3 +168,13 @@
 	@media (pointer:coarse) {
 		body{height:130%;}
 	} 
+	
+	@media screen and (max-width: 400px){
+		a#menubtn, a#menubtn:link, a.toggleMenu, a.toggleMenu:link, .dropdownToggle{
+			font-size:13.5pt;
+			padding-top:4px;
+		}
+		a.DDMenuItem, a.DDMenuItem:link{
+			font-size:11pt
+		}
+	}
