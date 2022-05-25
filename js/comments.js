@@ -282,11 +282,15 @@ var items = document.querySelectorAll('[data-before]');
 });
 // click to add GIF tags
 window.addEventListener('message', function (gifurl) {
+  if (gifurl.data.source === 'findgif') {
 		var curPos = $("#Comment")[0].selectionStart;
 		let x = $("#Comment").val();
     $("#Comment").val(
-			x.slice(0, curPos) + "![](" + gifurl.data + ")" + x.slice(curPos)).trigger('input'); 
+			x.slice(0, curPos) + "![](" + gifurl.data.url + ")" + x.slice(curPos)).trigger('input'); 
 		$("#framefindgif").slideToggle();
+  } else{
+		return;
+	}
 });
 
 

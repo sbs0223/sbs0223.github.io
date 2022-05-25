@@ -126,7 +126,7 @@
       }
 			
 			function copyURL(a) {
-				window.parent.postMessage(a, '*');
+				window.parent.postMessage(message = {"source": "findgif","url": a}, '*');
 			}
 			
     </script>
