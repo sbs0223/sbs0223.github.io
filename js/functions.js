@@ -73,8 +73,13 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			projectpagelink += "<div class=\"menuDropdown\"><a class=\"dropdownToggle\" href=\"\" onclick=\"toggleDD()\"># "+number+"</a>";
 			projectpagelink += "<div id=\"menuDropdownItems\"><ul class=\"menuSelect\">";
 			
+			
 			for(var i = 0; i < Number(maxCh); i++) {
-				projectpagelink += "<li><a href=\"/read?series=" + series + "&num=" + (i+1) + "\" class=\"DDMenuItem\">" + (i+1) + "</a></li>";
+				var DDMenuItemClass = "";
+				if (i === (Number(number)-1)) {
+					DDMenuItemClass = " class=\"DDMenuItemSelected\"";
+				};
+				projectpagelink += "<li" + DDMenuItemClass + "><a href=\"/read?series=" + series + "&num=" + (i+1) + "\" class=\"DDMenuItem\">" + (i+1) + "</a></li>";
 			}
 			
 			projectpagelink += "</ul></div></div>";			
@@ -405,5 +410,9 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 	function toggleDD() {
 		event.preventDefault(); 
 		var DDmenu = $('#menuDropdownItems');
+    var selected = $('.DDMenuItemSelected');
 		$('#menuDropdownItems').toggle();
+		$(function(){
+			selected.parent().scrollTop(selected[0].offsetTop);
+		});
 	}	
