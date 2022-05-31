@@ -964,6 +964,9 @@ div.commentinfo{
 ::placeholder{
 	color:var(--lighter-text-color);
 }
+:-moz-loading, :-moz-broken {
+    visibility: hidden;
+}
 
 
 #scroll-btn {       
