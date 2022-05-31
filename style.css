@@ -966,8 +966,8 @@ div.commentinfo{
 ::placeholder{
 	color:var(--lighter-text-color);
 }
-:-moz-loading, :-moz-broken {
-    visibility: hidden;
+img:-moz-loading, img:-moz-broken {
+  opacity:0;
 }
 
 
