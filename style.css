@@ -21,6 +21,7 @@
 	--accent-hover-color: #fff88f;
 	--accent-color: #47568f;
 	--lighter-text-color:#ac9fab;
+	--spoiler-color:#d5d5d5;
 }
 
 [data-theme="dark"] {
@@ -46,6 +47,7 @@
 	--accent-hover-color: #9e3a72;
 	--accent-color: #6178cf;
 	--lighter-text-color:#675f66;
+	--spoiler-color:#3b393f;
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -810,7 +812,7 @@ a.moreEmo, a.moreEmo:link{
 
 .md-spoiler {
 	display:inline-block;
-  background: #d5d5d5;
+  background: var(--spoiler-color);
   border-radius: 3px;
   padding: 0px 0px;
 }
