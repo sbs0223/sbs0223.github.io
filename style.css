@@ -961,6 +961,9 @@ div.commentinfo{
   d: var(--toggle-mode-button-one);
 	transition: d 1s;
 }
+::placeholder{
+	color:var(--lighter-text-color);
+}
 
 
 #scroll-btn {       
