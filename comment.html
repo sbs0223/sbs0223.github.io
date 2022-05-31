@@ -10,10 +10,8 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sedgwick+Ave">
 	<link href="https://fonts.googleapis.com/css2?family=Carme&family=Encode+Sans+Semi+Condensed:wght@500&family=Roboto&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 	<link rel="stylesheet" href="/style.css"> 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
- <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/grids-responsive-min.css">
  <link rel="stylesheet" href="/form.css">
 	<script src="/js/functions.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -25,6 +23,15 @@
 	<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-emoji/2.0.2/markdown-it-emoji-bare.js" integrity="sha512-gywgvKaHrPIAXxOND4AuX3scYeg/ssXWEpdoqD9V/sPDRN4BTRSZcy5XrYXaqMb8uq8WY7Brcj7zKFl3THivLA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<base target="_parent">
+	<script>
+	if(localStorage.getItem("data-theme")){
+		document.documentElement.setAttribute("data-theme",localStorage.getItem("data-theme"));
+	}  else {
+		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		  document.documentElement.setAttribute('data-theme', 'dark');
+		}
+	}
+</script>
 </head>
 <div style="display:flex;min-height:100%;flex-direction:column;">
 	<div style="height:27px;"></div>
@@ -72,7 +79,7 @@
 						<div id="moreEmo"> -->
 							<span id="spanMoreEmo"></span>
 							<a data-item=":bulbaowo:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400119140352.png" width="16" height="16"></span></a>
-							<a data-item=":catsip:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://emoji.discord.st/emojis/87c9f78d-2cda-4696-a64f-7c605445b85c.jpg" width="16" height="16"></span></a>
+							<a data-item=":catsip:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400853135431.png" width="16" height="16"></span></a>
 							<a data-item=":catcute:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400416960540.png" width="16" height="16"></span></a>
 							<a data-item=":cat_paws:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400211410964.png" width="16" height="16"></span></a>
 							<a data-item=":aaaa:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/955833829237620756.png" width="16" height="16"></span></a>
@@ -115,8 +122,23 @@
 	<a href="/">wings.sbs</a>┊<a href="/faq">FAQ</a>┊<a href="https://blog.wings.sbs/ask">Contact</a>┊<a href="https://sbutterfly.tumblr.com" target="_blank">Blog</a>┊<a href="https://mangadex.org/group/544ab266-f676-4f59-a928-0af8af0dc0c5/sunshine-butterfly-scans" target="_blank">MangaDex</a>
 	<br>
 	<a href="/privacy">Privacy Policy</a>┊All content are property of their original creators and publishers
-
 </div>
+
+<script>
+	function toggleTheme(r) {//this function is executed when switching from the current theme to the other
+		const dataTheme = document.documentElement.getAttribute("data-theme");
+		let theme_switch;
+		if(dataTheme === "light" || dataTheme == null) {theme_switch = 1} else {theme_switch = 0}
+		if(r){theme_switch = !theme_switch}//so the oppisite of the theme stored is used when calling this function 
+		if (theme_switch) {
+			document.documentElement.setAttribute('data-theme', 'dark');
+			localStorage.setItem('data-theme', 'dark');
+		} else {
+			document.documentElement.setAttribute('data-theme', 'light');
+			localStorage.setItem('data-theme', 'light');
+		}
+	}
+</script>
 
 </html>
 </div>

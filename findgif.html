@@ -24,16 +24,6 @@
 			.lineitup:first-child, input[type="text"] {
 			  width: 100%;
 			}
-      .input {
-				width:100%;
-        padding: 5px;
-        margin: 0px;
-        font-size: 16px;
-        color: blueviolet;
-        font-weight: 300;
-        border: 0px;
-				box-sizing: border-box;
-      }
       button {
         padding: 5px 5px;
         margin: 0px;
@@ -63,6 +53,15 @@
 				padding-top:40px;
 			}
     </style>
+		<script>
+	if(localStorage.getItem("data-theme")){
+		document.documentElement.setAttribute("data-theme",localStorage.getItem("data-theme"));
+	}  else {
+		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		  document.documentElement.setAttribute('data-theme', 'dark');
+		}
+	}
+</script>
   </head>
   <body>
     <div class="gifcontainer">
