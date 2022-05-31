@@ -11,7 +11,7 @@ var commentHeightLimit = "320";
 var md = window.markdownit('zero').enable(['strikethrough','emphasis','image','normalize'],false).use(window.markdownitRedditSpoiler.spoiler).use(window.markdownitEmoji,{
   defs: {
     bulbaowo: '<img src=\"https://cdn.discordapp.com/emojis/944377400119140352.png\">',
-		catsip: '<img src=\"https://emoji.discord.st/emojis/87c9f78d-2cda-4696-a64f-7c605445b85c.jpg\">',
+		catsip: '<img src=\"https://cdn.discordapp.com/emojis/944377400853135431.png\">',
 		catcute: '<img src=\"https://cdn.discordapp.com/emojis/944377400416960540.png\">',
 		cat_paws: '<img src=\"https://cdn.discordapp.com/emojis/944377400211410964.png\">',
 		aaaa: '<img src=\"https://cdn.discordapp.com/emojis/955833829237620756.png\">',

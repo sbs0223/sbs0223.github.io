@@ -1,3 +1,136 @@
+:root{
+	--rformsendmsg-color:#885bdc;
+	--pure-input-bg:#fff;
+	--pure-input-border:1px solid #ccc;
+	--pure-input-color:#000;
+	--pure-box-shadow:inset 0 1px 3px #ddd;
+	--checkbox-text-color:#2f3499;
+	--checkmark-bg-color: #fff;
+	--checkmark-border:1px solid #c8c8c8;
+}
+[data-theme="dark"] {
+	--rformsendmsg-color:#8375a6;
+	--pure-input-bg:#19181e;
+	--pure-input-border:1px solid #33323b;
+	--pure-input-color:#cac6d2;
+	--pure-box-shadow:none;
+	--checkbox-text-color:#f29fbd;
+	--checkmark-bg-color:#19181e;
+	--checkmark-border:1px solid #33323b;
+}
+
+
+/* START PURECSS */
+.pure-form .pure-group input:last-child, .pure-form .pure-group textarea:last-child {
+  top: -2px;
+  border-radius: 0 0 4px 4px;
+  margin: 0;
+}
+.pure-form .pure-group input, .pure-form .pure-group textarea {
+  display: block;
+  padding: 10px;
+  margin: 0 0 -1px;
+  border-radius: 0;
+  position: relative;
+  top: -1px;
+	color:var(--pure-input-color);
+	background-color:var(--pure-input-bg);
+}
+.pure-form-stacked input[type="color"], .pure-form-stacked input[type="date"], .pure-form-stacked input[type="datetime-local"], .pure-form-stacked input[type="datetime"], .pure-form-stacked input[type="email"], .pure-form-stacked input[type="file"], .pure-form-stacked input[type="month"], .pure-form-stacked input[type="number"], .pure-form-stacked input[type="password"], .pure-form-stacked input[type="search"], .pure-form-stacked input[type="tel"], .pure-form-stacked input[type="text"], .pure-form-stacked input[type="time"], .pure-form-stacked input[type="url"], .pure-form-stacked input[type="week"], .pure-form-stacked label, .pure-form-stacked select, .pure-form-stacked textarea {
+  display: block;
+  margin: .25em 0;
+}
+.pure-form select {
+  height: 2.25em;
+  border: var(--pure-input-border);
+  background-color: var(--pure-input-bg);
+	color:var(--pure-input-color);
+	 background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHBvbHlnb24gY2xhc3M9ImNscy0yIiBwb2ludHM9IjEuNDEgNC42NyAyLjQ4IDMuMTggMy41NCA0LjY3IDEuNDEgNC42NyIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIzLjU0IDUuMzMgMi40OCA2LjgyIDEuNDEgNS4zMyAzLjU0IDUuMzMiLz48L3N2Zz4=) no-repeat 95% 50%;
+		-moz-appearance: none; 
+		-webkit-appearance: none; 
+		appearance: none;
+}
+.pure-form fieldset {
+  margin: 0;
+  padding: .35em 0 .75em;
+  border: 0;
+}
+.pure-form input[type="color"], .pure-form input[type="date"], .pure-form input[type="datetime-local"], .pure-form input[type="datetime"], .pure-form input[type="email"], .pure-form input[type="month"], .pure-form input[type="number"], .pure-form input[type="password"], .pure-form input[type="search"], .pure-form input[type="tel"], .pure-form input[type="text"], .pure-form input[type="time"], .pure-form input[type="url"], .pure-form input[type="week"], .pure-form select, .pure-form textarea {
+  padding: .5em .6em;
+  display: inline-block;
+  border: var(--pure-input-border);
+  -webkit-box-shadow: var(--pure-box-shadow);
+  box-shadow: var(--pure-box-shadow);
+  border-radius: 4px;
+  vertical-align: middle;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+	color:var(--pure-input-color);
+	background-color:var(--pure-input-bg);
+}
+.pure-form-stacked input:not([type]) {
+  display: block;
+  margin: .25em 0;
+	color:var(--pure-input-color);
+	background-color:var(--pure-input-bg);
+}
+.pure-form input:not([type]) {
+  padding: .5em .6em;
+  display: inline-block;
+  border: var(--pure-input-border);
+  -webkit-box-shadow: var(--pure-box-shadow);
+  box-shadow: var(--pure-box-shadow);
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+[type="button"], [type="reset"], [type="submit"], button {
+  -webkit-appearance: button;
+}
+button, input {
+  overflow: visible;
+}
+button, select {
+  text-transform: none;
+}
+button, input, optgroup, select, textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+input:focus, textarea:focus, select:focus {
+	outline:1px solid #c579b6;
+}
+.pure-button {
+  font-family: inherit;
+  font-size: 100%;
+  padding: .5em 1em;
+  color: rgba(0,0,0,.8);
+  border: none transparent;
+  background-color: #e6e6e6;
+  text-decoration: none;
+  border-radius: 2px;
+}
+.pure-button {
+  display: inline-block;
+  line-height: normal;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* END PURECSS */
+
+
 		 aside {
 		     background: #1f8dd6; /* same color as selected state on site menu */
 		     padding: 0.3em 1em;
@@ -26,7 +159,7 @@
 		 .button-xlarge {
 		   font-size: 125%;
 		 }
-		 button {
+		 button.pure-button {
 		   float: right;
 		 }
 		 input {
@@ -47,7 +180,7 @@
 		   margin-bottom: 12px;
 		   cursor: pointer;
 		   font-size: 10pt;
-			 color:#2f3499;
+			 color:var(--checkbox-text-color);
 		   -webkit-user-select: none;
 		   -moz-user-select: none;
 		   -ms-user-select: none;
@@ -71,13 +204,16 @@
 			 margin-left:15px;
 		   height: 20px;
 		   width: 20px;
-		   background-color: #fff;
-			 border:1px solid #c8c8c8;
+		   background-color: var(--checkmark-bg-color);
+			 border:var(--checkmark-border);
 		 }
 
 		 /* On mouse-over, add a grey background color */
 		 .checkboxcontainer:hover input ~ .checkmark {
 		   background-color: #ccc;
+		 }
+		 .checkboxcontainer:hover{
+			 cursor:default;
 		 }
 
 		 /* When the checkbox is checked, add a blue background */
@@ -108,4 +244,14 @@
 		   -webkit-transform: rotate(45deg);
 		   -ms-transform: rotate(45deg);
 		   transform: rotate(45deg);
+		 }
+		 
+		 .rformsendmsg{
+			 	float:right;
+				font-size:8pt;
+				line-height:1em;
+				color:var(--rformsendmsg-color);
+				max-width:450px;
+				text-align:right;
+				margin-right:10px;
 		 }
