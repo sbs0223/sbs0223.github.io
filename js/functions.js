@@ -48,6 +48,8 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 		proj = results[0];
 		
 		var maxCh = proj.num;
+		var ls_ind = "Y";    // use the wings reader by default
+		var eventcount = 1;
 			
 			try {
 				embedurl = proj.projecturl;
@@ -92,50 +94,75 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			
 	    var receiveMessage = function (checklocal) {  // check if 3rd party localstorage works
 				
-				function showreader() {    // start defining the actual function that grabs the reader
-					if (checklocal.data === "N") {		// START check if need to redirect
-						window.location = embedurl;			// redirect
-					} else {													// embed if not redirect
-						document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\" id=\"embedreader\">";
-						document.getElementById("pageheader").innerHTML = projectpagelink;
-						document.title = embedtitle + " | Sunshine Butterfly";
-						$('#menuframe').attr('src','/comment?series='+series+'&num='+number+'&proj='+proj.series);
-					};																// END end embed
-				}   // end the showreader function def
+				if(eventcount === 1) {
+					
+					eventcount += 1;
+					
+					try{ 
+						ls_ind = checklocal.data;
+						console.log('localstorage indicator received: ' + ls_ind);
+					} catch(err) {
+						ls_ind += "";
+						console.log('message not received, default localstorage indicator used: ' + ls_ind);
+					}
 				
-				if ( proj.projectrating === "Y" ) {  // if 18+ series
-					try {
-						if (!sessionStorage.returning) {  // if a session cookie isn't already stored
-							Swal.fire({  // do adult verification
-								title: '18+ Content',
-								icon: 'error',
-								text: 'You will be asked to re-verify your age every time you open a new browser tab.',
-								showCancelButton: true,
-								confirmButtonColor: '#3ca53c',
-								cancelButtonColor: '#d33',
-								confirmButtonText: 'I am 18+'
-							}).then((result) => {
-								if (result.isConfirmed) { 				  // if verified
-									sessionStorage.returning = true; 	// set cookie
-									showreader()
-								} else { 														// if not verified then go back to project page
-									window.location = "/projects?n=" + proj.projectname;
-								}
-							});  																	// end result handling
-						} else { 																// if there's already a cookie
-							showreader()
-						};
-					}
-					catch(err) {
-						document.getElementById("reader").innerHTML = "Please report the following error message to us: " + err.message;
-					}
-				} else { 																		// if it's all ages just show reader
-					showreader()
-				};				
+					function showreader() {    // start defining the actual function that grabs the reader
+						if (ls_ind === "N") {		// START check if need to redirect
+							window.location = embedurl;			// redirect
+						} else {													// embed if not redirect
+							embedreader();
+						};																// END end embed
+					}   // end the showreader function def
+				
+					if ( proj.projectrating === "Y" ) {  // if 18+ series
+						try {
+							if (!sessionStorage.returning) {  // if a session cookie isn't already stored
+								Swal.fire({  // do adult verification
+									title: '18+ Content',
+									icon: 'error',
+									text: 'You will be asked to re-verify your age every time you open a new browser tab.',
+									showCancelButton: true,
+									confirmButtonColor: '#3ca53c',
+									cancelButtonColor: '#d33',
+									confirmButtonText: 'I am 18+'
+								}).then((result) => {
+									if (result.isConfirmed) { 				  // if verified
+										sessionStorage.returning = true; 	// set cookie
+										showreader()
+									} else { 														// if not verified then go back to project page
+										window.location = "/projects?n=" + proj.projectname;
+									}
+								});  																	// end result handling
+							} else { 																// if there's already a cookie
+								showreader()
+							};
+						}
+						catch(err) {
+							document.getElementById("reader").innerHTML = "Please report the following error message to us: " + err.message;
+						}
+					} else { 																		// if it's all ages just show reader
+						showreader()
+					};		
+					
+				}; // end if function for eventcount		
 
 	    };  // end the checklocal function
-
-	    window.addEventListener("message", receiveMessage, false);
+	    window.addEventListener('message', function (lscheck) {
+				console.log(lscheck.data); // used for testing on mobile - remove after
+				if (lscheck.data === "Y" || lscheck.data === "N"){
+					receiveMessage(lscheck);
+				};
+			});
+			//window.addEventListener("message", receiveMessage, false);
+			
+			setTimeout(receiveMessage, 2000); // force process after 2 secs
+			
+			function embedreader() {
+				document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\" id=\"embedreader\">";
+				document.getElementById("pageheader").innerHTML = projectpagelink;
+				document.title = embedtitle + " | Sunshine Butterfly";
+				$('#menuframe').attr('src','/comment?series='+series+'&num='+number+'&proj='+proj.series);
+			}
 			
 		});
 	};
