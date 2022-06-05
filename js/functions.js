@@ -226,7 +226,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 // Ordering by chapter number in descending order, so only the record with highest chapter number of each series holds certain project data in the data file to save space
 
 	function getchapters() {
-		alasql.promise("SELECT series, projectname, projectdesc, projectmu, projecturl, projectrating, projectthumb, projectstatus, timestamp, num, chname, chthumb FROM json('/json/chapters') where projectname = '" + series + "' order by num desc"
+		alasql.promise("SELECT series, projectname, projectdesc, projectauthor, projectartist, projectmu, projecturl, projectrating, projectthumb, projectstatus, timestamp, num, chname, chthumb FROM json('/json/chapters') where projectname = '" + series + "' order by num desc"
 		).then(function(results){
 			var projectdetail = "";
 			var proj = results[0];
@@ -235,7 +235,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			if (proj.projectrating == "Y") {
 				var adult = "<img src=\"/images/assets/adult.png\" class=\"smallicons\" width=\"15\" height=\"15\">";
 			} else { var adult = "<img src=\"/images/assets/15r.png\" class=\"smallicons\" width=\"15\" height=\"15\">";};
-			var descrjs = proj.projectdesc;
+			var descrjs = "<i>Author: " + proj.projectauthor + " | Artist: " + proj.projectartist + "</i>\n" + proj.projectdesc;
 			var description = descrjs.replace(/\n/g,"<br>");
 			
 			projectdetail += "<div class=\"projecttopwrap\" align=center>";
@@ -284,7 +284,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			$( document ).ready(function() {
 					var contentHeight = document.getElementById('container').clientHeight;
 					var descriptionbutton = document.getElementById('read-more');
-					if ( contentHeight >= 100 ) {
+					if ( contentHeight >= 120 ) {
 						descriptionbutton.style.display = "block";
 						document.getElementById('container').innerHTML += "<div class=\"addpadding\"></div>";
 				    $('.read-more').click(function(){
