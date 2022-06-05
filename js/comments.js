@@ -84,6 +84,9 @@ if(checknum){
     });
 
     var formData = {};
+		formData['Timestamp'] = Date.now();
+		formData['Series'] = series;
+		
     fields.forEach(function(name){
       var element = elements[name];
     
@@ -102,11 +105,6 @@ if(checknum){
         formData[name] = data.join(', ');
       }
     });
-
-
-		formData['Timestamp'] = Date.now();
-		formData['Series'] = series;
-		formData['Number'] = chnum;
 		
     // add form-specific values into the data
     formData.formDataNameOrder = JSON.stringify(fields);
