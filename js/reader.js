@@ -13,3 +13,12 @@ if(navigator.cookieEnabled) {
 	window.alert('You must enable cookies to use the reader.');
 	window.location.href='/';
 }
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+	window.addEventListener("load",function() {
+	    setTimeout(function(){
+	        window.scrollTo(0, 1);
+	    }, 0);
+	});
+}
+
+
