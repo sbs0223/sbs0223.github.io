@@ -175,9 +175,9 @@
 		cursor:default;
 	}
 	
-	@media (pointer:coarse) {
+	/*@media (pointer:coarse) {
 		body{height:130%;}
-	} 
+	} */
 	
 	@media screen and (max-width: 400px){
 		a#menubtn, a#menubtn:link, a.toggleMenu, a.toggleMenu:link, .dropdownToggle{
