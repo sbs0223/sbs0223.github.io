@@ -188,7 +188,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 						if ( obj.projectstatus == "current" || obj.projectstatus == "complete" ) {  // show current & complete if default projects page
 							seriesindex += "<div class=\"projectwrap\">";
 							seriesindex += "<a href=\"?n=" + obj.projectname + "\">";
-							seriesindex += "<img src=\"" + obj.projectthumb + "\" class=\"projectthumb\" width=\"300\" height=\"196\" loading=\"lazy\">";
+							seriesindex += "<img src=\"" + obj.projectthumb + "\" class=\"projectthumb\" width=\"300\" height=\"169\" loading=\"lazy\">";
 							seriesindex += "<h1>" + "<span class=\"" + adult + "\">" + obj.series + "</h1></a>";
 							seriesindex += "</div>";
 							changedheader = "Current & Complete";
@@ -198,7 +198,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 					if (type == "all") {
 						seriesindex += "<div class=\"projectwrap\">";
 						seriesindex += "<a href=\"?n=" + obj.projectname + "\">";
-						seriesindex += "<img data-src=\"" + obj.projectthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"196\" loading=\"lazy\">";
+						seriesindex += "<img data-src=\"" + obj.projectthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"169\" loading=\"lazy\">";
 						seriesindex += "<h1>" + "<span class=\"" + adult + "\">" + obj.series + "</h1></a>";
 						seriesindex += "</div>";
 						changedheader = "All Projects";
@@ -206,7 +206,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 						if ( obj.projectstatus == type ) {
 							seriesindex += "<div class=\"projectwrap\">";
 							seriesindex += "<a href=\"?n=" + obj.projectname + "\">";
-							seriesindex += "<img data-src=\"" + obj.projectthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"196\" loading=\"lazy\">";
+							seriesindex += "<img data-src=\"" + obj.projectthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"169\" loading=\"lazy\">";
 							seriesindex += "<h1>" + "<span class=\"" + adult + "\">" + obj.series + "</h1></a>";
 							seriesindex += "</div>";
 							changedheader = type;
@@ -266,7 +266,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			
 					projectdetail += "<div class=\"projectwrap\">";
 					projectdetail += "<a href=\"/read?series=" + obj.projectname + "&num=" + obj.num + "\">";
-					projectdetail += "<img data-src=\"" + obj.chthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"196\" loading=\"lazy\">";
+					projectdetail += "<img data-src=\"" + obj.chthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"169\" loading=\"lazy\">";
 					projectdetail += "<h1>" + "<span class=\"" + dateclass + "\">" + chtime + "</span>" + obj.chname + "</h1></a>";
 					projectdetail += "</div>";
 				}
@@ -327,7 +327,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			
 						projectdetail += "<div class=\"projectwrap\">";
 						projectdetail += "<a href=\"/read?series=" + obj.projectname + "&num=" + obj.num + "\">";
-						projectdetail += "<img data-src=\"" + obj.chthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"196\" loading=\"lazy\">";
+						projectdetail += "<img data-src=\"" + obj.chthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"169\" loading=\"lazy\">";
 						projectdetail += "<h1><span class=\"" + dateclass + "\">" + chtime + "&nbsp;&nbsp;&nbsp;";
 						projectdetail += obj.chname + "</span></a><br>";
 						projectdetail += "<span class=\"" + adult + "\"><a href=\"/projects?n=" + obj.projectname + "\">" + obj.series + "</a></span></h1>";
