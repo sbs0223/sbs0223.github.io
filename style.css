@@ -258,7 +258,7 @@ div.latestcontent{
 }
 */
 
-div.contentcontainer{
+div.contentcontainer, div.contentcontainerprojects{
 	min-height:100px;
 	position:relative;
 	left:50%;
@@ -1025,4 +1025,15 @@ img:-moz-loading, img:-moz-broken {
 	}
 	div.container{
 		min-height:30%;
+	}
+	div.contentcontainerprojects{
+		width:100%;
+		padding:0px;
+	}
+	.contentcontainerprojects h1#projectheader,.contentcontainerprojects h2{
+		padding:0px 5px;
+	}
+	.contentcontainerprojects#commentscontainer,.contentcontainerprojects div.projectsnav{
+		padding:10px 5px;
+	}
 }	

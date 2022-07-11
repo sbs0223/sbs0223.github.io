@@ -282,6 +282,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			lazyload();
 			
 			$( document ).ready(function() {
+					window.scrollTo(window.scrollX, $("#projectheader").offset().top-10);
 					var contentHeight = document.getElementById('container').clientHeight;
 					var descriptionbutton = document.getElementById('read-more');
 					if ( contentHeight >= 120 ) {
