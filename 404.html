@@ -54,6 +54,7 @@
 </script>
 <script data-goatcounter="https://wingssbs.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
+<script src="https://swetrix.org/swetrix.js" defer></script>
 
 <script>
 	if(localStorage.getItem("data-theme")){
@@ -66,7 +67,7 @@
 </script>
 
 </head>
-
+<body>
 <div id="AlertContainer">
 	<div id="imguralert">
 		Uh oh, your ISP seems to be blocking our reader. If the reader images come up broken, please use a VPN.
@@ -136,4 +137,30 @@ That page doesn't exist.
 	}
 </script>
 
+<!-- Put this at the end of the <body> tag -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialising the script with the Project ID
+    // you can find in the dashboard
+    swetrix.init('eSXEVmwQXZ52')
+
+    // Tracking page views
+    swetrix.trackViews()
+  })
+</script>
+
+<noscript>
+  <!--
+  Don't forget to change YOUR_PROJECT_ID in the link to your Project ID
+  -->
+  <img
+    src="https://api.swetrix.com/log/noscript?pid=eSXEVmwQXZ52"
+    alt=""
+    referrerpolicy="no-referrer-when-downgrade"
+  />
+</noscript>
+
+
+
+</body>
 </html>

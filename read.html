@@ -52,10 +52,11 @@
 </script>
 <script data-goatcounter="https://wingssbs.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
+<script src="https://swetrix.org/swetrix.js" defer></script>
 
 
 </head>
-
+<body>
 <!-- call required library and reader.js -->
 <script src="https://cdn.jsdelivr.net/npm/alasql@1.7"></script>
 <script src="/js/reader.js"></script>
@@ -80,3 +81,30 @@
 	</div>
 	<iframe src="https://coffeebreakprojects.github.io/projects/check.html" style="display:none" />
 </div>
+
+
+<!-- Put this at the end of the <body> tag -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialising the script with the Project ID
+    // you can find in the dashboard
+    swetrix.init('eSXEVmwQXZ52')
+
+    // Tracking page views
+    swetrix.trackViews()
+  })
+</script>
+
+<noscript>
+  <!--
+  Don't forget to change YOUR_PROJECT_ID in the link to your Project ID
+  -->
+  <img
+    src="https://api.swetrix.com/log/noscript?pid=eSXEVmwQXZ52"
+    alt=""
+    referrerpolicy="no-referrer-when-downgrade"
+  />
+</noscript>
+
+</body>
+</html>
