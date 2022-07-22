@@ -38,137 +38,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 	
 	
 
-// Start Get URL function for the reader
-	
-	function geturl() {
-	alasql.promise("SELECT distinct series, projectname, projectrating, projecturl, num FROM json('/json/chapters') where projectname = '" + series + "' and projecturl <> 0"
-	).then(function(results){
-		var embedurl = "";
-		var embedtitle = "";
-		proj = results[0];
-		
-		var maxCh = proj.num;
-		var ls_ind = "Y";    // use the wings reader by default
-		var eventcount = 1;
-			
-			try {
-				embedurl = proj.projecturl;
-			}
-			catch(err) {				
-				window.location.replace("/404");   // send wrong series names to 404
-			}
-			
-			if ( number === "" || number === "null" ) {
-				embedurl = proj.projecturl;
-				embedtitle = proj.series;
-			} else {
-				embedurl = proj.projecturl + number;
-				embedtitle = proj.series + " | " + number;
-			};			
-			
-			var projectpagelink = "<a onclick=\"togglemenu("+maxCh+","+number+")\" id=\"menubtn\">&lt; Menu &nbsp;</a>";
-			
-			projectpagelink += "<div id=\"menubar\" style=\"display:none\">";
-			projectpagelink += "<a href=\"/projects?n="+series+"\" class=\"toggleMenu\" id=\"menubtn3\">&lt; " + proj.series + "</a>";
-			projectpagelink += "<a href=\"/read?series="+series+"&num=" + (Number(number)-1) + "\" id=\"prevbtn\" class=\"toggleMenu\">Prev</a>";
 
-			projectpagelink += "<div class=\"menuDropdown\"><a class=\"dropdownToggle\" href=\"\" onclick=\"toggleDD()\"># "+number+"</a>";
-			projectpagelink += "<div id=\"menuDropdownItems\"><ul class=\"menuSelect\">";
-			
-			
-			for(var i = 0; i < Number(maxCh); i++) {
-				var DDMenuItemClass = "";
-				if (i === (Number(number)-1)) {
-					DDMenuItemClass = " class=\"DDMenuItemSelected\"";
-				};
-				projectpagelink += "<li" + DDMenuItemClass + "><a href=\"/read?series=" + series + "&num=" + (i+1) + "\" class=\"DDMenuItem\">" + (i+1) + "</a></li>";
-			}
-			
-			projectpagelink += "</ul></div></div>";			
-			
-			projectpagelink += "<a href=\"/read?series="+series+"&num=" + (Number(number)+1) + "\" id=\"nextbtn\" class=\"toggleMenu\">Next </a>";
-			projectpagelink += "<a onclick=\"togglemenu()\" id=\"menubtn2\" class=\"toggleMenu\">Hide &gt;</a>";
-			projectpagelink += "</div>";
-			 // the 2nd set, will be hidden initially
-			var projectpagelink2 = "";
-			
-	    var receiveMessage = function (checklocal) {  // check if 3rd party localstorage works
-				
-				if(eventcount === 1) {
-					
-					eventcount += 1;
-					
-					try{ 
-						ls_ind = checklocal.data;
-						console.log('localstorage indicator received: ' + ls_ind);
-					} catch(err) {
-						ls_ind += "";
-						console.log('message not received, default localstorage indicator used: ' + ls_ind);
-					}
-				
-					function showreader() {    // start defining the actual function that grabs the reader
-						if (ls_ind === "N") {		// START check if need to redirect
-							window.location = embedurl;			// redirect
-						} else {													// embed if not redirect
-							embedreader();
-						};																// END end embed
-					}   // end the showreader function def
-				
-					if ( proj.projectrating === "Y" ) {  // if 18+ series
-						try {
-							if (!sessionStorage.returning) {  // if a session cookie isn't already stored
-								Swal.fire({  // do adult verification
-									title: '18+ Content',
-									icon: 'error',
-									text: 'You will be asked to re-verify your age every time you open a new browser tab.',
-									showCancelButton: true,
-									confirmButtonColor: '#3ca53c',
-									cancelButtonColor: '#d33',
-									confirmButtonText: 'I am 18+'
-								}).then((result) => {
-									if (result.isConfirmed) { 				  // if verified
-										sessionStorage.returning = true; 	// set cookie
-										showreader()
-									} else { 														// if not verified then go back to project page
-										window.location = "/projects?n=" + proj.projectname;
-									}
-								});  																	// end result handling
-							} else { 																// if there's already a cookie
-								showreader()
-							};
-						}
-						catch(err) {
-							document.getElementById("reader").innerHTML = "Please report the following error message to us: " + err.message;
-						}
-					} else { 																		// if it's all ages just show reader
-						showreader()
-					};		
-					
-				}; // end if function for eventcount		
-
-	    };  // end the checklocal function
-	    window.addEventListener('message', function (lscheck) {
-				console.log(lscheck.data); // used for testing on mobile - remove after
-				if (lscheck.data === "Y" || lscheck.data === "N"){
-					receiveMessage(lscheck);
-				};
-			});
-			//window.addEventListener("message", receiveMessage, false);
-			
-			setTimeout(receiveMessage, 2000); // force process after 2 secs
-			
-			function embedreader() {
-				document.getElementById("reader").innerHTML = "<embed type=\"text/html\" src=\"" + embedurl + "\" width=\"100%\" height=\"100%\" id=\"embedreader\">";
-				document.getElementById("pageheader").innerHTML = projectpagelink;
-				document.title = embedtitle + " | Sunshine Butterfly";
-				$('#menuframe').attr('src','/comment?series='+series+'&num='+number+'&proj='+proj.series);
-			}
-			
-		});
-	};
-	
-	
-	
 	
 	
 // Start Get index function for project page
@@ -230,80 +100,84 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 		).then(function(results){
 			var projectdetail = "";
 			var proj = results[0];
-			document.title = proj.series + " | Projects | Sunshine Butterfly";
+			try {
+				document.title = proj.series + " | Projects | Sunshine Butterfly";
 			
-			if (proj.projectrating == "Y") {
-				var adult = "<img src=\"/images/assets/adult.png\" class=\"smallicons\" width=\"15\" height=\"15\">";
-			} else { var adult = "<img src=\"/images/assets/15r.png\" class=\"smallicons\" width=\"15\" height=\"15\">";};
-			var descrjs = "<i>Author: " + proj.projectauthor + " | Artist: " + proj.projectartist + "</i>\n" + proj.projectdesc;
-			var description = descrjs.replace(/\n/g,"<br>");
+				if (proj.projectrating == "Y") {
+					var adult = "<img src=\"/images/assets/adult.png\" class=\"smallicons\" width=\"15\" height=\"15\">";
+				} else { var adult = "<img src=\"/images/assets/15r.png\" class=\"smallicons\" width=\"15\" height=\"15\">";};
+				var descrjs = "<i>Author: " + proj.projectauthor + " | Artist: " + proj.projectartist + "</i>\n" + proj.projectdesc;
+				var description = descrjs.replace(/\n/g,"<br>");
 			
-			projectdetail += "<div class=\"projecttopwrap\" align=center>";
-			projectdetail += "<div class=\"projectpagecover\"><img src=\"" + proj.projectthumb + "\" width=\"800\" height=\"450\"></div>";
-			projectdetail += "<div class=\"projectpageinfo\"><div id=\"container\">";
-			projectdetail += "<span>" + adult + "</i> <a href=\"" + proj.projectmu + "\"><img src=\"/images/assets/muicon.svg\" class=\"smallicons\" width=\"15\" height=\"15\"></a> ";
-			if (proj.projectstatus == "licensed") {
-				projectdetail += "<a href=\"" + proj.projecturl + "\"><img src=\"/images/assets/licensed.png\" class=\"smallicons\" width=\"15\" height=\"15\"></a>";
-			} else {
-				projectdetail += "<a href=\"" + proj.projecturl + "\"><img src=\"/images/assets/cubari.png\" class=\"smallicons\" width=\"15\" height=\"15\"></a> <a href=\"/read?series=" + proj.projectname + "\"><img src=\"/images/android-chrome-192x192.png\" class=\"smallicons\" width=\"15\" height=\"15\"></a>";
-			}
-			projectdetail += "</span>";
-			projectdetail += description + "";
-			projectdetail += "<button id =\"read-more\" class=\"read-more\">Expand</button></div></div></div><div class=\"subcontentcontainer\"><h2>Chapters</h2>";
-			projectdetail += "<div class=\"projectouterwrap\" align=\"center\"><div class=\"parentproject\">";
-			
-			if (!(proj.projectstatus == "licensed")) {
-				for(var i = 0; i < results.length; i++) {
-					var obj = results[i];
-					var d = new Date(obj.timestamp*1000);
-					var chtime = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
-					
-					if( curdate - d < newdaysms + 1) {
-						var dateclass = "newupdate";
-					} else {
-						var dateclass = "normalupdate";
-					};
-			
-					projectdetail += "<div class=\"projectwrap\">";
-					projectdetail += "<a href=\"/read?series=" + obj.projectname + "&num=" + obj.num + "\">";
-					projectdetail += "<img data-src=\"" + obj.chthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"169\" loading=\"lazy\">";
-					projectdetail += "<h1>" + "<span class=\"" + dateclass + "\">" + chtime + "</span>" + obj.chname + "</h1></a>";
-					projectdetail += "</div>";
+				projectdetail += "<div class=\"projecttopwrap\" align=center>";
+				projectdetail += "<div class=\"projectpagecover\"><img src=\"" + proj.projectthumb + "\" width=\"800\" height=\"450\"></div>";
+				projectdetail += "<div class=\"projectpageinfo\"><div id=\"container\">";
+				projectdetail += "<span>" + adult + "</i> <a href=\"" + proj.projectmu + "\"><img src=\"/images/assets/muicon.svg\" class=\"smallicons\" width=\"15\" height=\"15\"></a> ";
+				if (proj.projectstatus == "licensed") {
+					projectdetail += "<a href=\"" + proj.projecturl + "\"><img src=\"/images/assets/licensed.png\" class=\"smallicons\" width=\"15\" height=\"15\"></a>";
+				} else {
+					projectdetail += "<a href=\"" + proj.projecturl + "\"><img src=\"/images/assets/cubari.png\" class=\"smallicons\" width=\"15\" height=\"15\"></a> <a href=\"/read?series=" + proj.projectname + "\"><img src=\"/images/android-chrome-192x192.png\" class=\"smallicons\" width=\"15\" height=\"15\"></a>";
 				}
-			} else {
-					projectdetail += "<center>Licensed. Please support the author by <a href=\"" + proj.projecturl + "\" target=\"_blank\">purchasing the official releases</a>!</center>";
-			};
-			projectdetail += "</div></div>";
-			projectdetail += ""; 
+				projectdetail += "</span>";
+				projectdetail += description + "";
+				projectdetail += "<button id =\"read-more\" class=\"read-more\">Expand</button></div></div></div><div class=\"subcontentcontainer\"><h2>Chapters</h2>";
+				projectdetail += "<div class=\"projectouterwrap\" align=\"center\"><div class=\"parentproject\">";
 			
-			document.getElementById("projectheader").innerHTML = proj.series;
-			document.getElementById("seriescontainer").innerHTML = projectdetail;
-			document.getElementById("commentscontainer").style.display = "block";
-			lazyload();
-			
-			$( document ).ready(function() {
-					window.scrollTo(window.scrollX, $("#projectheader").offset().top-10);
-					var contentHeight = document.getElementById('container').clientHeight;
-					var descriptionbutton = document.getElementById('read-more');
-					if ( contentHeight >= 120 ) {
-						descriptionbutton.style.display = "block";
-						document.getElementById('container').innerHTML += "<div class=\"addpadding\"></div>";
-				    $('.read-more').click(function(){
-				        $(this).parent().toggleClass('expanded');
-							  if (document.getElementById('read-more').innerHTML === "Expand") {
-							    document.getElementById('read-more').innerHTML = "Collapse";
-							  } else {
-							    document.getElementById('read-more').innerHTML = "Expand";
-							  }
-				    });
-					} else {
-						descriptionbutton.style.display = "none";
-					};
+				if (!(proj.projectstatus == "licensed")) {
+					for(var i = 0; i < results.length; i++) {
+						var obj = results[i];
+						var d = new Date(obj.timestamp*1000);
+						var chtime = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
 					
-			});
+						if( curdate - d < newdaysms + 1) {
+							var dateclass = "newupdate";
+						} else {
+							var dateclass = "normalupdate";
+						};
+			
+						projectdetail += "<div class=\"projectwrap\">";
+						projectdetail += "<a href=\"/read?series=" + obj.projectname + "&num=" + obj.num + "\">";
+						projectdetail += "<img data-src=\"" + obj.chthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"169\" loading=\"lazy\">";
+						projectdetail += "<h1>" + "<span class=\"" + dateclass + "\">" + chtime + "</span>" + obj.chname + "</h1></a>";
+						projectdetail += "</div>";
+					}
+				} else {
+						projectdetail += "<center>Licensed. Please support the author by <a href=\"" + proj.projecturl + "\" target=\"_blank\">purchasing the official releases</a>!</center>";
+				};
+				projectdetail += "</div></div>";
+				projectdetail += ""; 
+			
+				document.getElementById("projectheader").innerHTML = proj.series;
+				document.getElementById("seriescontainer").innerHTML = projectdetail;
+				document.getElementById("commentscontainer").style.display = "block";
+				lazyload();
+			
+				$( document ).ready(function() {
+						window.scrollTo(window.scrollX, $("#projectheader").offset().top-10);
+						var contentHeight = document.getElementById('container').clientHeight;
+						var descriptionbutton = document.getElementById('read-more');
+						if ( contentHeight >= 120 ) {
+							descriptionbutton.style.display = "block";
+							document.getElementById('container').innerHTML += "<div class=\"addpadding\"></div>";
+					    $('.read-more').click(function(){
+					        $(this).parent().toggleClass('expanded');
+								  if (document.getElementById('read-more').innerHTML === "Expand") {
+								    document.getElementById('read-more').innerHTML = "Collapse";
+								  } else {
+								    document.getElementById('read-more').innerHTML = "Expand";
+								  }
+					    });
+						} else {
+							descriptionbutton.style.display = "none";
+						};
+					
+				});
+			} catch(err) {
+				window.location.replace("/404");
+			}
 
-			});
-		}	
+		});
+	}	
 
 
 // Start updates page
