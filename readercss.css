@@ -54,7 +54,54 @@
 
 
 
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
 
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 
 
 
@@ -131,6 +178,9 @@
 		padding:0px;
 		text-align:right;
 		z-index:2;
+		display:flex;
+		flex-direction: column;
+		height:60px;
 	}
 
 	
@@ -177,7 +227,7 @@
 		font-family:'Bebas Neue';
 		color:var(--opposite-link-color);
 		margin:0px;
-		padding:3px 3px 0px 3px;
+		padding:0px 0px 0px 3px;
 		height:30px;
 		font-size:15pt;
 	  	box-sizing:border-box;
@@ -210,6 +260,11 @@
 		font-size:30px;
 		height:30px;
 	}
+	#prevbtn > span, #nextbtn > span{
+		position:relative;
+		bottom:2px;
+		
+	}
 	.menuDropdown{
 		display:inline-block;
 		width:100px;
@@ -234,14 +289,7 @@
 		left:calc(0*100%/5);
 		width:calc(100%/5);
 		z-index:3;
-	}
-	#ModeDropdown {
-		display: none;
-		position: absolute;
-		background-color: var(--dropdown-bg-color);
-		left:calc(1*100%/5);
-		width:calc(100%/5);
-		z-index:3;
+		top:30px;
 	}
 	#PgDropdown {
 		display: none;
@@ -250,6 +298,7 @@
 		left:calc(2*100%/5);
 		width:calc(100%/5);
 		z-index:3;
+		top:30px;
 	}
 	a#menubtn2:hover,a#menubtn2:focus,a#menubtn3:hover,a#menubtn3:focus, a#prevbtn:hover, a#prevbtn:focus, a#nextbtn:hover, a#nextbtn:focus, .secondrowmenu > a:hover, .secondrowmenu > a:focus{
 		cursor:default;
@@ -270,7 +319,7 @@
 		font-family:'Bebas Neue';
 		color:var(--dropdown-btn-color);
 		margin:0px;
-		padding:3px 0px 0px 0px;
+		padding:0px 0px 0px 0px;
 		height:30px;
 		font-size:15pt;
 		box-sizing:border-box;
@@ -295,7 +344,7 @@
 	ul.menuSelect li {
 		text-align:center;
 		list-style-type: none;
-		padding:2px 0px 2px 0px;
+		padding:0px 0px 0px 0px;
 	}
 	a.DDMenuItem, a.DDMenuItem:link, a.PgDDItems, a.PgDDItems:link, a.WidthDDItems, a.WidthDDItems:link, a.ModeDDItems, a.ModeDDItems:link  {
 		display:block;
@@ -309,7 +358,7 @@
 	 	text-overflow: ellipsis;
 		overflow:hidden;
 		cursor:default;
-		padding:3px 0px;
+		padding:0px 0px;
 	}
 	ul.menuSelect li:hover,ul.menuSelect li:focus{
 		background-color:var(--DD-menu-hover-color);
@@ -322,11 +371,12 @@
 		cursor:default;
 	}
 
-	.secondrowmenu{
+	.secondrowmenu,.firstrowmenu{
 		display:block;
+		line-height:30px;
+		height:30px;
 		width:100%;
 		text-align:center;
-		z-index:1;
 		position:relative;
 	}
 	.secondrowmenu > a, .secondrowmenu > a:link{
@@ -336,7 +386,6 @@
 		color:var(--opposite-link-color);
 		font-size:15pt;
 		height:30px;
-		line-height:30px;
 		padding:0px;
 		width:calc(100%/5);
 		cursor:default;
@@ -359,7 +408,7 @@
 		width:auto;
 		height:20px;
 		padding:0px;
-		top:4px;
+		top:3px;
 	}
 	div.svgbtn{
 		position:relative;
@@ -372,11 +421,11 @@
 	  fill: var(--pin-svg-fill-color);
 	  d: path("M685.952 242.752l-127.936-128.64c-24.064-24.192-66.016-24.448-90.56-0.192-6.272 6.272-11.2 13.952-13.376 20.128-20.896 43.584-43.328 70.88-72.128 87.264l-6.944 3.36c-30.976 15.52-73.12 31.328-151.008 31.328-8.512 0-16.672 1.664-24.512 4.864-15.488 6.464-28.128 19.040-34.624 34.688-6.368 15.488-6.368 33.312 0 48.8 3.328 7.968 8 15.072 13.92 20.832l103.52 103.52-122.304 171.296 171.264-122.304 103.264 103.264c5.952 6.048 12.992 10.848 20.992 14.112 7.904 3.296 16.096 4.928 24.512 4.928s16.608-1.664 24.48-4.928c15.936-6.56 28.256-18.944 34.56-34.496 3.296-7.744 4.96-16.224 4.96-24.576 0-77.952 15.808-120.064 31.296-151.072 15.872-31.744 43.808-55.936 88.128-77.248 8.672-3.328 16.32-8.192 22.752-14.624 24.704-25.024 24.576-65.632-0.256-90.304zM518.016 396.384c-26.208 52.576-38.016 107.84-38.24 179.328l-255.776-255.712c68.448 0 122.048-10.72 172.672-34.688l7.52-3.36c44.768-22.368 78.976-60.576 108.416-122.688l125.568 129.632c-59.616 28.576-97.792 62.72-120.16 107.488z");
 	  transform: scale(90%);
+	  opacity: 0.5;
 	}
 	.pinicon path{ /* filled pin */
 	  fill: var(--pin-svg-fill-color);
 	  d: path("M535.328 136.672c-12.448-12.512-32.672-12.576-45.248-0.128-3.328 3.328-5.632 7.264-7.2 11.36-26.624 55.552-55.936 86.88-92.928 105.376-41.504 20.48-89.152 34.72-165.952 34.72-4.16 0-8.32 0.8-12.224 2.432-7.84 3.264-14.048 9.504-17.312 17.312-3.232 7.808-3.232 16.64 0 24.448 1.632 3.936 3.968 7.488 6.944 10.432l103.776 103.776-145.184 193.6 193.6-145.184 103.744 103.744c2.944 3.008 6.496 5.312 10.432 6.944 3.904 1.632 8.064 2.496 12.224 2.496s8.32-0.864 12.224-2.496c7.84-3.264 14.080-9.44 17.312-17.312 1.632-3.872 2.464-8.064 2.464-12.192 0-76.8 14.208-124.448 34.656-165.312 18.464-36.992 49.792-66.304 105.376-92.928 4.128-1.568 8.032-3.872 11.328-7.2 12.448-12.576 12.384-32.8-0.128-45.248l-127.904-128.64z");
-	  transform: rotate(-45deg);
 	  transform: scale(130%);
 	  transform-origin: 50% 50%;
   	}
@@ -385,7 +434,7 @@
 		width:auto;
 		height:20px;
 		padding:0px;
-		top:0px;
+		top:3px;
 	}
 	div.pinbtn{
 		position:relative;
