@@ -33,6 +33,8 @@ function getimages() {
 		var projectFormat = "";
 			
 			try {
+				var embedtitle = proj.chname.replace("Chapter ", "Ch") + " | " + proj.series + " | Sunshine Butterfly";
+				document.title = embedtitle ;
 				albumID = proj.AlbumID;
 				var form = new FormData();
 				var settings = {
@@ -55,15 +57,6 @@ function getimages() {
 					projectFormat = "By Page";
 					formatclass = "applygap defaultwidth";
 				};
-			
-			
-				if ( number === "" || number === "null" ) {
-					embedtitle = proj.series;
-				} else {
-					embedtitle = proj.series + " | " + number;
-				};				
-
-				document.title = embedtitle + " | Sunshine Butterfly";
 				
 				
 				if ( proj.projectrating === "Y" ) {  // if 18+ series
@@ -279,6 +272,7 @@ function getimages() {
 						
 						if (localStorage.getItem("pinMenu") === 'pin') {
 							$('#pinicon').removeClass('unpinicon').addClass('pinicon');
+							$
 							$('#0').addClass('padtop');
 						}
 					
@@ -347,6 +341,11 @@ function toggleComments(){
 	var frame = $('#menuframe')
 	if(frame.is(":visible")) {
 		frame.hide();
+		
+		if(window.innerWidth <= 700) {
+			$('#readerID').show();
+			$(document).scrollTop(savehistory);
+		}
 		$('#closeComments').hide();
 		if(window.innerWidth > 1200) {
 			$('#readerID').css('width','100%');
@@ -356,6 +355,10 @@ function toggleComments(){
 		$('#closeComments').show();
 		if(window.innerWidth > 1200) {
 			$('#readerID').css('width','calc(100% - 700px)');
+		} 
+		if(window.innerWidth <= 700) {
+			savehistory = $(document).scrollTop();
+			$('#readerID').hide();
 		}
 	}
 	if (togglenum === 0){
