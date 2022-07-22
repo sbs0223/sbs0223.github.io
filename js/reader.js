@@ -135,11 +135,14 @@ function getimages() {
 							nextBtnClass += " disablemenu";
 							footernext = "There's no more :(";
 							footerpointer = "none";
+						} else {
+							footernext = "Next Chapter :)";
 						};
 		
-
+						
+						projectpagelink += "<div class=\"firstrowmenu\" id=\"firstrowmenuID\">";
 						projectpagelink += "<a href=\"/projects?n="+series+"\" class=\"toggleMenu\" id=\"menubtn3\">&lt; " + proj.series + "</a>";
-						projectpagelink += "<a href=\"?series="+series+"&num=" + (Number(number)-1) + "\" id=\"prevbtn\" class=\"" + prevBtnClass + "\"> &laquo; </a>";
+						projectpagelink += "<a href=\"?series="+series+"&num=" + (Number(number)-1) + "\" id=\"prevbtn\" class=\"" + prevBtnClass + "\"> <span>&laquo;</span> </a>";
 
 						projectpagelink += "<div class=\"menuDropdown\"><a class=\"dropdownToggle\" href=\"\" onclick=\"toggleDD()\">"+shortchname+"</a>";
 						projectpagelink += "<div id=\"menuDropdownItems\"><ul class=\"menuSelect\">";
@@ -157,7 +160,7 @@ function getimages() {
 				
 						projectpagelink += "</ul></div></div>";			
 			
-						projectpagelink += "<a href=\"?series="+series+"&num=" + (Number(number)+1) + "\" id=\"nextbtn\" class=\" " + nextBtnClass + " \"> &raquo; </a>";
+						projectpagelink += "<a href=\"?series="+series+"&num=" + (Number(number)+1) + "\" id=\"nextbtn\" class=\" " + nextBtnClass + " \"> <span>&raquo;</span> </a>";
 						
 						
 						projectpagelink += "<a onclick=\"togglePin()\" id=\"menubtn2\" class=\"toggleMenu\">";
@@ -165,6 +168,8 @@ function getimages() {
 							projectpagelink += "<path d=\"M535.328 136.672c-12.448-12.512-32.672-12.576-45.248-0.128-3.328 3.328-5.632 7.264-7.2 11.36-26.624 55.552-55.936 86.88-92.928 105.376-41.504 20.48-89.152 34.72-165.952 34.72-4.16 0-8.32 0.8-12.224 2.432-7.84 3.264-14.048 9.504-17.312 17.312-3.232 7.808-3.232 16.64 0 24.448 1.632 3.936 3.968 7.488 6.944 10.432l103.776 103.776-145.184 193.6 193.6-145.184 103.744 103.744c2.944 3.008 6.496 5.312 10.432 6.944 3.904 1.632 8.064 2.496 12.224 2.496s8.32-0.864 12.224-2.496c7.84-3.264 14.080-9.44 17.312-17.312 1.632-3.872 2.464-8.064 2.464-12.192 0-76.8 14.208-124.448 34.656-165.312 18.464-36.992 49.792-66.304 105.376-92.928 4.128-1.568 8.032-3.872 11.328-7.2 12.448-12.576 12.384-32.8-0.128-45.248l-127.904-128.64z\">";
 							projectpagelink += "</path></svg></div>";
 						projectpagelink += "</a>";
+
+						projectpagelink += "</div>";
 					
 						projectpagelink += "<div class=\"secondrowmenu\" id=\"secondrowmenuID\">";
 					
