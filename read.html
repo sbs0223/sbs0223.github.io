@@ -38,7 +38,9 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://unpkg.com/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
-	<script src="/js/functions.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/alasql@1.7"></script>
+	<script src="/js/reader.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -54,12 +56,19 @@
           async src="//gc.zgo.at/count.js"></script>
 
 
+<script>
+	if(localStorage.getItem("data-theme")){
+		document.documentElement.setAttribute("data-theme",localStorage.getItem("data-theme"));
+	}  else {
+		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		  document.documentElement.setAttribute('data-theme', 'dark');
+		}
+	}
+</script>
+
+
 </head>
 <body>
-
-<!-- call required library and reader.js -->
-<script src="https://cdn.jsdelivr.net/npm/alasql@1.7"></script>
-<script src="/js/reader.js"></script>
 
 <div style="position:absolute; top:0; left:0; width:1px; height:1px; overflow:hidden;">
 	<img src="https://i.imgur.com/9Xt16uG.png" onerror="DisplayImgAlert()">
@@ -71,16 +80,13 @@
 	}
 </script>
 
-<div id="pageheader"></div>
-<embed id="menuframe" type="text/html" src="" width="100%" height="100%" style="display:none;">
+<div id="pageheader" style="display:none;"></div>
 
-<div id="reader">
-	<div align="center" style="font-family: 'Bebas Neue'; font-size:20pt; font-weight:bold; width:100%; top:30%; text-align:center; position:absolute;">
-		If you are not redirected,
-		<br><a href="javascript:window.location.reload(true)">please refresh this page.</a>
-	</div>
-	<iframe src="https://coffeebreakprojects.github.io/projects/check.html" style="display:none" />
-</div>
+<div id="readerID" class="readerClass"></div>
+<div id="pagefooter" onclick="goNext()">Next Chapter</div>
+
+<div id="commentframewrap"><embed id="menuframe" type="text/html" src="" width="100%" height="100%" style="display:none;"></div>
+<a href="" id="closeComments" style="display:none;" onclick="toggleComments()"></a>
 
 </body>
 </html>
