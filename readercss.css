@@ -244,7 +244,7 @@ table {
 	}
 	a#menubtn3,a#menubtn3:link{
 		/*  project link */
-		width: calc(100% - 245px);
+		width: calc(100% - 345px);
 		background-color:var(--contrast-link-btn-bg-color);
 		color:var(--contrast-link-btn-color);
 	  white-space: nowrap;
@@ -267,7 +267,7 @@ table {
 	}
 	.menuDropdown{
 		display:inline-block;
-		width:100px;
+		width:200px;
 		background-color:var(--dropdown-bg-color);
 		vertical-align:top;
 		white-space: nowrap;
@@ -279,7 +279,7 @@ table {
 		position: absolute;
 		top: calc(100%-30px);
 		background-color: var(--dropdown-bg-color);
-		width:100px;
+		width:200px;
 		z-index:3;
 	}
 	#WidthDropdown {
@@ -470,6 +470,22 @@ table {
 			display:none;
 		}
 	}
+
+	@media screen and (max-width: 700px){
+		#menuframe{
+			z-index:3;
+			top:30px;
+		}
+	}
+
+	@media screen and (max-width: 800px){
+		.menuDropdown, #menuDropdownItems{
+			width:150px;
+		}
+		a#menubtn3,a#menubtn3:link{
+			width:calc(100% - 295px);
+		}
+	}
 	
 	@media screen and (max-device-width: 400px){
 		
@@ -483,5 +499,11 @@ table {
 		svg.icon{
 			height:15px;
 			top:1px;
+		}
+		.menuDropdown, #menuDropdownItems{
+			width:100px;
+		}
+		a#menubtn3,a#menubtn3:link{
+			width:calc(100% - 245px);
 		}
 	}
