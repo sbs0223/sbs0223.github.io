@@ -186,7 +186,7 @@ function getParamValue(paramName)
 function getcomments(){
 	var chapquery = "";
 	if(chnum === 0 || isNaN(chnum) || chnum == null || chnum === "" || chnum === "0"){
-		chapquery = "";
+		chapquery = "and Number in (0,'') ";
 	} else {
 		chapquery = "and Number = " + chnum + " ";
 	}
@@ -199,11 +199,6 @@ function getcomments(){
 				var entry = ""
 		    var obj = results[i];
 				var d = new Date(obj.Timestamp);
-				if(obj.Number == 0){
-					var num = "";
-				} else {
-					var num = " | " + obj.Number + "";
-				}
 				
 				const CleanName = sanitizeHtml(obj.Name, {
 					allowedTags: [],
@@ -213,7 +208,7 @@ function getcomments(){
 
 				entry += "<div class=\"CommentEntry\">";
 				entry += "<span class=\"CommentName\">" + CleanName + "</span>";
-				entry += "<span class=\"CommentInfo\">" + formatDate(d) + " | " + series + num + "</span>";
+				entry += "<span class=\"CommentInfo\">" + formatDate(d) + "</span>";
 				entry += "<div class=\"CommentContent collapseComments\" id=\"comment" + i + "\">";
 				entry += CleanComment;
 				entry += "<div id=\"bar"+i+"\" class=\"expandbar\" onclick=\"expand("+i+")\"><span class=\"downarrow\" id=\""+i+"\">&raquo;</span></div>";
