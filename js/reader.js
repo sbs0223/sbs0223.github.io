@@ -293,6 +293,62 @@ function getimages(x) {
 						).then(function(resultsCmt){
 							$('#cmtcnt').html(resultsCmt[0].cnt);
 						});
+						
+					    $(window).scroll(function(){
+					  	  if (waiting) {
+					  	          return;
+					  	  }
+					  	  waiting = true;
+					  	  getPgNum();
+	  
+					  	  setTimeout(function () {
+					  	          waiting = false;
+					  	      }, 100);
+					  	  endScrollHandle = setTimeout(function () {
+					  	          getPgNum();
+					  	      }, 200);
+					    });
+						
+						
+						// Close the dropdown menu if the user clicks outside of it
+						window.onclick = function(event) {
+	
+							var frame = $('#pageheader');
+							var commentframe = $('#menuframe');
+							var closebtn = $('#closeComments');
+	
+							if ( !frame[0].contains(event.target) && !commentframe[0].contains(event.target) && !closebtn[0].contains(event.target) && !event.target.matches('.pagefooterclass')) {
+								togglemenu();
+								if(commentframe.is(":visible")) {
+									toggleComments();
+								};
+							};
+	
+							if (!event.target.matches('.dropdownToggle')) {
+								var DDmenu = $('#menuDropdownItems');
+								if(DDmenu.is(":visible")){
+									DDmenu.hide();
+							  }
+							};
+							if (!event.target.matches('.pgnumclass')) {
+								var Pgmenu = $('#PgDropdown');
+								if(Pgmenu.is(":visible")){
+									Pgmenu.hide();
+								}
+							}
+							if (!event.target.matches('.widthclass')) {
+								var Widthmenu = $('#WidthDropdown');
+								if(Widthmenu.is(":visible")){
+									Widthmenu.hide();
+								}
+							}
+							if (!event.target.matches('.modeclass')) {
+								var Modemenu = $('#ModeDropdown');
+								if(Modemenu.is(":visible")){
+									Modemenu.hide();
+								}
+							}
+						} 
 				
 					});
 					
@@ -385,66 +441,11 @@ function toggleComments(){
 	};
 }
 
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-	
-	var frame = $('#pageheader');
-	var commentframe = $('#menuframe');
-	var closebtn = $('#closeComments');
-	
-	if ( !frame[0].contains(event.target) && !commentframe[0].contains(event.target) && !closebtn[0].contains(event.target) && !event.target.matches('.pagefooterclass')) {
-		togglemenu();
-		if(commentframe.is(":visible")) {
-			toggleComments();
-		};
-	};
-	
-	if (!event.target.matches('.dropdownToggle')) {
-		var DDmenu = $('#menuDropdownItems');
-		if(DDmenu.is(":visible")){
-			DDmenu.hide();
-	  }
-	};
-	if (!event.target.matches('.pgnumclass')) {
-		var Pgmenu = $('#PgDropdown');
-		if(Pgmenu.is(":visible")){
-			Pgmenu.hide();
-		}
-	}
-	if (!event.target.matches('.widthclass')) {
-		var Widthmenu = $('#WidthDropdown');
-		if(Widthmenu.is(":visible")){
-			Widthmenu.hide();
-		}
-	}
-	if (!event.target.matches('.modeclass')) {
-		var Modemenu = $('#ModeDropdown');
-		if(Modemenu.is(":visible")){
-			Modemenu.hide();
-		}
-	}
-} 
-
 $(function(){	
 	
 	if (localStorage.getItem("pinMenu") === 'pin') {
 		$('#pageheader').show();
 	};
-
-  $(window).scroll(function(){
-	  if (waiting) {
-	          return;
-	  }
-	  waiting = true;
-	  getPgNum();
-	  
-	  setTimeout(function () {
-	          waiting = false;
-	      }, 100);
-	  endScrollHandle = setTimeout(function () {
-	          getPgNum();
-	      }, 200);
-  });
   
 });
 
