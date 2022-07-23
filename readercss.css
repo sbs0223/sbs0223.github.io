@@ -116,7 +116,7 @@ table {
 	}
 	
 	a, a:link,a:active{
-		color:var(--link-color);
+		/*color:var(--link-color);*/
 		text-decoration:none;
 	}
 	a:hover {
