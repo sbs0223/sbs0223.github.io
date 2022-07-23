@@ -5,7 +5,11 @@ const urlParams = new URLSearchParams(queryString);
 const seriesinput = urlParams.get('series');
 const numinput = urlParams.get('num');
 var number = "" + numinput;     // this isn't the true chapter number if series has skipped chapters/previews/etc
+
 var series = "" + seriesinput;
+
+try { number = Number(number); } catch(err) {window.location.replace("/projects?n=" + series);}; // go to series page if num isn't a valid number
+
 var togglenum = 0;
 
 var widthClass = "fixedwidth800" // set default
@@ -18,12 +22,13 @@ if (localStorage.getItem("widthClass") === null || localStorage.getItem("widthNa
 	widthName = localStorage.getItem("widthName");
 }
 
-getimages();
+getimages(number);
 
 // Start Get images function for the reader
 	
-function getimages() {
-	alasql.promise("SELECT series, projectname, projectrating, projectformat, chname, num, AlbumID FROM json('/json/chapters') where projectname = '" + series + "' and num = " + number
+function getimages(x) {
+  return new Promise(resolve => {
+	alasql.promise("SELECT series, projectname, projectrating, projectformat, chname, num, AlbumID FROM json('/json/chapters') where projectname = '" + series + "' and num = " + x
 	).then(function(results){
 		var albumID = "";
 		var embedtitle = "";
@@ -52,10 +57,10 @@ function getimages() {
 				
 				if (proj.projectformat === "long") {
 					projectFormat = "Longstrip";
-					formatclass = "defaultwidth";
+					formatclass = "defaultwidth" + " showimage ch" + x;
 				} else {
 					projectFormat = "By Page";
-					formatclass = "applygap defaultwidth";
+					formatclass = "applygap defaultwidth" + " showimage ch" + x;
 				};
 				
 				
@@ -73,20 +78,20 @@ function getimages() {
 							}).then((result) => {
 								if (result.isConfirmed) { 				  // if verified
 									sessionStorage.returning = true; 	// set cookie
-									showreader()
+									showreader(x)
 								} else { 														// if not verified then go back to project page
 									window.location = "/projects?n=" + proj.projectname;
 								}
 							});  																	// end result handling
 						} else { 																// if there's already a cookie
-							showreader()
+							showreader(x)
 						};
 					}
 					catch(err) {
 						document.getElementById("reader").innerHTML = "Please report the following error message to us: " + err.message;
 					}
 				} else { 																		// if it's all ages just show reader
-					showreader()
+					showreader(x)
 				};		
 				
 				
@@ -99,61 +104,60 @@ function getimages() {
 
 			
 				
-			function showreader() {    // start defining the actual function that grabs the reader
+			function showreader(y) {    // start defining the actual function that grabs the reader
 				$.ajax(settings).done(function (response) {
 					var json = $.parseJSON(response);
 					var imgData = json.data;
 					var TotPages = imgData.length;
-					var footernext = "Next Chapter";
+					var footernext = "Next Chapter :)";
 					var footerpointer = "auto";
+					var output = document.querySelector("#readerID");
 					
 					$.each(imgData, function(i, item) {
 						var src = imgData[i].link;
-				        var output = document.querySelector("#readerID");
-				        output.innerHTML += "<img src=\"" + src + "\" loading=\"lazy\"/ width=\" " + imgData[i].width + " \" height=\" " + imgData[i].height + "\" class=\"" + formatclass + "\" id=\""+ i +"\">";
+				        output.innerHTML += "<img src=\"" + src + "\" loading=\"lazy\"/ width=\"" + imgData[i].width + "\" height=\"" + imgData[i].height + "\" class=\"" + formatclass + "\" id=\""+ y + "_" + i +"\">";
 					});
+					
+					output.innerHTML += "<div id=\"pagefooter" + y + "\" onclick=\"goNext()\" class=\"pagefooterclass ch" + y + "\"></div>";
 					
 					alasql.promise("SELECT chname, num FROM json('/json/chapters') where projectname = '" + series + "'"
 					).then(function(results){
-						var shortchname = results[Number(number)-1].chname.replace("Chapter ", "Ch.");
+						var shortchname = results[Number(y)-1].chname.replace("Chapter ", "Ch.");
 						var maxCh = results.length;
 						var projectpagelink = "";
 						var prevBtnClass = "toggleMenu";
 						var nextBtnClass = "toggleMenu";
 						
-						if( Number(number) === 1 ) {
+						if( number === 1 ) {
 							prevBtnClass += " disablemenu";
-						}
-						if( Number(number) === Number(maxCh) ) {
+						} else if( number === Number(maxCh) ) {
 							nextBtnClass += " disablemenu";
 							footernext = "There's no more :(";
 							footerpointer = "none";
-						} else {
-							footernext = "Next Chapter :)";
-						};
+						}
 		
 						
 						projectpagelink += "<div class=\"firstrowmenu\" id=\"firstrowmenuID\">";
 						projectpagelink += "<a href=\"/projects?n="+series+"\" class=\"toggleMenu\" id=\"menubtn3\">&lt; " + proj.series + "</a>";
-						projectpagelink += "<a href=\"?series="+series+"&num=" + (Number(number)-1) + "\" id=\"prevbtn\" class=\"" + prevBtnClass + "\"> <span>&laquo;</span> </a>";
+						projectpagelink += "<a href=\"\" id=\"prevbtn\" class=\"" + prevBtnClass + "\" onclick=\"goToChapter(" + (y - 1) + ")\"> <span>&laquo;</span> </a>";
 
 						projectpagelink += "<div class=\"menuDropdown\"><a class=\"dropdownToggle\" href=\"\" onclick=\"toggleDD()\">"+shortchname+"</a>";
 						projectpagelink += "<div id=\"menuDropdownItems\"><ul class=\"menuSelect\">";
 				
 				
-						for(var i = 0; i < results.length; i++) {
+						for(var i = 0; i < maxCh; i++) {
 							var obj = results[i].chname;
 							var DDMenuItemClass = "";
-							if (i === (Number(number)-1)) {
+							if (i === (Number(y)-1)) {
 								DDMenuItemClass = " class=\"DDMenuItemSelected\"";
 							};
-							projectpagelink += "<li" + DDMenuItemClass + "><a href=\"?series=" + series + "&num=" + (i+1) + "\" class=\"DDMenuItem\">" + obj.replace("Chapter ","Ch.") + "</a></li>";
+							projectpagelink += "<li" + DDMenuItemClass + "><a href=\"\" class=\"DDMenuItem\" onclick=\"goToChapter(" + (i + 1) + ")\">" + obj.replace("Chapter ","Ch.") + "</a></li>";
 						};
 						
 				
 						projectpagelink += "</ul></div></div>";			
 			
-						projectpagelink += "<a href=\"?series="+series+"&num=" + (Number(number)+1) + "\" id=\"nextbtn\" class=\" " + nextBtnClass + " \"> <span>&raquo;</span> </a>";
+						projectpagelink += "<a href=\"\" id=\"nextbtn\" class=\" " + nextBtnClass + " \" onclick=\"goToChapter(" + (y + 1) + ")\"> <span>&raquo;</span> </a>";
 						
 						
 						projectpagelink += "<a onclick=\"togglePin()\" id=\"menubtn2\" class=\"toggleMenu\">";
@@ -170,12 +174,13 @@ function getimages() {
 							projectpagelink += "<div id=\"WidthDropdown\"><ul class=\"menuSelect\">";
 							projectpagelink += "<li><a class=\"WidthDDItems\" data-item-class=\"originalwidth\">1:1</a></li>";
 							projectpagelink += "<li><a class=\"WidthDDItems\" data-item-class=\"limitwidth\">100W</a></li>";
+							projectpagelink += "<li><a class=\"WidthDDItems\" data-item-class=\"fixedwidthXS\">X-Small</a></li>";
 							projectpagelink += "<li><a class=\"WidthDDItems\" data-item-class=\"fixedwidth800\">Small</a></li>";
 							projectpagelink += "<li><a class=\"WidthDDItems\" data-item-class=\"fixedwidth1100\">Medium</a></li>";
 							projectpagelink += "<li><a class=\"WidthDDItems\" data-item-class=\"fixedwidth1400\">Large</a></li>";
 							projectpagelink += "</ul></div>";	
 
-						/* FUTURE DEVELOPMENT ITEM
+						/* DEVELOPMENT ITEM
 						projectpagelink += "<a href=\"\" class=\"menulink modeclass\" id=\"toggleMode\" onclick=\"toggleMode()\">Longstrip</a>";
 							projectpagelink += "<div id=\"ModeDropdown\"><ul class=\"menuSelect\">";
 							projectpagelink += "<li><a class=\"ModeDDItems\" data-item-class=\"originalMode\">Webtoon</a></li>";
@@ -192,7 +197,7 @@ function getimages() {
 				
 				
 						for(var i = 0; i < TotPages; i++) {
-							projectpagelink += "<li><a class=\"PgDDItems\" onclick=\"gotopage(" + (i+1) + ")\">" + (i+1) + "</a></li>";
+							projectpagelink += "<li><a class=\"PgDDItems\" onclick=\"gotopage(" + y + "," + (i+1) + ")\">" + (i+1) + "</a></li>";
 						};			
 				
 						projectpagelink += "</ul></div>";		
@@ -220,8 +225,10 @@ function getimages() {
 				
 				
 						$('#pageheader').html(projectpagelink);
-						$('#menuframe').attr('src','/comment?series='+series+'&num='+number+'&proj='+proj.series);
-						$('#pagefooter').html(footernext).css('pointer-events',footerpointer);
+						$('#menuframe').attr('src','/comment?series='+series+'&num='+y);
+						$('#pagefooter' + y).html(footernext).css('pointer-events',footerpointer);
+						$('#loadingmsg').hide();
+						resolve('resolved');
 					
 					// Assign from defaults & localstorage
 					
@@ -244,21 +251,25 @@ function getimages() {
 								let newWidthName = $(this).text();
 								localStorage.setItem('widthClass', newWidthClass);
 								localStorage.setItem('widthName', newWidthName);
-								if ($('#1').hasClass('originalwidth')) {
+								if ($('#' + y + '_1').hasClass('originalwidth')) {
 									$('.originalwidth').each(function(i, obj) {
 								    	$(this).removeClass('originalwidth').addClass(newWidthClass);
 									});
-								} else if ($('#1').hasClass('limitwidth')) {
+								} else if ($('#' + y + '_1').hasClass('limitwidth')) {
 									$('.limitwidth').each(function(i, obj) {
 								    	$(this).removeClass('limitwidth').addClass(newWidthClass);
 									});
-								} else if ($('#1').hasClass('fixedwidth800')) {
+								} else if ($('#' + y + '_1').hasClass('fixedwidth800')) {
 									$('.fixedwidth800').each(function(i, obj) {
 								    	$(this).removeClass('fixedwidth800').addClass(newWidthClass);
 									});
-								} else if ($('#1').hasClass('fixedwidth1100')) {
+								} else if ($('#' + y + '_1').hasClass('fixedwidth1100')) {
 									$('.fixedwidth1100').each(function(i, obj) {
 								    	$(this).removeClass('fixedwidth1100').addClass(newWidthClass);
+									});
+								} else if ($('#' + y + '_1').hasClass('fixedwidthXS')) {
+									$('.fixedwidthXS').each(function(i, obj) {
+								    	$(this).removeClass('fixedwidthXS').addClass(newWidthClass);
 									});
 								} else {
 									$('.fixedwidth1400').each(function(i, obj) {
@@ -266,16 +277,20 @@ function getimages() {
 									});
 								};
 								$('#toggleWidth').html(newWidthName);
-								gotopage($('#CurrPg').html());
+								jumptopage(y, $('#CurrPg').html() );
 						    });
 						});
 						
 						if (localStorage.getItem("pinMenu") === 'pin') {
 							$('#pinicon').removeClass('unpinicon').addClass('pinicon');
-							$
-							$('#0').addClass('padtop');
+							$('#' + number + '_0').addClass('padtop');
 						}
-					
+					  	//CALCULATE & REPLACE COMMENT COUNT
+						const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQABY2QntPAjViT8mZnc4X0Cx7KLnDg8j2k1sxKZNg9LuTHq26dAwY3gn8QSdwIGFa68rXPKAHo2zoS/pub?output=csv';
+						alasql.promise("SELECT count(*) as cnt FROM CSV(?, {headers:true}) where Series = '" + series + "' and Number = " + number, [url]
+						).then(function(resultsCmt){
+							$('#cmtcnt').html(resultsCmt[0].cnt);
+						});
 				
 					});
 					
@@ -285,6 +300,7 @@ function getimages() {
 
 			
 	});
+  });
 };
 	
 	
@@ -373,10 +389,8 @@ window.onclick = function(event) {
 	var frame = $('#pageheader');
 	var commentframe = $('#menuframe');
 	var closebtn = $('#closeComments');
-	var nextbtn = $('#pagefooter');
 	
-	if (
-		!frame[0].contains(event.target) && !commentframe[0].contains(event.target) && !closebtn[0].contains(event.target) && !nextbtn[0].contains(event.target)) {
+	if ( !frame[0].contains(event.target) && !commentframe[0].contains(event.target) && !closebtn[0].contains(event.target) && !event.target.matches('.pagefooterclass')) {
 		togglemenu();
 		if(commentframe.is(":visible")) {
 			toggleComments();
@@ -425,33 +439,73 @@ $(function(){
 			  rect.top < 0.5 * (window.innerHeight || document.documentElement.clientHeight)
 	      );
 	  };
-	  $("img").each(function(i,obj){  
+	  $("img.showimage").each(function(i,obj){  
 	       if( IsInViewport($(this)) ){
-			   var currentimg = Number($(this).attr('id')) + 1;
-			   $('#CurrPg').html(Number(currentimg));
+			   try{
+				    let x = $(this).attr('id');
+					var currentimg = Number(x.substring((x.indexOf("_") + 1))) + 1;
+					$('#CurrPg').html(currentimg);
+				} catch(err) {
+					//
+				};
 	       }
 	  });
+	  
   });
-  
-  //CALCULATE & REPLACE COMMENT COUNT
-	const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQABY2QntPAjViT8mZnc4X0Cx7KLnDg8j2k1sxKZNg9LuTHq26dAwY3gn8QSdwIGFa68rXPKAHo2zoS/pub?output=csv';
-	alasql.promise("SELECT count(*) as cnt FROM CSV(?, {headers:true}) where Series = '" + series + "' and Number = " + number, [url]
-	).then(function(results){
-		$('#cmtcnt').html(results[0].cnt);
-	});
   
 });
 
 
-function gotopage(i) {
+function gotopage(chapter,page) {
+  return new Promise(resolve => {
 	var $container = $([document.documentElement, document.body]);
-    $container.scrollTop(
-    	$("#" + (i-1)).offset().top
-    );
+	var abc = $("#" + chapter + "_" + (page - 1)).offset().top;
+    $container.animate({
+		scrollTop:  abc
+	}, 400);
+	setTimeout(() => resolve('Done scrolling'), 1000);
+  });
+};
+function jumptopage(chapter,page) {
+  return new Promise(resolve => {
+	var $container = $([document.documentElement, document.body]);
+	var abc = $("#" + chapter + "_" + (page - 1)).offset().top;
+    //$container.animate({
+	//	scrollTop:  abc
+	//},);
+	$container.scrollTop(abc);
+	setTimeout(() => resolve('Done scrolling'), 1000);
+  });
 };
 
-function goNext() {
-	window.location.href = "?series=" + series + "&num=" + (Number(number)+1);
+async function goNext() {
+	window.history.pushState(number, '', '?series='+series+'&num='+ (number+1));
+	var rmChClass = ".ch" + number;
+	number = number + 1;
+	const result = await getimages(number);	
+	
+	const result2 = await gotopage(number,1);
+	rmImage();
+
+	function rmImage() {
+		const rmCh = document.querySelectorAll(rmChClass);
+		rmCh.forEach(img => {
+	  	  img.remove();
+		});
+		jumptopage(number,1);
+	}
+}
+
+async function goToChapter(chapterNumber) {
+	event.preventDefault(); 
+	window.history.pushState(number, '', '?series='+series+'&num='+ chapterNumber);
+	var rmChClass = ".ch" + number;
+	number = chapterNumber;
+	const rmCh = document.querySelectorAll(rmChClass);
+	rmCh.forEach(img => {
+  	  img.remove();
+	});
+	getimages(chapterNumber);	
 }
 
 function toggleTheme(r) {//this function is executed when switching from the current theme to the other
@@ -482,3 +536,7 @@ function togglePin(r) {
 		$('#pinicon').removeClass('unpinicon').addClass('pinicon');
 	}
 }
+
+window.addEventListener("popstate", function(e){
+  location.reload();
+});

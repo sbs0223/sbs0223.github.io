@@ -163,6 +163,11 @@ table {
 		width:1400px;
 		display:block;
 	}	
+	#readerID img.fixedwidthXS{
+		max-width:100%;
+		width:650px;
+		display:block;
+	}	
 	#readerID img.applygap{
 		padding-bottom:20px;
 	}
@@ -444,10 +449,10 @@ table {
 		height:100%;
 	}
 	
-	#pagefooter{
+	.pagefooterclass{
 		display:block;
 		margin:40px 0px 0px 0px;
-		padding:40px;
+		padding:40px 0px 40px 0px;
 		background-color:var(--link-btn-bg-color);
 		color:var(--link-btn-color);
 		border-top:2px dashed var(--contrast-link-btn-bg-color);
@@ -456,7 +461,7 @@ table {
 		font-size:20pt;
 		cursor:default;
 	}
-	#pagefooter:hover{
+	.pagefooterclass:hover{
 		background-color:var(--hover-button-bg-color);
 		color:#fff;
 	}
@@ -506,4 +511,12 @@ table {
 		a#menubtn3,a#menubtn3:link{
 			width:calc(100% - 245px);
 		}
+	}
+	
+	#loadingmsg{
+		display:block;
+		text-align:center;
+	}
+	#loadingmsg img{
+		width:min(100%, 700px);
 	}
