@@ -11,6 +11,8 @@ var series = "" + seriesinput;
 try { number = Number(number); } catch(err) {window.location.replace("/projects?n=" + series);}; // go to series page if num isn't a valid number
 
 var togglenum = 0;
+var preloadNum = 5;
+var waiting = false;
 
 var widthClass = "fixedwidth800" // set default
 var widthName = "Small" // set default
@@ -115,9 +117,9 @@ function getimages(x) {
 					
 					$.each(imgData, function(i, item) {
 						var src = imgData[i].link;
-				        output.innerHTML += "<img src=\"" + src + "\" loading=\"lazy\"/ width=\"" + imgData[i].width + "\" height=\"" + imgData[i].height + "\" class=\"" + formatclass + "\" id=\""+ y + "_" + i +"\">";
+				        output.innerHTML += "<img src=\"\" data-src=\"" + src + "\" width=\"" + imgData[i].width + "\" height=\"" + imgData[i].height + "\" class=\"" + formatclass + "\" id=\""+ y + "_" + i +"\">";
 					});
-					
+					loadimages(y, 0, preloadNum);
 					output.innerHTML += "<div id=\"pagefooter" + y + "\" onclick=\"goNext()\" class=\"pagefooterclass ch" + y + "\"></div>";
 					
 					alasql.promise("SELECT chname, num FROM json('/json/chapters') where projectname = '" + series + "'"
@@ -429,37 +431,52 @@ $(function(){
 		$('#pageheader').show();
 	};
 
-	
   $(window).scroll(function(){
-	  var IsInViewport = function(el) {
-	      if (typeof jQuery === "function" && el instanceof jQuery) el = el[0];
-	      var rect = el.getBoundingClientRect();
-	      return (
-	          rect.top >= -0.5 * (window.innerHeight || document.documentElement.clientHeight) &&
-			  rect.top < 0.5 * (window.innerHeight || document.documentElement.clientHeight)
-	      );
-	  };
-	  $("img.showimage").each(function(i,obj){  
-	       if( IsInViewport($(this)) ){
-			   try{
-				    let x = $(this).attr('id');
-					var currentimg = Number(x.substring((x.indexOf("_") + 1))) + 1;
-					$('#CurrPg').html(currentimg);
-				} catch(err) {
-					//
-				};
-	       }
-	  });
+	  if (waiting) {
+	          return;
+	  }
+	  waiting = true;
+	  getPgNum();
 	  
+	  setTimeout(function () {
+	          waiting = false;
+	      }, 100);
+	  endScrollHandle = setTimeout(function () {
+	          getPgNum();
+	      }, 200);
   });
   
 });
 
 
+function getPgNum() {
+	var IsInViewport = function(el) {
+	    if (typeof jQuery === "function" && el instanceof jQuery) el = el[0];
+	    var rect = el.getBoundingClientRect();
+	    return (
+	        rect.top >= -0.5 * (window.innerHeight || document.documentElement.clientHeight) &&
+		  rect.top < 0.5 * (window.innerHeight || document.documentElement.clientHeight)
+	    );
+	};
+  $("img.showimage").each(function(i,obj){  
+       if( IsInViewport($(this)) ){
+		   try{
+			    let x = $(this).attr('id');
+				var currentimg = Number(x.substring((x.indexOf("_") + 1))) + 1;
+				$('#CurrPg').html(currentimg);
+				loadimages(number,currentimg - preloadNum, currentimg + preloadNum);
+			} catch(err) {
+				//
+			};
+       }
+  });
+}
+
 function gotopage(chapter,page) {
   return new Promise(resolve => {
 	var $container = $([document.documentElement, document.body]);
 	var abc = $("#" + chapter + "_" + (page - 1)).offset().top;
+	loadimages(chapter, page - 1, page + 1);
     $container.animate({
 		scrollTop:  abc
 	}, 400);
@@ -540,3 +557,14 @@ function togglePin(r) {
 window.addEventListener("popstate", function(e){
   location.reload();
 });
+
+function loadimages(chapter,frompage,topage){
+	for (var i = frompage; i < topage + 1; i++) {
+		var ImgElement = $('img#' + chapter + "_" + i);
+		if(ImgElement.length){
+			if (!ImgElement.attr('src')) {
+				ImgElement.attr('src', ImgElement.attr('data-src'));
+			};
+		};
+	}
+}
