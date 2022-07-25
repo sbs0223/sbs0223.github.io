@@ -16,6 +16,14 @@ var waiting = false;
 
 var widthClass = "fixedwidth800" // set default
 var widthName = "Small" // set default
+
+if (localStorage.getItem("widthClass") === null || localStorage.getItem("widthName") === null) {
+	// if either is null, use defaults
+} else {
+	widthClass = localStorage.getItem("widthClass");
+	widthName = localStorage.getItem("widthName");
+}
+
 var imgCnt = 0;
 
 getimages(number);
