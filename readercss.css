@@ -113,6 +113,7 @@ table {
 		min-height:100%;
 		background-color:var(--background-color);
 		color:var(--text-color);
+		-webkit-overflow-scrolling: touch;
 	}
 	
 	a, a:link,a:active{
@@ -186,6 +187,7 @@ table {
 		display:flex;
 		flex-direction: column;
 		height:60px;
+		transform: translate3d(0,0,0);
 	}
 
 	
