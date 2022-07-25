@@ -16,13 +16,7 @@ var waiting = false;
 
 var widthClass = "fixedwidth800" // set default
 var widthName = "Small" // set default
-
-if (localStorage.getItem("widthClass") === null || localStorage.getItem("widthName") === null) {
-	// if either is null, use defaults
-} else {
-	widthClass = localStorage.getItem("widthClass");
-	widthName = localStorage.getItem("widthName");
-}
+var imgCnt = 0;
 
 getimages(number);
 
@@ -114,12 +108,13 @@ function getimages(x) {
 					var footernext = "Next Chapter :)";
 					var footerpointer = "auto";
 					var output = document.querySelector("#readerID");
+					imgCnt = imgData.length;
 					
 					$.each(imgData, function(i, item) {
 						var src = imgData[i].link;
 				        output.innerHTML += "<img src=\"\" data-src=\"" + src + "\" width=\"" + imgData[i].width + "\" height=\"" + imgData[i].height + "\" class=\"" + formatclass + "\" id=\""+ y + "_" + i +"\">";
 					});
-					loadimages(y, 0, preloadNum);
+					loadimages(y, 0, Math.min(preloadNum, imgCnt - 1));
 					output.innerHTML += "<div id=\"pagefooter" + y + "\" onclick=\"goNext()\" class=\"pagefooterclass ch" + y + "\"></div>";
 					
 					alasql.promise("SELECT chname, num FROM json('/json/chapters') where projectname = '" + series + "'"
@@ -191,7 +186,9 @@ function getimages(x) {
 							projectpagelink += "<li><a class=\"ModeDDItems\" data-item-class=\"fixedMode1100\">2-Page</a></li>";
 							projectpagelink += "</ul></div>";	*/
 					
-						projectpagelink += "<a href=\"\" class=\"menulink disablemenu\" style=\"pointer-events:none;\">" + projectFormat + "</a>";
+						//projectpagelink += "<a href=\"\" class=\"menulink disablemenu\" style=\"pointer-events:none;\">" + projectFormat + "</a>";
+						
+						projectpagelink += "<a href=\"\" class=\"menulink\" id=\"preloadCh\" onclick=\"loadAll(" + y + ")\">Preload</a>";
 					
 						projectpagelink += "<a href=\"\" class=\"menulink pgnumclass\" id=\"pgnum\" onclick=\"togglePgDD()\"><span id=\"CurrPg\">1</span> / "+TotPages+"</a>";
 					
@@ -249,36 +246,36 @@ function getimages(x) {
 						var widthitems = document.querySelectorAll('[data-item-class]');
 						[].forEach.call(widthitems, function(item) {
 						    item.addEventListener('click', function(){
-								let newWidthClass = item.getAttribute("data-item-class");
-								let newWidthName = $(this).text();
-								localStorage.setItem('widthClass', newWidthClass);
-								localStorage.setItem('widthName', newWidthName);
+								widthClass = item.getAttribute("data-item-class");
+								widthName = $(this).text();
+								localStorage.setItem('widthClass', widthClass);
+								localStorage.setItem('widthName', widthName);
 								if ($('#' + y + '_1').hasClass('originalwidth')) {
 									$('.originalwidth').each(function(i, obj) {
-								    	$(this).removeClass('originalwidth').addClass(newWidthClass);
+								    	$(this).removeClass('originalwidth').addClass(widthClass);
 									});
 								} else if ($('#' + y + '_1').hasClass('limitwidth')) {
 									$('.limitwidth').each(function(i, obj) {
-								    	$(this).removeClass('limitwidth').addClass(newWidthClass);
+								    	$(this).removeClass('limitwidth').addClass(widthClass);
 									});
 								} else if ($('#' + y + '_1').hasClass('fixedwidth800')) {
 									$('.fixedwidth800').each(function(i, obj) {
-								    	$(this).removeClass('fixedwidth800').addClass(newWidthClass);
+								    	$(this).removeClass('fixedwidth800').addClass(widthClass);
 									});
 								} else if ($('#' + y + '_1').hasClass('fixedwidth1100')) {
 									$('.fixedwidth1100').each(function(i, obj) {
-								    	$(this).removeClass('fixedwidth1100').addClass(newWidthClass);
+								    	$(this).removeClass('fixedwidth1100').addClass(widthClass);
 									});
 								} else if ($('#' + y + '_1').hasClass('fixedwidthXS')) {
 									$('.fixedwidthXS').each(function(i, obj) {
-								    	$(this).removeClass('fixedwidthXS').addClass(newWidthClass);
+								    	$(this).removeClass('fixedwidthXS').addClass(widthClass);
 									});
 								} else {
 									$('.fixedwidth1400').each(function(i, obj) {
-								    	$(this).removeClass('fixedwidth1400').addClass(newWidthClass);
+								    	$(this).removeClass('fixedwidth1400').addClass(widthClass);
 									});
 								};
-								$('#toggleWidth').html(newWidthName);
+								$('#toggleWidth').html(widthName);
 								jumptopage(y, $('#CurrPg').html() );
 						    });
 						});
@@ -465,7 +462,7 @@ function getPgNum() {
 			    let x = $(this).attr('id');
 				var currentimg = Number(x.substring((x.indexOf("_") + 1))) + 1;
 				$('#CurrPg').html(currentimg);
-				loadimages(number,currentimg - preloadNum, currentimg + preloadNum);
+				loadimages(number, Math.max(currentimg - preloadNum, 0), Math.min(currentimg + preloadNum, imgCnt - 1));
 			} catch(err) {
 				//
 			};
@@ -477,7 +474,7 @@ function gotopage(chapter,page) {
   return new Promise(resolve => {
 	var $container = $([document.documentElement, document.body]);
 	var abc = $("#" + chapter + "_" + (page - 1)).offset().top;
-	loadimages(chapter, page - 1, page + 1);
+	loadimages(chapter, Math.max(page - 1, 0) , Math.min(page + 1 , imgCnt));
     $container.animate({
 		scrollTop:  abc
 	}, 400);
@@ -497,7 +494,9 @@ function jumptopage(chapter,page) {
 };
 
 async function goNext() {
+	window.stop();
 	window.history.pushState(number, '', '?series='+series+'&num='+ (number+1));
+	$('#pagefooter'+number).text('Please wait');
 	var rmChClass = ".ch" + number;
 	number = number + 1;
 	const result = await getimages(number);	
@@ -515,7 +514,8 @@ async function goNext() {
 }
 
 async function goToChapter(chapterNumber) {
-	event.preventDefault(); 
+	event.preventDefault();
+	window.stop();
 	window.history.pushState(number, '', '?series='+series+'&num='+ chapterNumber);
 	var rmChClass = ".ch" + number;
 	number = chapterNumber;
@@ -568,4 +568,10 @@ function loadimages(chapter,frompage,topage){
 			};
 		};
 	}
+}
+
+function loadAll(chapter) {
+	event.preventDefault();
+	loadimages(chapter, 0, imgCnt - 1);
+	$('#preloadCh').css('pointer-events','none').addClass('disablemenu');
 }
