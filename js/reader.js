@@ -132,10 +132,10 @@ function getimages(x) {
 						var projectpagelink = "";
 						var prevBtnClass = "toggleMenu";
 						var nextBtnClass = "toggleMenu";
-						
 						if( number === 1 ) {
 							prevBtnClass += " disablemenu";
-						} else if( number === Number(maxCh) ) {
+						}
+						if( number === Number(maxCh) ) {
 							nextBtnClass += " disablemenu";
 							footernext = "There's no more :(";
 							footerpointer = "none";
@@ -476,6 +476,10 @@ function getPgNum() {
 			};
        }
   });
+  if((window.innerHeight + window.pageYOffset) >= document.body.scrollHeight - 2){
+	$('#CurrPg').html(imgCnt);
+	loadimages(number, Math.max(imgCnt - 2, 0), imgCnt - 1);
+  }
 }
 
 function gotopage(chapter,page) {
