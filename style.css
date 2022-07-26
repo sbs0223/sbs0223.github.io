@@ -481,6 +481,7 @@ div.projectpageinfo{
 	font-weight:normal;
 	font-family: "Bebas Neue", sans-serif; 
 	color:var(--date-chapter-color);
+	word-break:break-all;
 }
 
 span.newupdate::before{
@@ -983,14 +984,15 @@ svg.commentIcon{
 	left:3px;
 }
 div.commentBtn{
-	position:absolute;
+	float:right;
 	display:none;
+	position:relative;
 	margin:0px;
 	padding:0px;
 	height:auto;
 	font-size:10pt;
-	bottom:4px;
-	right:7px;
+	bottom:3px;
+	right:0px;
 }
 .cmtcntClass{
 	color: var(--date-chapter-color);
@@ -1040,8 +1042,6 @@ div.commentBtn{
 			}
 			div.commentBtn{
 				font-size:9pt;
-				bottom:3px;
-				right:4px;
 			}
 }		
 @media screen and (max-width: 350px){
