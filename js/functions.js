@@ -1,6 +1,6 @@
 // Declare global params
 
-const newdays = 14;   // set number of days chapters are considered new
+const newdays = 7;   // set number of days chapters are considered new
 const newdaysms = newdays*24*60*60*1000; // calc in milliseconds
 if (!Date.now) {
     Date.now = function() { return new Date().getTime(); }
