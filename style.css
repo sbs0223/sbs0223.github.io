@@ -728,12 +728,35 @@ img.latestimg:hover{
 	border-radius: 4px;
 	font-size:11pt;
 }
+.CommentEntryReply{
+	display:block;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  -ms-box-sizing:border-box;
+	background-color:var(--first-container-bg-color);
+	border:var(--commentinfo-anchor-border);
+	margin:1px 0px 0px 15px;
+	padding:7px;
+	border-radius: 4px;
+	font-size:11pt;
+}
 span.CommentName{
 	display:block;
 	font-weight:bold;
 	color:var(--accent-color);
 }
-.CommentEntry span.CommentInfo{
+span.ReplyButton{
+	float:right;
+	color:var(--comment-info-color);
+	font-size:9pt;
+}
+span#replyingmsg,span.CommentName span{
+	color:var(--comment-info-color);
+	font-size:9pt;
+}
+
+.CommentEntry span.CommentInfo, .CommentEntryReply span.CommentInfo{
 	color:var(--comment-info-color);
 	font-size:9pt;
 }
@@ -882,7 +905,7 @@ a.moreEmo, a.moreEmo:link{
 input#counter{
 	display:inline;
 	box-sizing:border-box;
-	width:25px;
+	width:30px;
 	border:0px;
 	background-color:transparent;
 	box-shadow:none;

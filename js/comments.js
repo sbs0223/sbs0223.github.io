@@ -191,7 +191,7 @@ function getcomments(){
 		chapquery = "and Number = " + chnum + " ";
 	}
   const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQABY2QntPAjViT8mZnc4X0Cx7KLnDg8j2k1sxKZNg9LuTHq26dAwY3gn8QSdwIGFa68rXPKAHo2zoS/pub?output=csv';
-  alasql.promise("SELECT * FROM CSV(?, {headers:true}) where Series = '" + series + "' " + chapquery + "order by Timestamp desc", [url]).then(function(results){
+  alasql.promise("SELECT * FROM CSV(?, {headers:true}) where Series = '" + series + "' " + chapquery + "order by Replyto asc, Timestamp desc", [url]).then(function(results){
 		
 		$("#displaycomments").append("<div class=\"commentwrapper\">");
 		
@@ -205,16 +205,34 @@ function getcomments(){
 					allowedAttributes: {}
 				});
 				const CleanComment = md.renderInline(obj.Comment).replace(/<img/g,"<img width=\"300\" height=\"196\" class=\"userimg\" loading=\"lazy\"");
+				
+				
+				var replyTo = obj.Replyto;
 
-				entry += "<div class=\"CommentEntry\">";
-				entry += "<span class=\"CommentName\">" + CleanName + "</span>";
-				entry += "<span class=\"CommentInfo\">" + formatDate(d) + "</span>";
-				entry += "<div class=\"CommentContent collapseComments\" id=\"comment" + i + "\">";
-				entry += CleanComment;
-				entry += "<div id=\"bar"+i+"\" class=\"expandbar\" onclick=\"expand("+i+")\"><span class=\"downarrow\" id=\""+i+"\">&raquo;</span></div>";
-				entry += "</div>";
-				entry += "</div>";
-				$("#displaycomments").append(entry);
+				if (replyTo === 0 || isNaN(replyTo) || replyTo == null || replyTo === "" || replyTo === "0") {
+					entry += "<div class=\"CommentEntry\" id=\"com" + obj.Timestamp + "\">";
+					entry += "<span class=\"ReplyButton\" onclick=\"addReply("+obj.Timestamp + ", '" + CleanName + "')\">Reply to Thread</span>";
+					entry += "<span class=\"CommentName\">" + CleanName + "</span>";
+					entry += "<span class=\"CommentInfo\">" + formatDate(d) + "</span>";
+					entry += "<div class=\"CommentContent collapseComments\" id=\"comment" + i + "\">";
+					entry += CleanComment;
+					entry += "<div id=\"bar"+i+"\" class=\"expandbar\" onclick=\"expand("+i+")\"><span class=\"downarrow\" id=\""+i+"\">&raquo;</span></div>";
+					entry += "</div>";
+					entry += "</div>";
+					$("#displaycomments").append(entry);
+				} else {
+					entry += "<div class=\"CommentEntryReply\" id=\"com" + obj.Timestamp + "\">";
+					entry += "<span class=\"CommentName\"><span>&rdsh; </span>" + CleanName + "</span>";
+					entry += "<span class=\"CommentInfo\">" + formatDate(d) + "</span>";
+					entry += "<div class=\"CommentContent collapseComments\" id=\"comment" + i + "\">";
+					entry += CleanComment;
+					entry += "<div id=\"bar"+i+"\" class=\"expandbar\" onclick=\"expand("+i+")\"><span class=\"downarrow\" id=\""+i+"\">&raquo;</span></div>";
+					entry += "</div>";
+					entry += "</div>";
+					$(entry).insertAfter($("#com" + replyTo));
+				}
+
+				
 				
 				lazyload();
 		}
@@ -355,3 +373,17 @@ function showMoreEmo() {
 $("textarea#Comment").bind('input', function() {
     $("div#previewcomment").html(md.renderInline($(this).val()).replace(/<img/g,"<img width=\"300\" height=\"196\" class=\"userimg\""));
 });
+
+
+// add reply function
+
+function addReply(x,y){
+	$('#replyingmsg').remove();
+	$('input#Replyto').attr({'value':x});
+	$('.form-elements').prepend('<span id="replyingmsg" onclick="cancelreply()">Replying to a thread by ' + y + '. Click to cancel.<span>');
+	location.hash = 'cmttop';
+}
+function cancelreply(){
+	$('input#Replyto').attr({'value':''});
+	$('#replyingmsg').remove();
+}

@@ -113,15 +113,16 @@
 		
 </div>
 <div id="commentscontainer" class="contentcontainer" style="display:none;">
-	<h1>Add a Comment</h1>	
+	<a id="cmttop"><h1>Add a Comment</h1></a>	
 
 		<form class="gform pure-form pure-form-stacked" method="POST" action="https://script.google.com/macros/s/AKfycbwKlIc0qWkndlaBPuwOvhsl4yCBzHieM5k4HzDy5jS9kGKRxgurnK4cZFVINIUjmNyw/exec">
 			<div class="form-elements">
 				<input type="text" id="Number" name="Number" style="display:none;" />
+				<input type="text" id="Replyto" name="Replyto" style="display:none;" />
 				<input id="Name" name="Name" placeholder="Name" maxlength="20" pattern=".*\S+.*" required />
-				<textarea id="Comment" name="Comment" placeholder="Comment" rows="3" onkeyup="textCounter(this,'counter',800);" required></textarea>
+				<textarea id="Comment" name="Comment" placeholder="Comment" rows="3" onkeyup="textCounter(this,'counter',1000);" required></textarea>
 				<div class="commentinfo">
-					<span class="counterspan">Character count: </span><input disabled maxlength="3" size="3" value="0" id="counter" /><span class="counterspan">/ max 800</span>
+					<span class="counterspan">Character count: </span><input disabled maxlength="3" size="3" value="0" id="counter" /><span class="counterspan">/ max 1000</span>
 					<div class="appenditemwrap">
 						<a id="previewcomment" href="">Preview</a>
 						<a id="buttonfindgif" href="">GIF</a>
