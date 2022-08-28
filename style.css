@@ -1041,7 +1041,7 @@ img:-moz-loading, img:-moz-broken {
   opacity:0;
 }
 
-.commentIcon path{
+.commentIcon path, .lockIcon path{
 	fill: var(--date-chapter-color);
 }
 svg.commentIcon{
@@ -1065,6 +1065,16 @@ div.commentBtn{
 }
 .cmtcntClass{
 	color: var(--date-chapter-color);
+}
+
+.chLockClass{
+	position:relative;
+}
+svg.lockIcon{
+	float:right;
+	width:auto;
+	height:12px;
+	padding:0px 0px 0px 3px;
 }
 
 

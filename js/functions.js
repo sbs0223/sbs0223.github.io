@@ -21,13 +21,13 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 			for(var i = 0; i < results.length; i++) {
 			    var obj = results[i];
 					var d = new Date(obj.time_stamp*1000);
-					var chtime = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
+					//var chtime = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
 
 					latest += "<div class=\"latestentrywrap\">";
 					latest += "<a href=\"projects?n=" + obj.projectname + "\">";
 					latest += "<img src=\"" + obj.projectsmallthumb + "\" class=\"latestimg\" width=\"300\" height=\"300\" loading=\"lazy\"><span class=\"chapter\">";
 					latest += obj.series + "</span>";
-					latest += "<span class=\"date\">" + chtime + "<span></a></div>";
+					latest += "<span class=\"date\" title=\"" + formatDate(d) + "\">" + timeSinceProj(obj.time_stamp*1000) + "<span></a></div>";
 			}
 
 			document.getElementById("latestcontainer").innerHTML = latest;
@@ -96,7 +96,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 // Ordering by chapter number in descending order, so only the record with highest chapter number of each series holds certain project data in the data file for efficiency
 
 	function getchapters() {
-		alasql.promise("SELECT series, projectname, projectdesc, projectauthor, projectartist, projectmu, projecturl, projectrating, projectthumb, projectstatus, timestamp, num, chname, chthumb FROM json('/json/chapters') where projectname = '" + series + "' order by num desc"
+		alasql.promise("SELECT series, projectname, projectdesc, projectauthor, projectartist, projectmu, projecturl, projectrating, projectthumb, projectstatus, timestamp, num, chname, chthumb, Role FROM json('/json/chapters') where projectname = '" + series + "' order by num desc"
 		).then(function(results){
 			var projectdetail = "";
 			var proj = results[0];
@@ -127,25 +127,36 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 					for(var i = 0; i < results.length; i++) {
 						var obj = results[i];
 						var d = new Date(obj.timestamp*1000);
-						var chtime = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
+						//var chtime = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
 					
 						if( curdate - d < newdaysms + 1) {
 							var dateclass = "newupdate";
 						} else {
 							var dateclass = "normalupdate";
 						};
+						
+						var lockCh = "";
+						if(!(obj.Role === "")){
+							lockCh = "<span class=\"chLockClass\">";
+							lockCh += "<svg class=\"lockIcon\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" width=\"100%\" height=\"100%\">";
+							lockCh += "<path d=\"M296 224h-8v-96c0-52.935-43.065-96-96-96h-64c-52.935 0-96 43.065-96 96v96h-8c-13.2 0-24 10.8-24 24v240c0 13.2 10.8 24 24 24h272c13.2 0 24-10.8 24-24v-240c0-13.2-10.8-24-24-24zM96 128c0-17.645 14.355-32 32-32h64c17.645 0 32 14.355 32 32v96h-128v-96z\"></path>";
+							lockCh += "</path></svg></span>";
+						}
 			
 						projectdetail += "<div class=\"projectwrap\">";
 						projectdetail += "<a href=\"/read?series=" + obj.projectname + "&num=" + obj.num + "\">";
 						projectdetail += "<img data-src=\"" + obj.chthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"169\" loading=\"lazy\">";
+						
+						projectdetail += lockCh;
 
-							projectdetail += "<div class=\"commentBtn\" id=\"cmtDiv" + obj.projectname + (results.length - i) + "\"><svg id=\"commentIconID\" class=\"commentIcon\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\" width=\"100%\" height=\"100%\">";
+							// start comment bubble
+							projectdetail += "<div class=\"commentBtn\" id=\"cmtDiv" + obj.projectname + (results.length - i) + "\"><svg class=\"commentIcon\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\" width=\"100%\" height=\"100%\">";
 							projectdetail += "<path d=\"M240 64c-25.333 0-49.791 3.975-72.693 11.814-21.462 7.347-40.557 17.718-56.751 30.823-30.022 24.295-46.556 55.401-46.556 87.587 0 17.995 5.033 35.474 14.96 51.949 10.343 17.17 25.949 32.897 45.13 45.479 15.22 9.984 25.468 25.976 28.181 43.975 0.451 2.995 0.815 6.003 1.090 9.016 1.361-1.26 2.712-2.557 4.057-3.897 12.069-12.020 28.344-18.656 45.161-18.656 2.674 0 5.359 0.168 8.047 0.509 9.68 1.226 19.562 1.848 29.374 1.848 25.333 0 49.79-3.974 72.692-11.814 21.463-7.346 40.558-17.717 56.752-30.822 30.023-24.295 46.556-55.401 46.556-87.587s-16.533-63.291-46.556-87.587c-16.194-13.106-35.289-23.476-56.752-30.823-22.902-7.839-47.359-11.814-72.692-11.814zM240 0v0c132.548 0 240 86.957 240 194.224s-107.452 194.224-240 194.224c-12.729 0-25.223-0.81-37.417-2.355-51.553 51.347-111.086 60.554-170.583 61.907v-12.567c32.126-15.677 58-44.233 58-76.867 0-4.553-0.356-9.024-1.015-13.397-54.279-35.607-88.985-89.994-88.985-150.945 0-107.267 107.452-194.224 240-194.224zM498 435.343c0 27.971 18.157 52.449 46 65.886v10.771c-51.563-1.159-98.893-9.051-143.571-53.063-10.57 1.325-21.397 2.020-32.429 2.020-47.735 0-91.704-12.879-126.807-34.52 72.337-0.253 140.63-23.427 192.417-65.336 26.104-21.126 46.697-45.913 61.207-73.674 15.383-29.433 23.183-60.791 23.183-93.203 0-5.224-0.225-10.418-0.629-15.584 36.285 29.967 58.629 70.811 58.629 115.838 0 52.244-30.079 98.861-77.12 129.382-0.571 3.748-0.88 7.58-0.88 11.483z\">";
 							projectdetail += "</path></svg> ";
 							projectdetail += "<span class=\"cmtcntClass\" id=\"cmtcnt" + obj.projectname + (results.length - i) + "\"></span>";
 							projectdetail += "</div>";
 							
-						projectdetail += "<h1>" + "<span class=\"" + dateclass + "\">" + chtime + "</span>" + obj.chname + "</h1></a>";
+						projectdetail += "<h1>" + "<span class=\"" + dateclass + "\" title=\"" + formatDate(d) + "\">" + timeSinceProj(obj.timestamp*1000) + "</span>" + obj.chname + "</h1></a>";
 						projectdetail += "</div>";
 					}
 				} else {
@@ -212,7 +223,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 				for(var i = 0; i < results.length; i++) {
 				    var obj = results[i];
 						var d = new Date(obj.timestamp*1000);
-						var chtime = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
+						//var chtime = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
 						
 						if( curdate - d < newdaysms + 1) {
 							var dateclass = "newupdate";
@@ -225,7 +236,7 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 						projectdetail += "<div class=\"projectwrap\">";
 						projectdetail += "<a href=\"/read?series=" + obj.projectname + "&num=" + obj.num + "\">";
 						projectdetail += "<img data-src=\"" + obj.chthumb + "\" class=\"projectthumb lazyload\" width=\"300\" height=\"169\" loading=\"lazy\">";
-						projectdetail += "<h1><span class=\"" + dateclass + "\">" + chtime + "&nbsp;&nbsp;&nbsp;";
+						projectdetail += "<h1><span class=\"" + dateclass + "\ title=\"" + formatDate(d) + "\">" + timeSinceProj(obj.timestamp*1000) + "&nbsp;&nbsp;&nbsp;";
 						projectdetail += obj.chname + "</span></a><br>";
 						projectdetail += "<span class=\"" + adult + "\"><a href=\"/projects?n=" + obj.projectname + "\">" + obj.series + "</a></span></h1>";
 						projectdetail += "</div>";
@@ -298,3 +309,46 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 		$( ".imgurchecker" ).hide();
 	}
 	
+	
+	
+	
+// Date functions
+
+	function padTo2Digits(num) {
+	  return num.toString().padStart(2, '0');
+	}
+	function formatDate(date) {
+	  return (
+	    [
+	      date.getFullYear(),
+	      padTo2Digits(date.getMonth() + 1),
+	      padTo2Digits(date.getDate()),
+	    ].join('-') +
+	    ' ' +
+	    [
+	      padTo2Digits(date.getHours()),
+	      padTo2Digits(date.getMinutes()),
+	      padTo2Digits(date.getSeconds()),
+	    ].join(':')
+	  );
+	}
+	function timeSinceProj(timeStamp) {
+	  var now = new Date(),
+	    secondsPast = (now.getTime() - timeStamp) / 1000;
+	  if (secondsPast < 60) {
+	    return parseInt(secondsPast) + ' secs ago';
+	  }
+	  if (secondsPast < 3600) {
+	    return parseInt(secondsPast / 60) + ' mins ago';
+	  }
+	  if (secondsPast <= 86400) {
+	    return parseInt(secondsPast / 3600) + ' hrs ago';
+	  }
+	  if (secondsPast <= 604800) {
+	    return parseInt(secondsPast / 86400) + ' days ago';
+	  }
+	  if (secondsPast > 604800) {
+		var d = new Date(timeStamp);
+		return d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
+	  }
+	}

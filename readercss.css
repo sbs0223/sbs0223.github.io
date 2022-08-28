@@ -218,7 +218,7 @@ table {
 	#closeComments {
 	  position: fixed;
 	  right: 15px;
-	  top: 40px;
+	  top: 70px;
 	  width: 32px;
 	  height: 32px;
 	  opacity: 0.5;
@@ -497,6 +497,9 @@ table {
 		#menuframe{
 			z-index:3;
 			top:30px;
+		}
+		#closeComments {
+			top:40px;
 		}
 	}
 

@@ -213,7 +213,7 @@ function getcomments(){
 					entry += "<div class=\"CommentEntry\" id=\"com" + obj.Timestamp + "\">";
 					entry += "<span class=\"ReplyButton\" onclick=\"addReply("+obj.Timestamp + ", '" + CleanName + "')\">Reply to Thread</span>";
 					entry += "<span class=\"CommentName\">" + CleanName + "</span>";
-					entry += "<span class=\"CommentInfo\">" + formatDate(d) + "</span>";
+					entry += "<span class=\"CommentInfo\" title=\"" + formatDate(d) + "\">" + timeSince(obj.Timestamp) + "</span>";
 					entry += "<div class=\"CommentContent collapseComments\" id=\"comment" + i + "\">";
 					entry += CleanComment;
 					entry += "<div id=\"bar"+i+"\" class=\"expandbar\" onclick=\"expand("+i+")\"><span class=\"downarrow\" id=\""+i+"\">&raquo;</span></div>";
@@ -223,7 +223,7 @@ function getcomments(){
 				} else {
 					entry += "<div class=\"CommentEntryReply\" id=\"com" + obj.Timestamp + "\">";
 					entry += "<span class=\"CommentName\"><span>&rdsh; </span>" + CleanName + "</span>";
-					entry += "<span class=\"CommentInfo\">" + formatDate(d) + "</span>";
+					entry += "<span class=\"CommentInfo\" title=\"" + formatDate(d) + "\">" + timeSince(obj.Timestamp) + "</span>";
 					entry += "<div class=\"CommentContent collapseComments\" id=\"comment" + i + "\">";
 					entry += CleanComment;
 					entry += "<div id=\"bar"+i+"\" class=\"expandbar\" onclick=\"expand("+i+")\"><span class=\"downarrow\" id=\""+i+"\">&raquo;</span></div>";
@@ -323,6 +323,32 @@ function formatDate(date) {
       padTo2Digits(date.getSeconds()),
     ].join(':')
   );
+}
+function timeSince(timeStamp) {
+  var now = new Date(),
+    secondsPast = (now.getTime() - timeStamp) / 1000;
+  if (secondsPast < 60) {
+    return parseInt(secondsPast) + 's ago';
+  }
+  if (secondsPast < 3600) {
+    return parseInt(secondsPast / 60) + 'm ago';
+  }
+  if (secondsPast <= 86400) {
+    return parseInt(secondsPast / 3600) + 'h ago';
+  }
+  if (secondsPast <= 604800) {
+    return parseInt(secondsPast / 86400) + 'd ago';
+  }
+  if (secondsPast > 604800) {
+	var d = new Date(timeStamp);
+    return (
+	    [
+	      d.getFullYear(),
+	      padTo2Digits(d.getMonth() + 1),
+	      padTo2Digits(d.getDate()),
+	    ].join('/')
+    );
+  }
 }
 
 // calculate characters remaining for the comment box
