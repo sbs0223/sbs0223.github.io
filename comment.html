@@ -3,25 +3,18 @@
 <head>
 	<meta name='robots' content='noindex, nofollow' />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sedgwick+Ave">
-	<link href="https://fonts.googleapis.com/css2?family=Carme&family=Encode+Sans+Semi+Condensed:wght@500&family=Roboto&display=swap" rel="stylesheet">
-
 	<link rel="stylesheet" href="/style.css"> 
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  	<link rel="stylesheet" href="/libraries/font-awesome.min.css">
  	<link rel="stylesheet" href="/form.css">
 	<script src="/js/functions.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/alasql@1.7"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sanitize-html/1.27.5/sanitize-html.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js"></script>
-	<script src='https://cdn.jsdelivr.net/gh/iMrDJAi/markdown-it-reddit-spoiler/dist/main.js'></script>
-	<script src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-emoji/2.0.2/markdown-it-emoji-bare.js" integrity="sha512-gywgvKaHrPIAXxOND4AuX3scYeg/ssXWEpdoqD9V/sPDRN4BTRSZcy5XrYXaqMb8uq8WY7Brcj7zKFl3THivLA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="/libraries/jquery-3.6.0.min.js"></script>
+	<script src="/libraries/lazyload.js"></script>
+	<script src="/libraries/alasql.min.js"></script>
+	<script src="/libraries/sanitize-html.min.js"></script>
+	<script src="/libraries/markdown-it.min.js"></script>
+	<script src="/libraries/markdown-it-reddit-spoiler.js"></script>
+	<script src="/libraries/imagesloaded.pkgd.min.js"></script>
+	<script src="/libraries/markdown-it-emoji-bare.js"></script>
 	<base target="_parent">
 	<script>
 	if(localStorage.getItem("data-theme")){
@@ -40,15 +33,16 @@
 		<div>
 		</div>
 <div id="commentscontainer" class="contentcontainer" style="display:none;">
-	<h1>Add a Comment</h1>	
+	<a id="cmttop"><h1>Add a Comment</h1></a>	
 
 		<form class="gform pure-form pure-form-stacked" method="POST" action="https://script.google.com/macros/s/AKfycbwKlIc0qWkndlaBPuwOvhsl4yCBzHieM5k4HzDy5jS9kGKRxgurnK4cZFVINIUjmNyw/exec">
 			<div class="form-elements">
 				<input type="text" id="Number" name="Number" style="display:none;" />
+				<input type="text" id="Replyto" name="Replyto" style="display:none;" />
 				<input id="Name" name="Name" placeholder="Name" maxlength="20" pattern=".*\S+.*" required />
-				<textarea id="Comment" name="Comment" placeholder="Comment" rows="3" onkeyup="textCounter(this,'counter',800);" required></textarea>
+				<textarea id="Comment" name="Comment" placeholder="Comment" rows="3" onkeyup="textCounter(this,'counter',1000);" required></textarea>
 				<div class="commentinfo">
-					<span class="counterspan">Character count: </span><input disabled maxlength="3" size="3" value="0" id="counter" /><span class="counterspan">/ max 800</span>
+					<span class="counterspan">Character count: </span><input disabled maxlength="3" size="3" value="0" id="counter" /><span class="counterspan">/ max 1000</span>
 					<div class="appenditemwrap">
 						<a id="previewcomment" href="">Preview</a>
 						<a id="buttonfindgif" href="">GIF</a>
@@ -117,7 +111,7 @@
 			document.getElementById("commentscontainer").style.display = "block";
 		</script>
 	</div>
-	<script src="/js/gotop.js"></script>
+	
 
 <div class="footer">
 	<a href="/">wings.sbs</a>┊<a href="/faq">FAQ</a>┊<a href="https://blog.wings.sbs/ask">Contact</a>┊<a href="https://sbutterfly.tumblr.com" target="_blank">Blog</a>┊<a href="https://mangadex.org/group/544ab266-f676-4f59-a928-0af8af0dc0c5/sunshine-butterfly-scans" target="_blank">MangaDex</a>
@@ -125,21 +119,8 @@
 	<a href="/privacy">Privacy Policy</a>┊All content are property of their original creators and publishers
 </div>
 
-<script>
-	function toggleTheme(r) {//this function is executed when switching from the current theme to the other
-		const dataTheme = document.documentElement.getAttribute("data-theme");
-		let theme_switch;
-		if(dataTheme === "light" || dataTheme == null) {theme_switch = 1} else {theme_switch = 0}
-		if(r){theme_switch = !theme_switch}//so the oppisite of the theme stored is used when calling this function 
-		if (theme_switch) {
-			document.documentElement.setAttribute('data-theme', 'dark');
-			localStorage.setItem('data-theme', 'dark');
-		} else {
-			document.documentElement.setAttribute('data-theme', 'light');
-			localStorage.setItem('data-theme', 'light');
-		}
-	}
-</script>
+<script src="/js/gotop.js"></script>
+<script src="/js/footer.js"></script>
 
 </body>
 </html>

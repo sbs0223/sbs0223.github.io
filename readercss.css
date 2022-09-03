@@ -1,6 +1,21 @@
 /* Reader CSS */
 
 
+
+/* LOAD SELF HOSTED FONTS */
+
+
+/* latin */
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/libraries/fonts/JTUSjIg69CK48gW7PXoo9WlhyyTh89Y.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
 :root{
 	--background-color: #f5f5f5;
 	--text-color: #000000;
@@ -203,7 +218,7 @@ table {
 	#closeComments {
 	  position: fixed;
 	  right: 15px;
-	  top: 80px;
+	  top: 70px;
 	  width: 32px;
 	  height: 32px;
 	  opacity: 0.5;
@@ -483,6 +498,9 @@ table {
 			z-index:3;
 			top:30px;
 		}
+		#closeComments {
+			top:40px;
+		}
 	}
 
 	@media screen and (max-width: 800px){
@@ -516,8 +534,15 @@ table {
 	}
 	
 	#loadingmsg{
-		display:block;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
 		text-align:center;
+		font-size:20pt;
+		font-family:'Bebas Neue';
+		width:100%;
+		
 	}
 	#loadingmsg img{
 		width:min(100%, 700px);

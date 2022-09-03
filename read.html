@@ -31,30 +31,24 @@
 <link rel="manifest" href="/images/site.webmanifest">
 <link rel="shortcut icon" href="/images/favicon-32x32.png">
 
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue">
-
 	<link rel="stylesheet" href="/readercss.css">
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.24/dist/sweetalert2.all.min.js" integrity="sha256-Tn7eZhp9hdAfPMZi/rV4rBB21f9sKU/oE4WM8ru62nA=" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/alasql@1.7"></script>
+	<script src="/libraries/jquery-3.6.0.min.js"></script>
+	<script src="/libraries/sweetalert2.min.js"></script>
+	<script src="/libraries/alasql.min.js"></script>
 	<script src="/js/reader.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
+	<script src="/libraries/lazyload.js"></script>
+	<script src="/libraries/cryptojs.js"></script>
+	<script src="/libraries/md5.min.js"></script>
+	<script src="/libraries/jszip.min.js"></script>
+	<script src="/libraries/FileSaver.min.js"></script>
+	<script src="/libraries/imagesloaded.pkgd.min.js"></script>
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LH76QQXWYT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-LH76QQXWYT');
-</script>
+<script defer src="/js/analytics.js"></script> 
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-LH76QQXWYT"></script>
 <script data-goatcounter="https://wingssbs.goatcounter.com/count"
-          async src="//gc.zgo.at/count.js"></script>
+          defer src="//gc.zgo.at/count.js"></script>
 
 <script>
 	if(localStorage.getItem("data-theme")){
@@ -65,6 +59,21 @@
 		}
 	}
 </script>
+
+	<script>
+		
+		var theData = null;
+		$.ajax({
+		    'async': false,
+		    'global': false,
+		    'url': "/json/chapters.json",
+		    'dataType': "json",
+		    'success': function (data) {
+		        theData = data;
+		    }
+		});
+		
+	</script>
 
 </head>
 <body>
@@ -86,6 +95,8 @@
 
 <div id="commentframewrap"><embed id="menuframe" type="text/html" src="" width="100%" height="100%" style="display:none;"></div>
 <a href="" id="closeComments" style="display:none;" onclick="toggleComments()"></a>
+
+<script src="/js/footer.js"></script>
 
 </body>
 </html>
