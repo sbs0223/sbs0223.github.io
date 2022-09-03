@@ -407,6 +407,7 @@ function addReply(x,y){
 	$('#replyingmsg').remove();
 	$('input#Replyto').attr({'value':x});
 	$('.form-elements').prepend('<span id="replyingmsg" onclick="cancelreply()">Replying to a thread by ' + y + '. Click to cancel.<span>');
+	location.hash = 'cmttopreset';
 	location.hash = 'cmttop';
 }
 function cancelreply(){
