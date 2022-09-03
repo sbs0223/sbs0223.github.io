@@ -222,7 +222,7 @@ table {
 	  width: 32px;
 	  height: 32px;
 	  opacity: 0.5;
-	  z-index:4;
+	  z-index:2;
 	}
 	#closeComments:hover {
 	  opacity: 1;
@@ -302,7 +302,7 @@ table {
 		top: calc(100%-30px);
 		background-color: var(--dropdown-bg-color);
 		width:200px;
-		z-index:3;
+		z-index:1;
 	}
 	#WidthDropdown {
 		display: none;
@@ -310,7 +310,7 @@ table {
 		background-color: var(--dropdown-bg-color);
 		left:calc(0*100%/5);
 		width:calc(100%/5);
-		z-index:3;
+		z-index:1;
 		top:30px;
 	}
 	#PgDropdown {
@@ -319,7 +319,7 @@ table {
 		background-color: var(--dropdown-bg-color);
 		left:calc(2*100%/5);
 		width:calc(100%/5);
-		z-index:3;
+		z-index:1;
 		top:30px;
 	}
 	a#menubtn2:hover,a#menubtn2:focus,a#menubtn3:hover,a#menubtn3:focus, a#prevbtn:hover, a#prevbtn:focus, a#nextbtn:hover, a#nextbtn:focus, .secondrowmenu > a:hover, .secondrowmenu > a:focus{
@@ -495,8 +495,8 @@ table {
 
 	@media screen and (max-width: 700px){
 		#menuframe{
-			z-index:3;
-			top:30px;
+			z-index:1;
+			height:100%;
 		}
 		#closeComments {
 			top:40px;

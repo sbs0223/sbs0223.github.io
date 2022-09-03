@@ -407,8 +407,9 @@ function addReply(x,y){
 	$('#replyingmsg').remove();
 	$('input#Replyto').attr({'value':x});
 	$('.form-elements').prepend('<span id="replyingmsg" onclick="cancelreply()">Replying to a thread by ' + y + '. Click to cancel.<span>');
-	location.hash = 'cmttopreset';
-	location.hash = 'cmttop';
+	var abc = Math.max($("#replyingmsg").offset().top - 60 , 0);
+    $(document).scrollTop(abc);
+	$("input#Name").focus();
 }
 function cancelreply(){
 	$('input#Replyto').attr({'value':''});
