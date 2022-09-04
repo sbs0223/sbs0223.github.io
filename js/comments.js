@@ -192,7 +192,12 @@ function getcomments(){
 	}
   const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQABY2QntPAjViT8mZnc4X0Cx7KLnDg8j2k1sxKZNg9LuTHq26dAwY3gn8QSdwIGFa68rXPKAHo2zoS/pub?output=csv';
   alasql.promise("SELECT * FROM CSV(?, {headers:true}) where Series = '" + series + "' " + chapquery + "order by Replyto asc, Timestamp desc", [url]).then(function(results){
-	  	$("#displaycomments").empty();
+	  
+	  if (results.length > 0){
+		  $("#displaycomments").empty();
+	  } else {
+		  $("#displaycomments").html("<center><br>No comments yet ( •́ω•̩̥̀ )</center>");
+	  }
 		$("#displaycomments").append("<div class=\"commentwrapper\">");
 		
 		for(var i = 0; i < results.length; i++) {
