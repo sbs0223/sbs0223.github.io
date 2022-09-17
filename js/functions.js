@@ -216,6 +216,12 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 				
 				//END CUSTOM OVERRIDE
 				
+				//Start reverser
+				
+				$('h2').append('<span onclick="reverseOrder()">&#8645;</span>')
+				
+				//End reverser
+				
 				
 			} catch(err) {
 				window.location.replace("/404");
@@ -321,6 +327,13 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 		$( ".imgurchecker" ).hide();
 	}
 	
+	
+
+	function reverseOrder(){
+		var list = $('.parentproject');
+		var listItems = list.children('div');
+		list.append(listItems.get().reverse());
+	}
 	
 	
 	

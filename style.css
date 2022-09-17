@@ -368,6 +368,19 @@ h2{
 	font-family:'Bebas Neue', sans-serif;
 	line-height:0.8;
 }
+h2 span{
+	padding: 0 10px;
+	font-size:13pt;
+	font-family:"Encode Sans Semi Condensed", sans-serif;
+  	vertical-align: middle;
+}
+h2 span:hover{
+	font-size:13pt;
+	font-family:"Encode Sans Semi Condensed", sans-serif;
+  	vertical-align: middle;
+	color:var(--anchor-hover-color);
+}
+
 
 p{margin-bottom:20px;}
 
