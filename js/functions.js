@@ -204,6 +204,18 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 					}
 				});
 				
+				//START LEASH CH1 EXTERNAL LINK OVERRIDE
+				
+				var leashchone = "<div class=\"projectwrap\"><a href=\"https://mangadex.org/chapter/7dac8f11-954d-4520-b018-1532a002a211\" target=\"_blank\">";
+				leashchone += "<img src=\"https://cdn.discordapp.com/attachments/850001666442788864/1020816453244555264/unknown.png\" class=\"projectthumb lazyload\" width=\"300\" height=\"169\" loading=\"lazy\">";
+				leashchone += "<h1>Chapter 1 on Mangadex</h1></a></div>";
+				
+				if (series === 'leash'){
+					$('.parentproject').append(leashchone);
+				}
+				
+				//END CUSTOM OVERRIDE
+				
 				
 			} catch(err) {
 				window.location.replace("/404");
