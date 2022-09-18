@@ -1137,6 +1137,9 @@ svg.lockIcon{
 }		
 @media screen and (max-width: 350px){
 			.topbar a, .topbar a:link, .topbar a:visited{font-size: 11.5pt; padding:1px 3px}
+			.projectsnav{
+				max-width:calc(100% - 60px);
+			}
 }		
 @media screen and (max-width: 320px){
 			.topbar a, .topbar a:link, .topbar a:visited{font-size: 11pt; padding:1px 3px}

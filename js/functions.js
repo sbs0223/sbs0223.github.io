@@ -218,7 +218,9 @@ needs to be manually sorted by date & clipped to 4 entries atm with the json raw
 				
 				//Start reverser
 				
-				$('h2').append('<span onclick="reverseOrder()">&#8645;</span>')
+				if (results.length > 1){
+					$('h2').append('<span onclick="reverseOrder()">&#8645;</span>')
+				}
 				
 				//End reverser
 				
