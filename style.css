@@ -371,13 +371,12 @@ h2{
 h2 span{
 	padding: 0 10px;
 	font-size:13pt;
-	font-family:"Encode Sans Semi Condensed", sans-serif;
+	font-family: BlinkMacSystemFont,'Segoi UI Symbol',system-ui;
+	font-weight: 900;
   	vertical-align: middle;
+	cursor:default;
 }
 h2 span:hover{
-	font-size:13pt;
-	font-family:"Encode Sans Semi Condensed", sans-serif;
-  	vertical-align: middle;
 	color:var(--anchor-hover-color);
 }
 
