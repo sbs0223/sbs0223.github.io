@@ -1,14 +1,1 @@
-function toggleTheme(r) {//this function is executed when switching from the current theme to the other
-	event.preventDefault(); 
-	const dataTheme = document.documentElement.getAttribute("data-theme");
-	let theme_switch;
-	if(dataTheme === "light" || dataTheme == null) {theme_switch = 1} else {theme_switch = 0}
-	if(r){theme_switch = !theme_switch}//so the oppisite of the theme stored is used when calling this function 
-	if (theme_switch) {
-		document.documentElement.setAttribute('data-theme', 'dark');
-		localStorage.setItem('data-theme', 'dark');
-	} else {
-		document.documentElement.setAttribute('data-theme', 'light');
-		localStorage.setItem('data-theme', 'light');
-	}
-}
+function a2_0x2bc6(){const _0x161cac=['573018lOGeHk','1338048mPATYG','4mNZTpN','light','2834380rATXWD','14030nBbbAJ','preventDefault','setItem','setAttribute','dark','data-theme','22jiLxFR','9jbisLH','526839htmHIw','21332BunQmX','1895124PLZdqE','documentElement'];a2_0x2bc6=function(){return _0x161cac;};return a2_0x2bc6();}(function(_0x4bc53e,_0x389f58){const _0x4978cb=a2_0x3884,_0x4754ff=_0x4bc53e();while(!![]){try{const _0x563c79=-parseInt(_0x4978cb(0x140))/0x1*(-parseInt(_0x4978cb(0x143))/0x2)+parseInt(_0x4978cb(0x142))/0x3*(-parseInt(_0x4978cb(0x148))/0x4)+-parseInt(_0x4978cb(0x13a))/0x5+-parseInt(_0x4978cb(0x146))/0x6+-parseInt(_0x4978cb(0x144))/0x7+parseInt(_0x4978cb(0x147))/0x8+-parseInt(_0x4978cb(0x141))/0x9*(-parseInt(_0x4978cb(0x14a))/0xa);if(_0x563c79===_0x389f58)break;else _0x4754ff['push'](_0x4754ff['shift']());}catch(_0x54c5f6){_0x4754ff['push'](_0x4754ff['shift']());}}}(a2_0x2bc6,0x22594));function a2_0x3884(_0x1b1eb8,_0x280af2){const _0x2bc680=a2_0x2bc6();return a2_0x3884=function(_0x388436,_0x16dc70){_0x388436=_0x388436-0x13a;let _0xe253af=_0x2bc680[_0x388436];return _0xe253af;},a2_0x3884(_0x1b1eb8,_0x280af2);}function toggleTheme(_0x27e90a){const _0x1c9dfd=a2_0x3884;event[_0x1c9dfd(0x13b)]();const _0x496bc8=document[_0x1c9dfd(0x145)]['getAttribute'](_0x1c9dfd(0x13f));let _0x1eea7c;_0x496bc8===_0x1c9dfd(0x149)||_0x496bc8==null?_0x1eea7c=0x1:_0x1eea7c=0x0,_0x27e90a&&(_0x1eea7c=!_0x1eea7c),_0x1eea7c?(document[_0x1c9dfd(0x145)]['setAttribute'](_0x1c9dfd(0x13f),_0x1c9dfd(0x13e)),localStorage[_0x1c9dfd(0x13c)](_0x1c9dfd(0x13f),_0x1c9dfd(0x13e))):(document[_0x1c9dfd(0x145)][_0x1c9dfd(0x13d)](_0x1c9dfd(0x13f),_0x1c9dfd(0x149)),localStorage[_0x1c9dfd(0x13c)](_0x1c9dfd(0x13f),_0x1c9dfd(0x149)));}
