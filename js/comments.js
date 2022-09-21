@@ -227,7 +227,7 @@ function getcomments(){
 					$("#displaycomments").append(entry);
 				} else {
 					entry += "<div class=\"CommentEntryReply\" id=\"com" + obj.Timestamp + "\">";
-					entry += "<span class=\"CommentName\"><span>&rdsh; </span>" + CleanName + "</span>";
+					entry += "<span class=\"CommentName\"><span>&#8618; </span>" + CleanName + "</span>";
 					entry += "<span class=\"CommentInfo\" title=\"" + formatDate(d) + "\">" + timeSince(obj.Timestamp) + "</span>";
 					entry += "<div class=\"CommentContent collapseComments\" id=\"comment" + i + "\">";
 					entry += CleanComment;
