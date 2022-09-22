@@ -42,7 +42,7 @@
 	<script src="/libraries/md5.min.js"></script>
 	<script src="/libraries/jszip.min.js"></script>
 	<script src="/libraries/FileSaver.min.js"></script>
-	<script src="/libraries/imagesloaded.pkgd.min.js"></script>
+	<script src="/libraries/jquery.waitforimages.min.js"></script>
 
 	<script disable-devtool-auto src="/libraries/disable-devtool.min.js"></script>
 <script defer src="/js/analytics.js"></script> 
@@ -78,20 +78,14 @@
 </head>
 <body oncontextmenu="return false;">
 
-<div style="position:absolute; top:0; left:0; width:1px; height:1px; overflow:hidden;">
-	<img src="https://i.imgur.com/9Xt16uG.png" onerror="DisplayImgAlert()">
-</div>
-
-<script>
-	function DisplayImgAlert() {
-		alert("Uh-oh, your ISP seems to be blocking us. If the reader does not load, please use a VPN.");
-	}
-</script>
-
 <div id="pageheader" style="display:none;"></div>
 
 <div id="readerID" class="readerClass"></div>
-<div id="loadingmsg"><img src="https://media.tenor.com/images/422174be83dfb18bf0eb8b58fed66c6e/tenor.gif"></div>
+<div id="loadingmsg"><img src="/images/assets/loading.gif"></div>
+
+<div style="position:absolute; top:0; left:0; width:1px; height:1px; overflow:hidden;">
+	<img src="https://i.imgur.com/9Xt16uG.png" onerror="DisplayImgAlert()">
+</div>
 
 <div id="commentframewrap"><embed id="menuframe" type="text/html" src="" width="100%" height="100%" style="display:none;"></div>
 <a href="" id="closeComments" style="display:none;" onclick="toggleComments()"></a>
