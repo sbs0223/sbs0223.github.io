@@ -695,6 +695,11 @@ img.latestimg:hover{
 }
 
 
+.noClicky{
+	cursor: default;
+	pointer-events:none;
+}
+
 
 
 #AlertContainer{
