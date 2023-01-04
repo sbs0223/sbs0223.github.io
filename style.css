@@ -490,6 +490,7 @@ div.projectsnav {
 
 
 div.projectpagecover{
+	position:relative;
 	width:100%;
 	margin:0px;
 	padding:0px;
@@ -1206,6 +1207,170 @@ li.indivResult a:hover{
 
 
 
+/* start project corner ribbon */
+
+
+/* common */
+.ribbon {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: absolute;
+}
+.ribbon::before,
+.ribbon::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
+}
+.ribbon span {
+  position: absolute;
+  display: block;
+  width: 225px;
+  padding: 15px 0;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  color: #fff;
+  font: 700 22px/1 'Bebas Neue', sans-serif;
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  text-transform: uppercase;
+  text-align: center;
+  opacity:0.88;
+}
+.ribbon.current::before,
+.ribbon.current::after {
+  border: 5px solid #a82424;
+}
+.ribbon.current span{
+  background-color: #cb4c4c;
+}
+.ribbon.complete::before,
+.ribbon.complete::after {
+  border: 5px solid #7e438f;
+}
+.ribbon.complete span{
+  background-color: #916fb1;
+}
+.ribbon.dropped::before,
+.ribbon.dropped::after {
+  border: 5px solid #5e6871;
+}
+.ribbon.dropped span{
+  background-color: #89949d;
+}
+.ribbon.licensed::before,
+.ribbon.licensed::after {
+  border: 5px solid #166636;
+}
+.ribbon.licensed span{
+  background-color: #3fa166;
+}
+
+/* top right*/
+.ribbon-top-right {
+  top: -10px;
+  right: -10px !important;
+}
+.ribbon-top-right::before,
+.ribbon-top-right::after {
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+.ribbon-top-right::before {
+  top: 0;
+  left: 0;
+}
+.ribbon-top-right::after {
+  bottom: 0;
+  right: 0;
+}
+.ribbon-top-right span {
+  left: -25px;
+  top: 30px;
+  transform: rotate(45deg);
+}
+
+@media screen and (max-width: 850px){
+	.ribbon {
+	  width: 130px;
+	  height: 130px;
+	}
+	.ribbon span {
+	  width: 190px;
+	  padding: 10px 0;
+	}
+	.ribbon.current::before,
+	.ribbon.current::after,.ribbon.complete::before,
+	.ribbon.complete::after,.ribbon.dropped::before,
+	.ribbon.dropped::after,.ribbon.licensed::before,
+	.ribbon.licensed::after {
+	  border: none;
+	}
+	.ribbon-top-right {
+	  top: 0px;
+	  right: 0px !important;
+	}
+	.ribbon-top-right::before {
+	  top: 0;
+	  left: 0;
+	}
+	.ribbon-top-right::after {
+	  bottom: 0;
+	  right: 0;
+	}
+	.ribbon-top-right span {
+	  left: -5px;
+	  top: 18px;
+	}
+}
+
+@media screen and (max-width: 650px){
+	.ribbon {
+	  width: 110px;
+	  height: 110px;
+	}
+	.ribbon span {
+	  width: 190px;
+	  padding: 4px 0;
+	  font: 700 17px/1 'Bebas Neue', sans-serif;
+	}
+	.ribbon.current::before,
+	.ribbon.current::after,.ribbon.complete::before,
+	.ribbon.complete::after,.ribbon.dropped::before,
+	.ribbon.dropped::after,.ribbon.licensed::before,
+	.ribbon.licensed::after {
+	  border: none;
+	}
+	.ribbon-top-right {
+	  top: 0px;
+	  right: 0px !important;
+	}
+	.ribbon-top-right::before {
+	  top: 0;
+	  left: 0;
+	}
+	.ribbon-top-right::after {
+	  bottom: 0;
+	  right: 0;
+	}
+	.ribbon-top-right span {
+	  left: -10px;
+	  top: 13px;
+	}
+}
+
+
+/* end corner ribbon */
+
+
+
+
+
+
+
+
+
+
 
 @media screen and (max-width: 660px){
 			div.latestentrywrap{
@@ -1214,6 +1379,7 @@ li.indivResult a:hover{
 			}
 			img.latestimg { width:100%;}
 			div.projectwrap{ width:50%;}
+			
 }
 @media screen and (max-width: 600px){
 	.topbar a, .topbar a:link, .topbar a:visited{font-size: 13.5pt; padding:2px 6px}
