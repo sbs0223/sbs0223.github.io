@@ -30,11 +30,12 @@
 <link rel="manifest" href="/images/site.webmanifest">
 <link rel="shortcut icon" href="/images/favicon-32x32.png">
 	<link rel="stylesheet" href="/style.css"> 
-  	 <link rel="stylesheet" href="/libraries/font-awesome.min.css">
+  	<link rel="stylesheet" href="/libraries/font-awesome.min.css">
  	<link rel="stylesheet" href="/form.css">
 	<script src="/js/functions.js"></script>
 	<script src="/libraries/jquery-3.6.0.min.js"></script>
 	<script src="/libraries/lazyload.js"></script>
+	<script src="/libraries/alasql.min.js"></script>
 	
 
 
@@ -83,7 +84,22 @@
 </div>
 
 <div class="toggleThemeWrap">
+	
+	<div class="searchcontainer">
+	  <div class="searchbox">
+		  <input type="text" class="input userinput" placeholder="Search projects" maxlength="150" id="searchSeries" />
+    
+	  </div>
+	  <div class="output"><ul class="resultsClass" id="result"></ul></div>
+	</div>
+	<script src="/js/search.js"></script>
+	
 	<div class="toggleThemeDiv">
+		<button id="toggleThemeBtn" type="button" onclick="toggleSearch()">
+			<svg id="toggleMode" class="icon2" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33">
+			<path d="M31.008 27.231l-7.58-6.447c-0.784-0.705-1.622-1.029-2.299-0.998 1.789-2.096 2.87-4.815 2.87-7.787 0-6.627-5.373-12-12-12s-12 5.373-12 12 5.373 12 12 12c2.972 0 5.691-1.081 7.787-2.87-0.031 0.677 0.293 1.515 0.998 2.299l6.447 7.58c1.104 1.226 2.907 1.33 4.007 0.23s0.997-2.903-0.23-4.007zM12 20c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8z"></path>
+			</svg>
+		</button>
 		<button id="toggleThemeBtn" type="button" onclick="toggleTheme()">
 			<svg id="toggleMode" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33">
 			<path d="M16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16zM4 16c0-6.627 5.373-12 12-12v24c-6.627 0-12-5.373-12-12z"></path>
@@ -94,7 +110,6 @@
 
 <div class="contentcontainer">
 
-		<script src="/libraries/alasql.min.js"></script>
 		<script src="/libraries/sanitize-html.min.js"></script>
 		<script src="/libraries/markdown-it.min.js"></script>
 		<script src="/libraries/markdown-it-reddit-spoiler.js"></script>
