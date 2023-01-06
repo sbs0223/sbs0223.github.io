@@ -128,78 +128,82 @@
 		
 </div>
 <div id="commentscontainer" class="contentcontainer" style="display:none;">
-	<a id="cmttop"><h1>Add a Comment</h1></a>	
+	<div id="addAComment">
+		<a id="cmttop"><h1>Add a Comment</h1></a>	
 
-		<form class="gform pure-form pure-form-stacked" method="POST" action="https://script.google.com/macros/s/AKfycbwKlIc0qWkndlaBPuwOvhsl4yCBzHieM5k4HzDy5jS9kGKRxgurnK4cZFVINIUjmNyw/exec">
-			<div class="form-elements">
-				<input type="text" id="Number" name="Number" style="display:none;" />
-				<input type="text" id="Replyto" name="Replyto" style="display:none;" />
-				<input id="Name" name="Name" placeholder="Name" maxlength="20" pattern=".*\S+.*" required />
-				<textarea id="Comment" name="Comment" placeholder="Comment" rows="3" onkeyup="textCounter(this,'counter',1000);" required></textarea>
-				<div class="commentinfo">
-					<span class="counterspan">Character count: </span><input disabled maxlength="3" size="3" value="0" id="counter" /><span class="counterspan">/ max 1000</span>
-					<div class="appenditemwrap">
-						<a id="previewcomment" href="">Preview</a>
-						<a id="buttonfindgif" href="">GIF</a>
-						<a data-before="**" data-after="**" href="">**bold**</a>
-						<a data-before="*" data-after="*" href="">*italic*</a>
-						<a data-before="~~" data-after="~~" href="">~~strike~~</a>
-						<a data-before="&gt;!" data-after="!&lt;" href="">&gt;!spoiler!&lt;</a>
-						<a data-before="![](" data-after=")" href="">![](image)</a>
-						<a data-item="😀" href="">😀</a>
-						<a data-item="😄" href="">😄</a>
-						<a data-item="😆" href="">😆</a>
-						<a data-item="😅" href="">😅</a>
-						<a data-item="😂" href="">😂</a>
-						<a data-item="😉" href="">😉</a>
-						<a data-item="😊" href="">😊</a>
-						<a data-item="😍" href="">😍</a>
-						<a data-item="😐" href="">😐</a>
-						<a data-item="😏" href="">😏</a>
-						<a data-item="😟" href="">😟</a>
-						<a data-item="😳" href="">😳</a>
-						<a data-item="😨" href="">😨</a>
-						<a data-item="😭" href="">😭</a>
-						<a data-item="😫" href="">😫</a>
-						<a data-item="😡" href="">😡</a>
-						<a data-item="😓" href="">😓</a>
-						<a data-item="😱" href="">😱</a>
-						<a href="" onclick="showMoreEmo()" id="aMoreEmo">&raquo;</a>
-						<!-- Hidden Emojis						
-						<div id="moreEmo"> -->
-							<span id="spanMoreEmo"></span>
-							<a data-item=":bulbaowo:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400119140352.png" width="16" height="16"></span></a>
-							<a data-item=":catsip:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400853135431.png" width="16" height="16"></span></a>
-							<a data-item=":catcute:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400416960540.png" width="16" height="16"></span></a>
-							<a data-item=":cat_paws:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400211410964.png" width="16" height="16"></span></a>
-							<a data-item=":aaaa:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/955833829237620756.png" width="16" height="16"></span></a>
-							<a data-item=":PandaLove:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400861540403.png" width="16" height="16"></span></a>
-							<a data-item=":CatKnifeUwU:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400408563732.png" width="16" height="16"></span></a>
-							<a data-item=":blobaww:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377399917830205.png" width="16" height="16"></span></a>
-							<a data-item=":angreydoggo:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/955833829078229044.png" width="16" height="16"></span></a>
-						<!--</div>
-							 -->
+			<form class="gform pure-form pure-form-stacked" method="POST" action="https://script.google.com/macros/s/AKfycbwKlIc0qWkndlaBPuwOvhsl4yCBzHieM5k4HzDy5jS9kGKRxgurnK4cZFVINIUjmNyw/exec">
+				<div class="form-elements">
+					<input type="text" id="Number" name="Number" style="display:none;" />
+					<input type="text" id="Replyto" name="Replyto" style="display:none;" />
+					<input id="Name" name="Name" placeholder="Name" maxlength="20" pattern=".*\S+.*" required />
+					<textarea id="Comment" name="Comment" placeholder="Comment" rows="3" onkeyup="textCounter(this,'counter',1000);" required></textarea>
+					<div class="commentinfo">
+						<span class="counterspan">Character count: </span><input disabled maxlength="3" size="3" value="0" id="counter" /><span class="counterspan">/ max 1000</span>
+						<div class="appenditemwrap">
+							<a id="previewcomment" href="">Preview</a>
+							<a id="buttonfindgif" href="">GIF</a>
+							<a data-before="**" data-after="**" href="">**bold**</a>
+							<a data-before="*" data-after="*" href="">*italic*</a>
+							<a data-before="~~" data-after="~~" href="">~~strike~~</a>
+							<a data-before="&gt;!" data-after="!&lt;" href="">&gt;!spoiler!&lt;</a>
+							<a data-before="![](" data-after=")" href="">![](image)</a>
+							<a data-item="😀" href="">😀</a>
+							<a data-item="😄" href="">😄</a>
+							<a data-item="😆" href="">😆</a>
+							<a data-item="😅" href="">😅</a>
+							<a data-item="😂" href="">😂</a>
+							<a data-item="😉" href="">😉</a>
+							<a data-item="😊" href="">😊</a>
+							<a data-item="😍" href="">😍</a>
+							<a data-item="😐" href="">😐</a>
+							<a data-item="😏" href="">😏</a>
+							<a data-item="😟" href="">😟</a>
+							<a data-item="😳" href="">😳</a>
+							<a data-item="😨" href="">😨</a>
+							<a data-item="😭" href="">😭</a>
+							<a data-item="😫" href="">😫</a>
+							<a data-item="😡" href="">😡</a>
+							<a data-item="😓" href="">😓</a>
+							<a data-item="😱" href="">😱</a>
+							<a href="" onclick="showMoreEmo()" id="aMoreEmo">&raquo;</a>
+							<!-- Hidden Emojis						
+							<div id="moreEmo"> -->
+								<span id="spanMoreEmo"></span>
+								<a data-item=":bulbaowo:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400119140352.png" width="16" height="16"></span></a>
+								<a data-item=":catsip:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400853135431.png" width="16" height="16"></span></a>
+								<a data-item=":catcute:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400416960540.png" width="16" height="16"></span></a>
+								<a data-item=":cat_paws:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400211410964.png" width="16" height="16"></span></a>
+								<a data-item=":aaaa:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/955833829237620756.png" width="16" height="16"></span></a>
+								<a data-item=":PandaLove:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400861540403.png" width="16" height="16"></span></a>
+								<a data-item=":CatKnifeUwU:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377400408563732.png" width="16" height="16"></span></a>
+								<a data-item=":blobaww:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/944377399917830205.png" width="16" height="16"></span></a>
+								<a data-item=":angreydoggo:" href="" class="moreEmo"><span class="emoji"><img class="userimg" src="https://cdn.discordapp.com/emojis/955833829078229044.png" width="16" height="16"></span></a>
+							<!--</div>
+								 -->
+						</div>
+						<button id="sendcomment" class="button-success pure-button">Send</button>
 					</div>
-					<button id="sendcomment" class="button-success pure-button">Send</button>
+				</div>
+				<div style="clear:both;"></div>
+			</form>
+		
+			<div id="sentmessage"></div>
+		
+			<iframe id="framefindgif" src="/findgif" width="100%" height="300" type="text/html" frameborder="0" allowTransparency="true"></iframe>
+		
+			<div id="previewcommentwrapper" style="display:none;">
+				<div class="CommentEntry">
+					<span class="CommentName">COMMENT PREVIEW</span>
+					<div class="CommentContent" id="previewcomment"></div>
 				</div>
 			</div>
-			<div style="clear:both;"></div>
-		</form>
-		
-		<div id="sentmessage"></div>
-		
-		<iframe id="framefindgif" src="/findgif" width="100%" height="300" type="text/html" frameborder="0" allowTransparency="true"></iframe>
-		
-		<div id="previewcommentwrapper" style="display:none;">
-			<div class="CommentEntry">
-				<span class="CommentName">COMMENT PREVIEW</span>
-				<div class="CommentContent" id="previewcomment"></div>
-			</div>
-		</div>
+	
+	</div>
 
 	<div id="displaycomments"><center><br>Loading Comments</center></div>
 
 	<script src="/js/comments.js"></script>
+
 </div>
 
 <script>
