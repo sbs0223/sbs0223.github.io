@@ -156,6 +156,13 @@ input:focus, textarea:focus, select:focus {
 		   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 		   background: rgb(28, 184, 65); /* this is a green */
 		 }
+		 .button-warning {
+  		   color: white;
+  		   border-radius: 4px;
+  		   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+		   background: rgb(223, 117, 20); /* this is an orange */
+		   margin:0px 10px;
+		 }
 		 .button-xlarge {
 		   font-size: 125%;
 		 }
