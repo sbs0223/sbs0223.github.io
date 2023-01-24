@@ -112,12 +112,21 @@
 <div class="contentcontainer">
 
 <h1>Generate a Reader URL</h1>
+<p>This isn't really a public feature. Use cases include QC'ing, previewing releases, sharing stuff temporarily with friends via google drive, etc.</p>
+
+<i>Instructions:</i>
 <ul>
-	<li>Enter the Imgur or Google Drive link or ID to generate a link to the reader.</li>
+	<li>Enter the <u>Imgur album or Google Drive folder link or ID</u> to generate a reader link.</li>
 	
-	<li>Format and title are optional fields. If nothing is chosen, the format will default to longstrip, and title will return NULL.</li>
+	<li>Make sure the Google Drive folder is being shared publicly (anyone with the link can view). Images must be uploaded directly to the folder, not a subfolder, and display order will be based on file names.</li>
 	
-	<li>Comments are technically useable, but anything with the same title will share the same comments.</li>
+	<li>All Google Drive images are resized to 720px wide to avoid excessive rate limiting, so a deterioration in image quality is expected. Add parameter "q" with any value for original quality (e.g. &q=1).</li>
+	
+	<li>If the bear on the scooter keeps rolling along, there's probably something wrong with your input.</li>
+	
+	<li>Format and title are optional. If nothing is selected, format will default to longstrip.</li>
+	
+	<li>Comments are technically operational, but anything with the same title will share the same comments. i.e. Everything untitled will display the same comments.</li>
 </ul>
 
   <form class="gform pure-form pure-form-stacked" id="generateLink">
@@ -129,12 +138,11 @@
 		
 		
 	    <fieldset class="pure-group">
-	      <select id="source" name="source">
-			<option disabled selected>Choose source * &nbsp;&nbsp;</option>
-	        <option>imgur</option>
+	      Source: <select id="source" name="source">
+	        <option selected>imgur &nbsp;&nbsp;</option>
 	        <option>gdrive</option>
 	      </select>
-		  <input id="urlorID" name="urlorID" placeholder="Imgur/GDrive URL/ID *" />
+		  <input id="urlorID" name="urlorID" placeholder="URL or ID *" />
 		  <div id="invalidEntry" style="font-size:8pt;color:red;"></div>
 	      <select id="format" name="format">
 			<option disabled selected>Choose format &nbsp;&nbsp;</option>
@@ -175,25 +183,27 @@
 		
 		$("form input, form select").bind('input', function() {
 			inputID = $('input#urlorID').val();
-			inputSource = $('#source').find(":selected").text();
-			inputFormat = $('#format').find(":selected").text();
+			inputSource = $('#source').find(":selected").text().trim();
+			inputFormat = $('#format').find(":selected").text().trim();
 			inputName = $('#title').val();
 			
 			if(inputSource === "imgur"){
 				if (inputID.toLowerCase().indexOf("http") >= 0){
-					constructID = inputID.substr(inputID.length - 7);
+					constructID = getIdFromUrlImgur(inputID);
 				} else{
 					constructID = inputID;
 				}
+
 			} else if(inputSource === "gdrive"){
 				if(inputID){
 					constructID = getIdFromUrl(inputID);
-					if(constructID == null){
-						$("#invalidEntry").text("Invalid Google Drive URL/ID").show();
-					} else{
-						$("#invalidEntry").text("").hide();
-					}
 				}
+			}
+			
+			if(constructID === null){
+				$("#invalidEntry").text("Invalid URL/ID").show();
+			} else{
+				$("#invalidEntry").text("").hide();
 			}
 			
 			constructURL = "https://wings.sbs/read";
@@ -208,7 +218,11 @@
 			
 			constructURL = encodeURI(constructURL);
 		    
-			$("#resultURL").val(constructURL);			
+			if(inputSource === "imgur" || inputSource === "gdrive") {
+				$("#resultURL").val(constructURL);
+			} else {
+				$("#resultURL").val();
+			}
 			
 		});
 		
@@ -238,11 +252,14 @@
 			$("#clearAll").click(function (e) {
 				e.preventDefault();
 				$('form#generateLink')[0].reset();
+				$("#invalidEntry").text("").hide();
 			});
 			
 	    });
 		
 		function getIdFromUrl(url) { return url.match(/[-\w]{25,}(?!.*[-\w]{25,})/); }
+		function getIdFromUrlImgur(url) { return url.match(/(?<=a\/|album\/)\w+/); }
+		
 		
 	</script>
 
