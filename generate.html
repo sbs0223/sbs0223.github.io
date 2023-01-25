@@ -118,7 +118,10 @@
 <ul>
 	<li>Enter the <u>Imgur album or Google Drive folder link or ID</u> to generate a reader link.</li>
 	
-	<li>Make sure the Google Drive folder is being shared publicly (anyone with the link can view). Images must be uploaded directly to the folder, not a subfolder, and display order will be based on file names.</li>
+	<li>Make sure the Google Drive folder is being shared publicly (anyone with the link can view).</li>
+	
+	<li>"gdrive" takes individual chapter folders. Images can't be in subfolders.</li>
+	<li>"gdrivemulti" takes a folder of subfolders in which separate chapter images are stored.</li>
 	
 	<li>All Google Drive images are resized to 720px wide to avoid excessive rate limiting, so a deterioration in image quality is expected. Add parameter "q" with any value for original quality (e.g. &q=1).</li>
 	
@@ -140,7 +143,8 @@
 	    <fieldset class="pure-group">
 	      Source: <select id="source" name="source">
 	        <option selected>imgur &nbsp;&nbsp;</option>
-	        <option>gdrive</option>
+	        <option>gdrive &nbsp;&nbsp;</option>
+			<option>gdrivemulti &nbsp;&nbsp;</option>
 	      </select>
 		  <input id="urlorID" name="urlorID" placeholder="URL or ID *" />
 		  <div id="invalidEntry" style="font-size:8pt;color:red;"></div>
@@ -190,7 +194,7 @@
 			if(inputSource === "imgur"){
 				constructID = getIdFromUrlImgur(inputID);
 
-			} else if(inputSource === "gdrive"){
+			} else {
 				if(inputID){
 					constructID = getIdFromUrl(inputID);
 				}
@@ -214,7 +218,7 @@
 			
 			constructURL = encodeURI(constructURL);
 		    
-			if(inputSource === "imgur" || inputSource === "gdrive") {
+			if(inputSource === "imgur" || inputSource === "gdrive" || inputSource === "gdrivemulti" ) {
 				$("#resultURL").val(constructURL);
 			} else {
 				$("#resultURL").val();
@@ -239,6 +243,7 @@
 				e.preventDefault();
 				var getLink = $("#resultURL").val();
 				if( getLink !== ""){
+					getLink = getLink.replace("https://wings.sbs","");
 					window.open(getLink, '_blank');
 				} else {
 					$("#copiedText").text("Empty, nothing opened").show().fadeOut(2500);
