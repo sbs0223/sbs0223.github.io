@@ -226,7 +226,7 @@
 	        $("#invalidEntry").hide();
 			$("#copiedText").hide();
 	        $("#resultURL").click(function () {
-				if(this === ""){
+				if(this !== ""){
 					this.select();
 		            document.execCommand('copy');
 		            $("#copiedText").text("Copied!").show().fadeOut(2000);
