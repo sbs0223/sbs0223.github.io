@@ -188,11 +188,7 @@
 			inputName = $('#title').val();
 			
 			if(inputSource === "imgur"){
-				if (inputID.toLowerCase().indexOf("http") >= 0){
-					constructID = getIdFromUrlImgur(inputID);
-				} else{
-					constructID = inputID;
-				}
+				constructID = getIdFromUrlImgur(inputID);
 
 			} else if(inputSource === "gdrive"){
 				if(inputID){
@@ -258,7 +254,7 @@
 	    });
 		
 		function getIdFromUrl(url) { return url.match(/[-\w]{25,}(?!.*[-\w]{25,})/); }
-		function getIdFromUrlImgur(url) { return url.match(/(?<=a\/|album\/)\w+/); }
+		function getIdFromUrlImgur(url) { return url.match(/[\w]{5,8}(?!.*[\w]{5,8})/); }
 		
 		
 	</script>
