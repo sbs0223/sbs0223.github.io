@@ -1,83 +1,162 @@
-<style>
-	.row {
-	  display: flex;
-		width: 100%;
-		height:100%;
-	}
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Sunshine Butterfly &#8211; Double Reader</title>
+		<style>
+			body,html{
+				width:100%;
+				height:100%;
+				margin:0;
+				padding:0;
+				overflow:hidden;
+			}
+			.row {
+			  display: flex;
+				width: 100%;
+				height:100%;
+			}
 
-	.column {
-	  flex: 50%;
-	  text-align:center;
-	}
-	.bottom{
-		position:sticky;
-		bottom:0px;
-		background-color:black;
-		text-align:center;
-		color:white;
-		cursor:default;
-	}
-	.bottom a{
-		display:block;
-		color:inherit;
-		text-decoration:none;
-	}
-</style>
+			.column {
+			  flex: 50%;
+			  text-align:center;
+			}
+			.bottom{
+				position:sticky;
+				bottom:0px;
+				background-color:black;
+				text-align:center;
+				color:white;
+				cursor:default;
+			}
+			.bottom a{
+				display:block;
+				color:inherit;
+				text-decoration:none;
+			}
+			iframe#leftFrame, iframe#rightFrame{
+				width:100%;
+				height: 100vh;
+			}
+			div.bottom{
+				width:100%;
+			}
+		</style>
+		<script src="/libraries/jquery-3.6.0.min.js"></script>
+	</head>
 
-<script src="/libraries/jquery-3.6.0.min.js"></script>
+	<div class="row">
+	  <div class="column">
+		  <div id="leftHead"><input placeholder="url" width="100%" /></div>
+		  <iframe src="" style="border:0px #ffffff none;" id="leftFrame" name="leftFrame" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="100%" width="100%" allowfullscreen></iframe>
+	  </div>
+	  <div class="column">
+		  <div id="rightHead"><input placeholder="url" width="100%" /></div>
+		  <iframe src="" style="border:0px #ffffff none;" id="rightFrame" name="rightFrame" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="100%" width="100%" allowfullscreen></iframe>
+	  </div>
+	</div>
+	<div class="bottom" ><a href="#" id="lockScrollBtn" onclick="scrollTogether()">Lock Scroll</a></div>
 
-<div class="row">
-  <div class="column">
-	  <div id="leftHead"><input placeholder="url" width="100%" /></div>
-	  <iframe src="" style="border:0px #ffffff none;" id="leftFrame" name="leftFrame" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="100%" width="100%" allowfullscreen></iframe>
-  </div>
-  <div class="column">
-	  <div id="rightHead"><input placeholder="url" width="100%" /></div>
-	  <iframe src="" style="border:0px #ffffff none;" id="rightFrame" name="rightFrame" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="100%" width="100%" allowfullscreen></iframe>
-  </div>
-</div>
-<div class="bottom" ><a href="#" id="lockScrollBtn" onclick="scrollTogether()">Lock Scroll</a></div>
-
-<script type="text/javascript" language="javascript">
+	<script type="text/javascript" language="javascript">
+		
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		const url1 = urlParams.get('url1');
+		const url2 = urlParams.get('url2');
 	
-	$(function () {
-		$("#leftHead input").bind('change', function() {
-			var leftInput = $(this).val()
-			$('iframe#leftFrame').attr('src',leftInput);
-		});
-		$("#rightHead input").bind('change', function() {
-			var rightInput = $(this).val()
-			$('iframe#rightFrame').attr('src',rightInput);
-		});
-	});
-	
-	
-	
-	
-	var scrollInd = 0;
-	
-    function scrollTogether(){
-		event.preventDefault();
+		$(function () {
+			
+			if(url1){
+				$('iframe#leftFrame').attr('src',url1);
+			}
+			if(url2){
+				$('iframe#rightFrame').attr('src',url2);
+			}
+			
+			$("#leftHead input").bind('change', function() {
+				var leftInput = $(this).val()
+				$('iframe#leftFrame').attr('src',leftInput);
+				setGetParam("url1",encodeURI(leftInput));
 				
-		if(scrollInd === 1){
-			scrollInd = 0; 
-			$("#lockScrollBtn").text('Lock Scroll');
-			$(window.frames[0]).unbind('scroll');
-			$(window.frames[1]).unbind('scroll');
-		} else {
-			scrollInd = 1;
-			$("#lockScrollBtn").text('Unlock Scroll');
-			var currentPositionLeft = $(window.frames[0]).scrollTop();
-			var currentPositionRight = $(window.frames[1]).scrollTop();
-			var delta = currentPositionLeft - currentPositionRight; // pos if left more, neg if right more
+			});
+			$("#rightHead input").bind('change', function() {
+				var rightInput = $(this).val()
+				$('iframe#rightFrame').attr('src',rightInput);
+				setGetParam("url2",encodeURI(rightInput));
+			});
+		});
+	
+	
+	
+	
+		var scrollInd = 0;
+	
+	    function scrollTogether(){
+			event.preventDefault();
+				
+			if(scrollInd === 1){
+				scrollInd = 0; 
+				$("#lockScrollBtn").text('Lock Scroll');
+				$(window.frames[0]).unbind('scroll');
+				$(window.frames[1]).unbind('scroll');
+			} else {
+				scrollInd = 1;
+				$("#lockScrollBtn").text('Unlock Scroll');
+				var currentPositionLeft = $(window.frames[0]).scrollTop();
+				var currentPositionRight = $(window.frames[1]).scrollTop();
+				var delta = currentPositionLeft - currentPositionRight; // pos if left more, neg if right more
+
+				var waiting = false, endScrollHandle;
 		
-	        $(window.frames[0]).on('scroll', function(e) {
-	            $(window.frames[1]).scrollTop($(window.frames[0]).scrollTop() - delta);
-	        });
-	        $(window.frames[1]).on('scroll', function(e) {
-	            $(window.frames[0]).scrollTop($(window.frames[1]).scrollTop() + delta);
-	        });
+		        $(window.frames[0]).on('scroll', function() {
+					if (waiting) {
+					        return;
+					    }
+					    waiting = true;
+						
+						clearTimeout(endScrollHandle);
+
+					    $(window.frames[1]).scrollTop($(window.frames[0]).scrollTop() - delta);
+
+					    setTimeout(function () {
+					        waiting = false;
+					    }, 100);
+						
+						endScrollHandle = setTimeout(function () {
+							$(window.frames[1]).scrollTop($(window.frames[0]).scrollTop() - delta);
+						}, 200);
+		            
+		        });
+		        $(window.frames[1]).on('scroll', function() {
+					if (waiting) {
+					        return;
+					    }
+					    waiting = true;
+
+					    $(window.frames[0]).scrollTop($(window.frames[1]).scrollTop() + delta);
+
+					    setTimeout(function () {
+					        waiting = false;
+					    }, 100);
+						
+						endScrollHandle = setTimeout(function () {
+							$(window.frames[0]).scrollTop($(window.frames[1]).scrollTop() + delta);
+						}, 200);
+		            
+		        });
+			}
+		
+	    };
+		
+		function setGetParam(key,value) {
+		  if (history.pushState) {
+		    var params = new URLSearchParams(window.location.search);
+		    params.set(key, value);
+		    var newUrl = window.location.origin 
+		          + window.location.pathname 
+		          + '?' + params.toString();
+		    window.history.pushState({path:newUrl},'',newUrl);
+		  }
 		}
-		
-    };
     </script>
+
+</html>
