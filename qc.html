@@ -1,0 +1,83 @@
+<style>
+	.row {
+	  display: flex;
+		width: 100%;
+		height:100%;
+	}
+
+	.column {
+	  flex: 50%;
+	  text-align:center;
+	}
+	.bottom{
+		position:sticky;
+		bottom:0px;
+		background-color:black;
+		text-align:center;
+		color:white;
+		cursor:default;
+	}
+	.bottom a{
+		display:block;
+		color:inherit;
+		text-decoration:none;
+	}
+</style>
+
+<script src="/libraries/jquery-3.6.0.min.js"></script>
+
+<div class="row">
+  <div class="column">
+	  <div id="leftHead"><input placeholder="url" width="100%" /></div>
+	  <iframe src="" style="border:0px #ffffff none;" id="leftFrame" name="leftFrame" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="100%" width="100%" allowfullscreen></iframe>
+  </div>
+  <div class="column">
+	  <div id="rightHead"><input placeholder="url" width="100%" /></div>
+	  <iframe src="" style="border:0px #ffffff none;" id="rightFrame" name="rightFrame" scrolling="yes" frameborder="0" marginheight="0px" marginwidth="0px" height="100%" width="100%" allowfullscreen></iframe>
+  </div>
+</div>
+<div class="bottom" ><a href="#" id="lockScrollBtn" onclick="scrollTogether()">Lock Scroll</a></div>
+
+<script type="text/javascript" language="javascript">
+	
+	$(function () {
+		$("#leftHead input").bind('change', function() {
+			var leftInput = $(this).val()
+			$('iframe#leftFrame').attr('src',leftInput);
+		});
+		$("#rightHead input").bind('change', function() {
+			var rightInput = $(this).val()
+			$('iframe#rightFrame').attr('src',rightInput);
+		});
+	});
+	
+	
+	
+	
+	var scrollInd = 0;
+	
+    function scrollTogether(){
+		event.preventDefault();
+				
+		if(scrollInd === 1){
+			scrollInd = 0; 
+			$("#lockScrollBtn").text('Lock Scroll');
+			$(window.frames[0]).unbind('scroll');
+			$(window.frames[1]).unbind('scroll');
+		} else {
+			scrollInd = 1;
+			$("#lockScrollBtn").text('Unlock Scroll');
+			var currentPositionLeft = $(window.frames[0]).scrollTop();
+			var currentPositionRight = $(window.frames[1]).scrollTop();
+			var delta = currentPositionLeft - currentPositionRight; // pos if left more, neg if right more
+		
+	        $(window.frames[0]).on('scroll', function(e) {
+	            $(window.frames[1]).scrollTop($(window.frames[0]).scrollTop() - delta);
+	        });
+	        $(window.frames[1]).on('scroll', function(e) {
+	            $(window.frames[0]).scrollTop($(window.frames[1]).scrollTop() + delta);
+	        });
+		}
+		
+    };
+    </script>
