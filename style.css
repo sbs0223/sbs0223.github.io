@@ -822,13 +822,13 @@ div.CommentContent{
 span.emoji{
 	position:relative;
 	display:inline-block;
-	width:22px;
-	height:22px;
+	width:25px;
+	height:25px;
 	vertical-align:middle;
 }
 .emoji img.userimg{
-	width:22px;
-	height:22px;
+	width:25px;
+	height:25px;
 	position:absolute;
 	top:0px;
 	left:0px;
