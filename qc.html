@@ -62,6 +62,7 @@
 		const urlParams = new URLSearchParams(queryString);
 		const url1 = urlParams.get('url1');
 		const url2 = urlParams.get('url2');
+		const startingLock = urlParams.get('lock');
 	
 		$(function () {
 			
@@ -70,6 +71,9 @@
 			}
 			if(url2){
 				$('iframe#rightFrame').attr('src',url2);
+			}
+			if(startingLock == 1){
+				$('#lockScrollBtn').click();
 			}
 			
 			$("#leftHead input").bind('change', function() {
@@ -91,7 +95,9 @@
 		var scrollInd = 0;
 	
 	    function scrollTogether(){
-			event.preventDefault();
+			if(event){
+				event.preventDefault();
+			}
 				
 			if(scrollInd === 1){
 				scrollInd = 0; 
