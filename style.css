@@ -187,6 +187,10 @@ i {
 	font-weight:bold;
 }
 
+em {
+	font-style:italic;
+}
+
 b {
 	color:var(--bold-color);
 	text-decoration:none;
