@@ -72,9 +72,6 @@
 			if(url2){
 				$('iframe#rightFrame').attr('src',url2);
 			}
-			if(startingLock == 1){
-				$('#lockScrollBtn').click();
-			}
 			
 			$("#leftHead input").bind('change', function() {
 				var leftInput = $(this).val()
@@ -87,12 +84,20 @@
 				$('iframe#rightFrame').attr('src',rightInput);
 				setGetParam("url2",encodeURI(rightInput));
 			});
+			
 		});
 	
 	
 	
 	
 		var scrollInd = 0;
+		
+		if(startingLock == 1){
+		    setTimeout(function () {
+		        $('#lockScrollBtn').click();
+		    }, 600);
+			
+		}
 	
 	    function scrollTogether(){
 			if(event){
