@@ -1160,6 +1160,7 @@ svg.lockIcon{
 	border:1px solid gray;
 }
 
+
 /* jquery class */
 
 .searchbox .input.active-width, .output.active-width{
@@ -1196,6 +1197,14 @@ li.indivResult a{
 li.indivResult a:hover{
 	color:#c57dc0;
 }
+li.indivResult span{
+	font-size:9px;
+	display:block;
+	line-height:9px;
+	font-weight:normal;
+}
+
+
 @media screen and (max-width: 510px){
 	.searchcontainer {
 		right:80px;
