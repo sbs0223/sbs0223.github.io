@@ -464,7 +464,7 @@ div.projectsnav {
 
 #container{
     overflow: hidden;
-    max-height:120px;
+    max-height:150px;
     position: relative;
 }
 
@@ -488,6 +488,29 @@ div.projectsnav {
 .addpadding{
 	width:100%;
 	height:25px;
+}
+
+
+
+.projecttagwrapper{
+	display:block;
+	line-height:16px;
+}
+.projecttagwrapper .show{
+	height:auto;
+}
+.projecttagwrapper .hide{
+	height:20px;
+	overflow:hidden;
+}
+
+.projecttags{
+	display:inline-block;
+	border:1px solid;
+	margin:0px 2px;
+	padding:1px 3px 3px 3px;
+	font-size:10px;
+	line-height:10px;
 }
 
 

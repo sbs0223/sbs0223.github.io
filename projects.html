@@ -220,8 +220,10 @@
 	const urlParams = new URLSearchParams(queryString);
 	const seriesinput = urlParams.get('n');
 	const statusinput = urlParams.get('t');
+	const taginput = urlParams.get('tag');
 	var series = "" + seriesinput;
 	var type = "" + statusinput;
+	var inputTagVariable = "" + taginput;
 	var display = "";
 
 	if (series == "" || series == "null") {
