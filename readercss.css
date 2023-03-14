@@ -494,7 +494,7 @@ table {
 		color:#fff;
 	}
 	
-	@media (pointer:coarse) {
+	@media screen and (max-width: 1000px){
 		
 		.secondrowmenu > a.menulinksmall, .secondrowmenu > a.menulinksmall:link{
 			width:calc(100%/5);
