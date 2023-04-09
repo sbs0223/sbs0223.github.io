@@ -600,16 +600,16 @@ h1 span.adultclass::before{
 	width:18px;
 }
 
-h1 span.normal::before{
+/*h1 span.normal::before{
 	content:'';
-	background:url('/images/assets/15r.png');
+	/*background:url('/images/assets/15r.png');
 	background-size:16px 16px;
 	background-position:0px 0px;
 	background-repeat:no-repeat;
 	display:inline-block;
 	height:16px;
 	width:18px;
-}
+}*/
 
 div.latestentrywrap{
 	display:inline-block;
