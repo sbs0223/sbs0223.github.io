@@ -44,7 +44,16 @@
 	<script src="/libraries/FileSaver.min.js"></script>
 	<script src="/libraries/jquery.waitforimages.min.js"></script>
 
-	<!---<script disable-devtool-auto src="/libraries/disable-devtool.min.js"></script>-->
+	<script disable-devtool-auto src="/libraries/ddt.min.js"></script>
+	<script>
+		DisableDevtool({
+		    ondevtoolopen: (type) => {
+		        const info = 'please report this error to us on discord!; type =' + type;
+		        alert(info);
+		        // If you are worried about blocking the page, use console.warn(info); and open the console to view
+		    },
+		})
+	</script>
 <script async defer data-website-id="46e7b1dd-e647-485c-82a5-b444b6cd2f60" src="https://num.wings.sbs/number.js"></script>
 <script defer src="/js/analytics.js"></script> 
 <script defer src="https://www.googletagmanager.com/gtag/js?id=G-LH76QQXWYT"></script>
