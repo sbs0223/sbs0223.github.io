@@ -93,21 +93,23 @@
 
 <script src="/js/footer.js"></script>
 
-	<script disable-devtool-auto src="/libraries/ddt.min.js"></script>
-	<script>
-		DisableDevtool({
-		    ondevtoolopen: (type) => {
-		        const info = 'Please report this to us on discord: type =' + type;
-		        confirm(info);
-				if(confirm){
-					window.history.go(-1);
-				} else {
-					window.history.go(-1);
-				}
-		        // If you are worried about blocking the page, use console.warn(info); and open the console to view
-		    },
-		})
-	</script>
+	
+		<script disable-devtool-auto src="/libraries/ddt.min.js"></script>
+		<script>
+			DisableDevtool({
+			    ondevtoolopen: (type) => {
+			        const info = 'Please report this to us on discord: type =' + type;
+			        confirm(info);
+					if(confirm){
+						window.history.go(-1);
+					} else {
+						window.history.go(-1);
+					}
+			        // If you are worried about blocking the page, use console.warn(info); and open the console to view
+			    },
+			})
+		</script>
+	
 
 </body>
 </html>
