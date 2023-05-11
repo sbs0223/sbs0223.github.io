@@ -386,6 +386,12 @@ h2 span:hover{
 	color:var(--anchor-hover-color);
 }
 
+h2.mainCommentHead{
+	border-top: var(--container-border);
+	padding-top:10px;
+	font-size:18pt;
+}
+
 
 p{margin-bottom:20px;}
 
@@ -580,6 +586,14 @@ span.newupdate::before{
 	font-size:10pt;
 }
 
+span.count{
+	font-family:arial;
+	font-size:12pt;
+	font-weight:normal;
+	vertical-align:middle;
+	pointer-events:none;
+}
+
 h1 span.adultclass, h1 span.normal, h1 span.adultclass a, h1 span.normal a {
 	font:inherit;
 	color:inherit;
@@ -670,6 +684,19 @@ img.latestimg:hover{
 	text-align:right;
 }
 
+.projectwrap span.chapter{
+  position: absolute;
+  top:0;
+  right:0;
+	color:#fff;
+	background-color:rgba(37, 32, 96, 0.4);
+	font-family:'Bebas Neue', sans-serif;
+	padding:3px;
+	line-height:11pt;
+	margin:5px 2.1%;
+	text-align:right;
+}
+
 .latestentrywrap span.date{
   position: absolute;
   top: 0px;
@@ -678,6 +705,35 @@ img.latestimg:hover{
 	background-color:rgba(37, 32, 96, 0.4);
 	font-family:'Bebas Neue', sans-serif;
 	padding:5px;
+}
+
+.projAltNameContainer{
+	position:relative;
+	display:block;
+	float:right;
+	height:23px;
+	overflow: auto;
+}
+.positionN{
+	width:calc(100% - 25px);
+}
+.positionY,.positionNL{
+	width:calc(100% - 47px);
+}
+.positionYL{
+	width:calc(100% - 70px);
+}
+.projAltName{
+	font-family: Gill Sans, sans-serif;
+	font-size:9pt;
+	color:var(--anchor-color);
+	font-style:italic;
+	line-height:10px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 
@@ -762,8 +818,7 @@ img.latestimg:hover{
 
 
 
-.CommentEntry{
-	display:block;
+.CommentEntry,.CommentEntryPreview{
   box-sizing:border-box;
   -moz-box-sizing:border-box;
   -webkit-box-sizing:border-box;
@@ -775,8 +830,14 @@ img.latestimg:hover{
 	border-radius: 4px;
 	font-size:11pt;
 }
-.CommentEntryReply{
+.CommentEntry{
+	display:none;
+}
+.CommentEntryPreview{
 	display:block;
+}
+.CommentEntryReply{
+	display:none;
   box-sizing:border-box;
   -moz-box-sizing:border-box;
   -webkit-box-sizing:border-box;
@@ -938,11 +999,13 @@ a.moreEmo, a.moreEmo:link{
 .md-spoiler>* {
   z-index: -1;
   opacity: 0;
+  pointer-events:none;
 }
  
 .md-unhidenspoiler>* {
   opacity: 1 !important;
   z-index: 1 !important;
+  pointer-events:auto !important;
 }
 
 .md-unhidenspoiler{
@@ -1055,6 +1118,28 @@ div.commentinfo{
   left: 3px;
   top: -12px;
 }
+
+.additionalCommentInfo{
+	display:none;
+}
+#chooseCommentChapterWrap{
+	display:none;
+	position:relative;
+	float:right;	
+}
+#chooseCommentChapter{
+	position:absolute;
+	top:-25px;
+	right:0;
+	width:150px;
+	font-size:10pt;
+	text-overflow:ellipsis;
+}
+#displaycomments{
+	clear:both;
+}
+
+
 .toggleThemeWrap{
 	position:relative;
 	z-index:1;
@@ -1415,6 +1500,7 @@ li.indivResult span{
 			}
 			img.latestimg { width:100%;}
 			div.projectwrap{ width:50%;}
+			.projectwrap span.chapter{margin:5px 1.4%;}
 			
 }
 @media screen and (max-width: 600px){
@@ -1426,6 +1512,7 @@ li.indivResult span{
 			.projectwrap h1 span {font-size:9.5pt !important;}
 			h1 span.adultclass::before,h1 span.normal::before{background-size:13px 13px; height:13px; width:15px;}
 			.projectwrap h1{margin:0px !important;font-size:9.5pt !important;}
+			.projectwrap span.chapter{font-size:10pt;}
 			svg.commentIcon{
 				height:11px;
 				top:1px;
@@ -1460,6 +1547,9 @@ li.indivResult span{
 	}
 	.contentcontainerprojects h1#projectheader,.contentcontainerprojects h2{
 		padding:0px 5px;
+	}
+	h2.mainCommentHead{
+		padding-top:10px;
 	}
 	.contentcontainerprojects#commentscontainer,.contentcontainerprojects div.projectsnav{
 		padding:10px 5px;
