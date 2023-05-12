@@ -166,6 +166,8 @@ table {
 		margin:auto;
 		display:block;
 		padding:0px;
+		z-index:1;
+		position:relative;
 	}
 	#readerID img.originalwidth{
 		width:auto;
@@ -225,6 +227,7 @@ table {
 		width:700px;
 		border-left:1px solid var(--frame-border-color);
 		height:96%;
+		z-index:1;
 	}
 	#closeComments {
 	  position: fixed;
@@ -333,7 +336,7 @@ table {
 		z-index:1;
 		top:30px;
 	}
-	a#menubtn2:hover,a#menubtn2:focus,a#menubtn3:hover,a#menubtn3:focus, a#prevbtn:hover, a#prevbtn:focus, a#nextbtn:hover, a#nextbtn:focus, .secondrowmenu > a:hover, .secondrowmenu > a:focus{
+	a#menubtn2:hover,a#menubtn2:focus,a#menubtn3:hover,a#menubtn3:focus, a#prevbtn:hover, a#prevbtn:focus, a#nextbtn:hover, a#nextbtn:focus, .secondrowmenu > a.menulink:hover, .secondrowmenu > a.menulink:focus, .secondrowmenu > a.menulinksmall:hover, .secondrowmenu > a.menulinksmall:focus{
 		cursor:default;
 		background-color:var(--hover-button-bg-color);
 		color:var(--hover-button-color);
@@ -493,8 +496,39 @@ table {
 		background-color:var(--hover-button-bg-color);
 		color:#fff;
 	}
+	.readImgDiv{
+		position:relative;
+	}
+	.reloadBtn{
+		box-sizing: border-box;
+		display:block;
+		position:absolute;
+	    top: 50%;
+		left:50%;
+	    transform: translate(-50%, -50%);
+		width:70%;
+		max-width:700px;
+		height:100%;
+		padding-bottom:250px;
+		font-family:bebas neue;
+		font-size:25pt;
+		opacity:1;
+		background-color:transparent;
+		background: url('/images/assets/small_loading.gif') no-repeat;
+		background-position: center;
+		color:var(--link-bg-color);
+		pointer-events:auto;
+		border: none;
+	}
 	
-	@media screen and (max-width: 1000px){
+	
+	
+	
+	
+	
+	
+	
+	@media screen and (max-width: 863px){
 		
 		.secondrowmenu > a.menulinksmall, .secondrowmenu > a.menulinksmall:link{
 			width:calc(100%/5);
@@ -506,7 +540,6 @@ table {
 
 	@media screen and (max-width: 700px){
 		#menuframe{
-			z-index:1;
 			height:100%;
 		}
 		#closeComments {

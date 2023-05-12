@@ -80,7 +80,7 @@
 </div>
 
 <div class="imgurchecker">
-	<img src="https://i.imgur.com/9Xt16uG.png" onerror="DisplayImgAlert()">
+	<img src="https://i.imgur.com/9Xt16uG.png" onerror="DisplayImgAlert()" referrerpolicy="no-referrer">
 </div>
 
 <div class="toggleThemeWrap">
@@ -141,7 +141,7 @@
 					<div class="commentinfo">
 						<span class="counterspan">Character count: </span><input disabled maxlength="3" size="3" value="0" id="counter" /><span class="counterspan">/ max 1000</span>
 						<div class="appenditemwrap">
-							<a id="previewcomment" href="">Preview</a>
+							<a id="buttonpreviewcomment" href="">Preview</a>
 							<a id="buttonfindgif" href="">GIF</a>
 							<a data-before="**" data-after="**" href="">**bold**</a>
 							<a data-before="*" data-after="*" href="">*italic*</a>
@@ -166,7 +166,7 @@
 							<a data-item="😡" href="">😡</a>
 							<a data-item="😓" href="">😓</a>
 							<a data-item="😱" href="">😱</a>
-							<a href="" onclick="showMoreEmo()" id="aMoreEmo">&raquo;</a>
+							<a href="" onclick="showMoreEmo()" id="aMoreEmo">˙ᵕ˙</a>
 							<!-- Hidden Emojis						
 							<div id="moreEmo"> -->
 								<span id="spanMoreEmo"></span>
@@ -214,7 +214,8 @@
         <option id="commentIndex_0" data-commentIndex="0" selected disabled>Main page</option>
       </select>
     </fieldset></form>
-	<div id="displaycomments"><div id="interimMsg"><center><br>Loading Comments</center></div></div>
+	<div id="interimMsg"><center><br>Loading Comments</center></div>
+	<div id="displaycomments"></div>
 
 	<script src="/js/comments.js"></script>
 
