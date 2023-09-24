@@ -1301,6 +1301,7 @@ li.indivResult a{
 	font-size:9.5pt;
 	color:gray;
 	font-weight:bold;
+	line-height:12px;
 }
 li.indivResult a::after {
     content: "";
@@ -1315,6 +1316,7 @@ li.indivResult span{
 	display:block;
 	line-height:9px;
 	font-weight:normal;
+	margin-top:5px;
 }
 
 img.searchThumb{
